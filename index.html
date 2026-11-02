@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Lesen lernen">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#FFF8EF">
+<title>Lesen lernen</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Baloo+2:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFF8EF; --card:#fff; --ink:#2B2A33; --muted:#6B6878;
+  --coral:#FF7A59; --coral-d:#E85F3D; --mint:#DDF5EA; --mint-d:#2E9E6E;
+  --lav:#ECE6FF; --lav-d:#6C4FD8; --sun:#FFD166; --line:#EFE6D8;
+  --syl-a:#1F6FEB; --syl-b:#D7263D;
+  --radius:22px; --shadow:0 4px 0 rgba(0,0,0,.05),0 10px 24px rgba(60,40,20,.08);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:'Andika',system-ui,-apple-system,sans-serif;-webkit-text-size-adjust:100%}
+body{min-height:100vh;touch-action:manipulation}
+button,select,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.topbar{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:12px;padding:calc(10px + env(safe-area-inset-top)) 16px 10px;background:rgba(255,248,239,.94);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:2px solid var(--line)}
+.brand{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:24px;border:0;background:none;padding:0;color:var(--ink)}
+.stars-total{margin-left:auto;background:#fff;border-radius:999px;padding:6px 16px;font-weight:700;font-size:18px;box-shadow:var(--shadow)}
+main{max-width:980px;margin:0 auto;padding:20px 16px 150px}
+h1,h2,h3{font-family:'Baloo 2',sans-serif;line-height:1.15;margin:0 0 12px}
+h1{font-size:34px} h2{font-size:26px} h3{font-size:21px}
+.sub{color:var(--muted);font-size:20px;margin:0 0 20px}
+.muted{color:var(--muted)}
+.center{text-align:center;justify-content:center}
+.hidden{display:none!important}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.theme-card{border:0;border-radius:var(--radius);padding:24px 16px;background:var(--c,#fff);box-shadow:var(--shadow);text-align:center;color:var(--ink);transition:transform .12s}
+.theme-card:active{transform:scale(.97)}
+.theme-card .emo{font-size:64px;display:block;line-height:1.1}
+.theme-card .nm{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:24px;display:block;margin-top:6px}
+.theme-card .pr{font-size:16px;color:var(--muted)}
+.btn{border:0;border-radius:16px;padding:12px 20px;font-size:20px;font-weight:700;background:#fff;color:var(--ink);box-shadow:var(--shadow);display:inline-flex;align-items:center;gap:8px;justify-content:center;min-height:56px;transition:transform .1s}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--coral);color:#fff}
+.btn.mint{background:var(--mint-d);color:#fff}
+.btn.danger{background:#FFE5E5;color:#B42318}
+.btn.small{font-size:17px;padding:8px 14px;min-height:46px;border-radius:12px}
+.btn.big{font-size:26px;padding:16px 30px;min-height:72px;border-radius:20px}
+.btn[aria-pressed="true"]{outline:3px solid var(--coral);background:#FFF0EA}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.inp{font-size:22px;padding:12px 14px;border:2px solid var(--line);border-radius:14px;background:#fffdf9;min-width:0;flex:1 1 220px}
+.panel{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px;margin:12px 0}
+.tip{background:#FFF4D6;border-radius:16px;padding:14px 16px;font-size:18px;line-height:1.5}
+.back{margin-bottom:14px}
+.text-list{display:grid;gap:14px}
+.text-item{display:flex;align-items:center;gap:16px;border:0;width:100%;text-align:left;background:#fff;border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow);color:var(--ink)}
+.lvl{font-size:15px;font-weight:700;border-radius:999px;padding:4px 10px;background:var(--mint);color:var(--mint-d);white-space:nowrap}
+.text-item .t{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:22px;display:block}
+.text-item .m{color:var(--muted);font-size:16px}
+.starrow{margin-left:auto;font-size:24px;white-space:nowrap;letter-spacing:2px}
+.star-off{filter:grayscale(1);opacity:.25}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:4px 0 12px}
+.tab{border:0;border-radius:16px;padding:8px 6px;background:#fff;box-shadow:var(--shadow);font-size:17px;font-weight:700;color:var(--ink);display:flex;flex-direction:column;align-items:center;gap:2px;min-height:68px}
+.tab .i{font-size:26px}
+.tab.active{background:var(--coral);color:#fff}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 4px}
+.status{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:26px;text-align:center;margin:2px 0 10px}
+.chip{display:inline-block;border-radius:999px;padding:2px 10px;font-weight:700;font-size:15px}
+.chip.c1{background:#BFEBD6} .chip.c2{background:#D9CCFF}
+.rate select{font-size:18px;padding:8px 10px;border-radius:12px;border:2px solid var(--line);background:#fff;margin-left:6px}
+.reading{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:26px clamp(18px,4vw,44px);font-size:var(--fs,30px);line-height:1.95;letter-spacing:.02em;word-spacing:.14em;margin-top:12px}
+.reading h2{font-size:1.05em;margin-bottom:.4em}
+.reading p{margin:0 0 .8em}
+.sent{border-radius:10px;transition:background .2s,opacity .2s,box-shadow .2s;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.focus .sent{opacity:.25}
+.focus .sent.cur{opacity:1}
+.sent.cur{background:#FFF1C9;box-shadow:0 0 0 5px #FFF1C9}
+.tandem .sent.r-child{background:#EEF9F3}
+.tandem .sent.r-parent{background:#F5F1FF}
+.tandem .sent.cur.r-child{background:#BFEBD6;box-shadow:0 0 0 5px #BFEBD6}
+.tandem .sent.cur.r-parent{background:#D9CCFF;box-shadow:0 0 0 5px #D9CCFF}
+.w{border-radius:8px;cursor:pointer;transition:background .15s,color .15s}
+.w.speak{background:var(--sun);box-shadow:0 0 0 3px var(--sun)}
+.w.read{color:var(--mint-d);text-decoration:underline;text-decoration-thickness:3px;text-decoration-color:rgba(46,158,110,.45);text-underline-offset:6px}
+.syl .sa,.bigword .sa{color:var(--syl-a)}
+.syl .sb,.bigword .sb{color:var(--syl-b)}
+.bottomnav{position:fixed;left:0;right:0;bottom:0;display:flex;gap:12px;justify-content:center;padding:14px 16px calc(14px + env(safe-area-inset-bottom));background:linear-gradient(rgba(255,248,239,0),var(--bg) 40%);z-index:6}
+.overlay{position:fixed;inset:0;background:rgba(30,25,40,.45);display:flex;align-items:center;justify-content:center;z-index:20;padding:20px}
+.modal{background:#fff;border-radius:26px;padding:26px;max-width:560px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.25);max-height:86vh;overflow:auto}
+.modal.wide{max-width:760px;text-align:left}
+.bigword{font-size:58px;font-weight:700;margin:8px 0 6px;letter-spacing:.04em;line-height:1.3}
+.bigword .dot{color:#C9C2B6;margin:0 8px}
+.result{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;text-align:center}
+.result .n{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:40px;display:block;line-height:1.1}
+.result .l{color:var(--muted);font-size:15px}
+.quiz-q{font-size:28px;font-weight:700;margin:10px 0 18px;line-height:1.4}
+.answers{display:grid;gap:12px}
+.ans{border:3px solid var(--line);background:#fff;border-radius:18px;padding:16px 18px;font-size:24px;text-align:left;color:var(--ink)}
+.ans.ok{border-color:var(--mint-d);background:var(--mint)}
+.ans.no{border-color:#E5484D;background:#FFE5E5}
+.dots{display:flex;gap:8px;justify-content:center;margin-bottom:12px}
+.dots span{width:14px;height:14px;border-radius:50%;background:var(--line)}
+.dots span.on{background:var(--mint-d)} .dots span.now{background:var(--coral)}
+label.field{display:block;margin:12px 0;font-weight:700;font-size:17px}
+.field input,.field select,.field textarea{display:block;width:100%;margin-top:6px;font-weight:400;font-size:18px;padding:10px 12px;border:2px solid var(--line);border-radius:12px;background:#fffdf9}
+.field textarea{min-height:160px;line-height:1.5}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:17px;margin:12px 0}
+.check input{width:24px;height:24px;margin-top:2px;flex:none}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.qbox{border:2px dashed var(--line);border-radius:14px;padding:6px 12px;margin:10px 0}
+table{width:100%;border-collapse:collapse;font-size:16px}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+.stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;text-align:center;margin-bottom:12px}
+.stat div{background:#FFF8EF;border-radius:14px;padding:10px}
+.stat b{display:block;font-family:'Baloo 2',sans-serif;font-size:30px}
+.chart{width:100%;height:auto;background:#fffdf9;border-radius:14px;margin-top:8px}
+ul.tips{margin:6px 0 0;padding-left:22px;line-height:1.6;font-size:17px}
+#toast{position:fixed;left:50%;bottom:calc(110px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 20px;border-radius:14px;font-size:18px;z-index:40;opacity:0;transition:opacity .25s;pointer-events:none;max-width:90vw;text-align:center}
+#toast.show{opacity:1}
+#confetti{pointer-events:none;position:fixed;inset:0;z-index:30;overflow:hidden}
+#confetti span{position:absolute;top:-50px;animation:fall 1.9s ease-in forwards}
+@keyframes fall{to{transform:translateY(115vh) rotate(540deg)}}
+.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+@media (max-width:640px){
+  .tabs{grid-template-columns:repeat(2,1fr)}
+  h1{font-size:28px}
+  .bigword{font-size:42px}
+  .btn.big{font-size:22px;padding:14px 22px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <button class="brand" data-act="home">📖 Lesen lernen</button>
+  <span class="stars-total" id="starsTotal">⭐ 0</span>
+</header>
+<main id="app"></main>
+<div id="overlay" class="overlay hidden"></div>
+<div id="toast"></div>
+<div id="confetti"></div>
+
+<script>
+'use strict';
+
+/* =========================================================
+   INHALTE: Themen und Lesetexte (3 Stufen je Thema)
+   Fragenformat: [Frage, richtige Antwort, falsch, falsch]
+   ========================================================= */
+const THEMES = [
+  {id:'pferde',    name:'Pferde',         emo:'🐴', c:'#FFE3D3'},
+  {id:'tanzen',    name:'Tanzen',         emo:'💃', c:'#FFE0EF'},
+  {id:'musik',     name:'Musik',          emo:'🎵', c:'#E6E1FF'},
+  {id:'fahrrad',   name:'Fahrrad fahren', emo:'🚲', c:'#DDF1FF'},
+  {id:'eis',       name:'Eis essen',      emo:'🍦', c:'#FFF3C9'},
+  {id:'schwimmen', name:'Schwimmen',      emo:'🏊', c:'#D5F5EE'}
+];
+const LEVELS = {1:'🌱 Stufe 1', 2:'🌿 Stufe 2', 3:'🌳 Stufe 3'};
+
+const TEXTS = [
+/* ---------- Pferde ---------- */
+{id:'pf1',theme:'pferde',level:1,title:'Lotte und das Pony',
+text:`Lotte geht jeden Mittwoch zum Reiterhof. Dort wohnt das Pony Flocke. Flocke ist klein und braun und hat eine weiße Mähne. Lotte bringt immer eine Möhre mit. Das Pony frisst sie ganz schnell und schnaubt zufrieden. Dann holt Lotte die Bürste und putzt das Fell. Flocke steht ganz still. Danach kratzt Lotte die Hufe aus. Zum Schluss darf sie eine Runde auf dem Platz reiten. Sie hält sich gut fest und lacht. Das ist der beste Tag der Woche.`,
+q:[['Wie heißt das Pony?','Flocke','Wolke','Fleck'],
+   ['Was bringt Lotte immer mit?','Eine Möhre','Einen Apfel','Ein Brot'],
+   ['Was macht Lotte nach dem Bürsten?','Sie kratzt die Hufe aus','Sie füttert die Hühner','Sie fegt den Stall']]},
+{id:'pf2',theme:'pferde',level:2,title:'Der erste Ausritt',
+text:`Am Samstag ist es endlich so weit: Lotte und ihre Freundin Mia dürfen zum ersten Mal ausreiten. Schon beim Frühstück ist Lotte ganz aufgeregt. Sie bekommt kaum einen Bissen herunter.
+
+Auf dem Reiterhof putzen die beiden Mädchen ihre Ponys besonders gründlich. Lotte reitet Flocke, Mia bekommt das graue Pony Wolke. Die Reitlehrerin Frau Berger prüft, ob die Sättel richtig sitzen und ob die Helme fest geschlossen sind. Dann reitet sie auf ihrem großen Pferd Max voraus.
+
+Der Weg führt zuerst über eine Wiese voller Butterblumen. Die Ponys gehen ruhig im Schritt hintereinander. Dann geht es in den Wald. Hier ist es kühl und still, nur ein Specht klopft irgendwo an einen Baum.
+
+Plötzlich raschelt es laut im Gebüsch. Flocke bleibt stehen und spitzt die Ohren. Lotte erschrickt, doch sie erinnert sich an das, was Frau Berger ihr beigebracht hat: ruhig bleiben, tief atmen und das Pony beruhigen. Sie streichelt Flocke sanft am Hals und spricht leise mit ihr. Da hüpft ein kleiner Hase aus dem Busch und rennt davon. Alle müssen lachen, sogar Frau Berger.
+
+Auf dem Rückweg dürfen die Ponys ein Stück traben. Lotte wird ordentlich durchgeschüttelt, aber sie bleibt sicher im Sattel. Zurück im Stall bekommen Flocke und Wolke frisches Heu und eine Extramöhre. Lotte findet: Das war der schönste Tag der ganzen Woche. Auf dem Heimweg erzählt sie Mama jede Einzelheit, vom Specht bis zum Hasen. Mama hört geduldig zu. Am Abend schläft Lotte sofort ein und träumt von Flocke und dem nächsten Ausritt.`,
+q:[['Wie heißt Mias Pony?','Wolke','Flocke','Max'],
+   ['Was prüft Frau Berger vor dem Ausritt?','Ob Sättel und Helme richtig sitzen','Ob die Hufe sauber sind','Ob die Sonne scheint'],
+   ['Was macht Lotte, als Flocke stehen bleibt?','Sie streichelt Flocke und spricht leise mit ihr','Sie springt ab','Sie ruft laut um Hilfe'],
+   ['Was bekommen die Ponys zurück im Stall?','Heu und eine Extramöhre','Zucker','Gar nichts']]},
+{id:'pf3',theme:'pferde',level:3,title:'Ein Fohlen kommt zur Welt',
+text:`Auf dem Reiterhof gibt es große Neuigkeiten: Die Stute Luna bekommt bald ein Fohlen. Lotte kann an nichts anderes mehr denken. Jeden Tag nach der Schule fährt sie mit dem Fahrrad zum Hof und schaut nach, ob es schon so weit ist. Lunas Bauch wird immer dicker, und sie bewegt sich langsamer als früher.
+
+Herr Kaya, der Besitzer des Hofes, erklärt Lotte, dass ein Pferd fast ein ganzes Jahr lang trächtig ist. „Die meisten Fohlen kommen nachts zur Welt“, sagt er. „Dann ist es im Stall ruhig, und die Stute fühlt sich sicher.“ Lotte ist enttäuscht. Nachts darf sie bestimmt nicht im Stall bleiben.
+
+Eines Morgens klingelt bei Lotte zu Hause das Telefon. Es ist Herr Kaya. In der Nacht ist das Fohlen geboren! Lotte zieht sich so schnell an wie noch nie und rennt mit ihrer Mutter zum Reiterhof.
+
+Im Stall ist es warm und riecht nach frischem Stroh. Lotte schaut vorsichtig über die Tür der Box. Im Stroh liegt ein kleines, schwarzes Pferd mit einem weißen Fleck auf der Stirn. Luna steht daneben und leckt es sauber. Das Fohlen hat lange, dünne Beine, die viel zu groß für seinen kleinen Körper aussehen.
+
+Dann versucht das Fohlen aufzustehen. Erst rutschen die Vorderbeine weg, dann knicken die Hinterbeine ein. Lotte hält die Luft an. Beim dritten Versuch klappt es endlich. Wackelig steht das Fohlen da und läuft zu seiner Mutter, um Milch zu trinken. Herr Kaya erklärt, dass ein Fohlen schon nach ungefähr einer Stunde stehen kann. In der Natur ist das wichtig, damit es mit der Herde mitlaufen kann.
+
+Nach einer Weile fragt Herr Kaya: „Lotte, möchtest du dem Fohlen einen Namen geben?“ Lotte strahlt. Sie überlegt lange und schaut sich das Fohlen genau an. Dann sagt sie: „Ich nenne es Stern, wegen des weißen Flecks auf der Stirn.“ Herr Kaya nickt. „Ein schöner Name. Und weil du ihn ausgesucht hast, darfst du Stern ab jetzt jede Woche besuchen.“
+
+Auf dem Heimweg ist Lotte ganz still. Sie denkt daran, wie das Fohlen zum ersten Mal gestanden hat. Zu Hause malt sie ein Bild von Stern und Luna und hängt es über ihr Bett. So kann sie die beiden jeden Abend sehen, bevor sie einschläft.`,
+q:[['Wie lange ist ein Pferd ungefähr trächtig?','Fast ein ganzes Jahr','Einen Monat','Drei Jahre'],
+   ['Wann kommen die meisten Fohlen zur Welt?','Nachts','Mittags','Am Wochenende'],
+   ['Was macht Luna, als Lotte in den Stall kommt?','Sie leckt das Fohlen sauber','Sie frisst Heu','Sie schläft'],
+   ['Warum muss ein Fohlen schnell stehen können?','Damit es mit der Herde mitlaufen kann','Damit es spielen kann','Damit es nicht friert'],
+   ['Warum heißt das Fohlen Stern?','Wegen des weißen Flecks auf der Stirn','Weil es nachts glänzt','Weil seine Mutter so heißt']]},
+
+/* ---------- Tanzen ---------- */
+{id:'ta1',theme:'tanzen',level:1,title:'Ballett am Montag',
+text:`Emma tanzt sehr gern. Jeden Montag geht sie zum Ballett. Dort zieht sie ein rosa Kleid und weiße Schläppchen an. Die Lehrerin heißt Frau Lind. Sie spielt ruhige Musik auf dem Klavier. Alle Kinder stellen sich in eine Reihe. Sie heben die Arme hoch und stellen sich auf die Zehenspitzen. Dann drehen sie sich langsam im Kreis. Emma wird ein bisschen schwindelig, doch sie hält das Gleichgewicht. Frau Lind klatscht und ruft: „Super, Emma!“`,
+q:[['Wann geht Emma zum Ballett?','Am Montag','Am Freitag','Am Sonntag'],
+   ['Welche Farbe hat Emmas Kleid?','Rosa','Blau','Gelb'],
+   ['Worauf spielt Frau Lind die Musik?','Auf dem Klavier','Auf der Gitarre','Auf der Trommel']]},
+{id:'ta2',theme:'tanzen',level:2,title:'Ein Tanz für Oma',
+text:`Oma Inge hat in zwei Wochen Geburtstag. Sie wird siebzig Jahre alt, und die ganze Familie kommt zum Feiern. Emma überlegt lange, was sie ihrer Oma schenken könnte. Ein Bild hat sie ihr schon letztes Jahr gemalt. Einen Kuchen backt Mama. Dann hat Emma eine Idee: Sie denkt sich einen eigenen Tanz aus!
+
+Zuerst sucht Emma das passende Lied. Sie weiß, dass Oma ein altes Lied über den Sommer besonders gern hört. Papa hilft ihr, das Lied zu finden. Jeden Nachmittag nach den Hausaufgaben übt Emma im Wohnzimmer. Sie schiebt den Couchtisch zur Seite, damit sie genug Platz hat. Sie überlegt sich Drehungen, Sprünge und eine Verbeugung am Ende.
+
+Ihr kleiner Bruder Paul schaut jeden Tag zu. Er möchte unbedingt mitmachen. Erst ist Emma genervt, denn Paul ist erst vier und stolpert dauernd über seine eigenen Füße. Doch dann hat sie eine Idee: Paul darf am Ende mit einer Rassel den Takt schlagen. Paul ist begeistert und übt mit genauso viel Eifer wie seine Schwester.
+
+Am Geburtstag sitzen alle Gäste im Garten. Emma und Paul stellen sich vor die Familie. Papa drückt auf den Knopf, und die Musik beginnt. Emma tanzt, dreht sich und springt. Am Ende rasselt Paul so laut er kann, und beide verbeugen sich. Oma Inge bekommt Tränen in den Augen, so sehr freut sie sich. „Das ist das schönste Geschenk, das ich je bekommen habe“, sagt sie und nimmt beide fest in den Arm. Den ganzen Abend summt Oma das Sommerlied vor sich hin. Und Paul trägt seine Rassel bis zum Schlafengehen mit sich herum.`,
+q:[['Wie alt wird Oma Inge?','Siebzig Jahre','Sechzig Jahre','Achtzig Jahre'],
+   ['Warum schiebt Emma den Couchtisch zur Seite?','Damit sie genug Platz hat','Weil er kaputt ist','Damit Paul schlafen kann'],
+   ['Was darf Paul beim Tanz machen?','Mit einer Rassel den Takt schlagen','Ein Lied singen','Klavier spielen'],
+   ['Warum hat Oma Tränen in den Augen?','Sie freut sich sehr','Sie ist traurig','Sie hat sich wehgetan']]},
+{id:'ta3',theme:'tanzen',level:3,title:'Der große Auftritt',
+text:`In drei Wochen ist die große Aufführung der Tanzschule. Alle Gruppen zeigen, was sie im letzten Jahr gelernt haben. Emmas Gruppe tanzt zu einem Lied über den Frühling. Die Kinder sind Blumen, die langsam aus der Erde wachsen und ihre Blüten öffnen. Dafür bekommen sie grüne Kostüme mit bunten Blütenblättern aus Stoff.
+
+Emma hat eine besondere Aufgabe. Sie ist die Sonne und tanzt ganz allein in der Mitte. Wenn sie sich dreht, sollen die Blumen um sie herum wachsen. Am Anfang freut sich Emma riesig. Doch dann bekommt sie Angst. Was ist, wenn sie die Schritte vergisst? Alle Zuschauer würden es sehen.
+
+Nach der Probe erzählt sie ihrer Lehrerin Frau Lind davon. Frau Lind lächelt und sagt: „Das geht allen Tänzerinnen so, sogar den berühmten. Ich verrate dir einen Trick. Wenn du nicht weiterweißt, atme tief ein und lächle. Dann fällt dir der nächste Schritt meistens wieder ein. Und wenn nicht, tanzt du einfach etwas Schönes, bis die Musik dich wieder abholt.“
+
+Zu Hause übt Emma jeden Tag. Sie tanzt vor dem Spiegel, im Garten und sogar im Kopf, wenn sie abends im Bett liegt. Ihr Bruder Paul ist ihr bester Zuschauer und klatscht nach jedem Durchgang.
+
+Am Abend der Aufführung ist der Saal voll bis auf den letzten Platz. Hinter dem Vorhang klopft Emmas Herz so laut, dass sie glaubt, alle könnten es hören. Dann geht das Licht an, und die Musik beginnt. Die ersten Schritte klappen gut. Doch bei der großen Drehung in der Mitte stockt Emma plötzlich. Für einen Moment ist ihr Kopf ganz leer.
+
+Da denkt sie an den Trick. Sie atmet tief ein und lächelt. Und tatsächlich: Ihre Füße wissen wieder, was zu tun ist. Emma tanzt weiter, als wäre nichts gewesen. Am Ende verbeugen sich alle Kinder, und die Zuschauer klatschen begeistert. In der ersten Reihe winkt Paul mit beiden Armen.
+
+Nach der Aufführung kommt Frau Lind zu Emma und umarmt sie. „Ich habe gesehen, dass du kurz gestockt hast“, sagt sie. „Aber du hast den Trick benutzt, und niemand im Publikum hat etwas gemerkt. Genau so machen es echte Tänzerinnen.“ Emma ist so stolz wie noch nie.`,
+q:[['Was stellen die Kinder in Emmas Gruppe dar?','Blumen','Bäume','Vögel'],
+   ['Was tanzt Emma?','Die Sonne','Eine Blume','Den Regen'],
+   ['Welchen Trick verrät Frau Lind?','Tief einatmen und lächeln','Schneller tanzen','Die Augen schließen'],
+   ['Wo übt Emma zu Hause?','Vor dem Spiegel, im Garten und im Kopf','Nur in der Tanzschule','Im Keller bei Licht aus'],
+   ['Was passiert bei der großen Drehung?','Emma stockt kurz','Emma fällt hin','Die Musik geht aus']]},
+
+/* ---------- Musik ---------- */
+{id:'mu1',theme:'musik',level:1,title:'Ben und die Trommel',
+text:`Ben hat zum Geburtstag eine Trommel bekommen. Sie ist rot und sehr laut. Ben trommelt am Morgen vor dem Frühstück. Er trommelt am Mittag nach der Schule. Er trommelt sogar am Abend vor dem Schlafengehen. Mama hält sich die Ohren zu. „Ben, bitte etwas leiser!“, ruft sie. Ben überlegt. Dann trommelt er ganz sanft mit den Fingerspitzen. Das klingt wie Regen auf dem Dach. Mama lächelt und setzt sich zu ihm.`,
+q:[['Welche Farbe hat die Trommel?','Rot','Grün','Schwarz'],
+   ['Was ruft Mama?','Bitte etwas leiser!','Lauter!','Essen ist fertig!'],
+   ['Wie klingt das sanfte Trommeln?','Wie Regen auf dem Dach','Wie Donner','Wie ein bellender Hund']]},
+{id:'mu2',theme:'musik',level:2,title:'Die Schulband',
+text:`In Bens Schule gibt es seit diesem Jahr eine Band. Herr Wolf, der Musiklehrer, hängt einen Zettel ans schwarze Brett: Kinder gesucht, die Lust auf Musik haben! Ben trägt sich sofort ein. Natürlich möchte er Schlagzeug spielen. Seine Freundin Ayla spielt schon seit zwei Jahren Gitarre, und Jonas aus der vierten Klasse singt gern. Dazu kommt noch Mira, die Keyboard spielt.
+
+Die erste Probe findet am Donnerstag im Musikraum statt. Herr Wolf hat ein Lied ausgesucht, das alle kennen. Jeder bekommt seine Noten, und dann geht es los. Doch es klingt fürchterlich. Ben trommelt viel zu schnell, Ayla spielt zu langsam, und Jonas fängt mitten im Lied an zu singen. Alle reden durcheinander, und Mira hält sich die Ohren zu.
+
+Herr Wolf hebt die Hand, bis es still ist. Dann erklärt er: „In einer Band ist das Wichtigste nicht, dass jeder laut spielt. Ihr müsst aufeinander hören. Der Schlagzeuger gibt den Takt vor, und alle anderen richten sich danach.“ Ben fühlt sich plötzlich sehr wichtig.
+
+Beim nächsten Versuch zählt Ben laut vor: „Eins, zwei, drei, vier!“ Jetzt fangen alle gleichzeitig an. Es klingt schon viel besser. Nach jeder Probe wird die Band ein bisschen sicherer. Jonas lernt den Text auswendig, und Ayla übt zu Hause die schwierigen Griffe.
+
+Nach acht Wochen ist es so weit: Beim Schulfest dürfen sie auf der Bühne im Schulhof spielen. Die ganze Schule hört zu. Als das letzte Lied vorbei ist, jubeln alle, und Herr Wolf zeigt ihnen den Daumen nach oben.`,
+q:[['Welches Instrument spielt Ayla?','Gitarre','Keyboard','Flöte'],
+   ['Warum klingt es bei der ersten Probe fürchterlich?','Jeder spielt in seinem eigenen Tempo','Die Gitarre ist kaputt','Jonas ist krank'],
+   ['Wer gibt in einer Band den Takt vor?','Der Schlagzeuger','Die Sängerin','Der Hausmeister'],
+   ['Wo spielt die Band am Ende?','Beim Schulfest im Schulhof','Im Zoo','Im Radio']]},
+{id:'mu3',theme:'musik',level:3,title:'Wie entsteht ein Ton?',
+text:`Hast du dich schon einmal gefragt, wie ein Ton entsteht? Ob Trommel, Gitarre oder deine eigene Stimme: Jeder Ton entsteht durch Schwingungen. Eine Schwingung ist eine sehr schnelle Bewegung hin und her.
+
+Wenn Ben auf seine Trommel schlägt, bewegt sich das gespannte Fell ganz schnell auf und ab. Das kann man kaum sehen, aber man kann es ausprobieren: Streu ein paar Reiskörner auf die Trommel und schlag dann leicht darauf. Die Körner hüpfen herum, weil das Fell schwingt. Diese Bewegung schubst die Luft daneben an. Die Luft schubst wieder die Luft daneben an, und so wandert die Schwingung weiter, bis sie unsere Ohren erreicht. Das nennt man Schall.
+
+In unserem Ohr kommt der Schall am Trommelfell an. Das ist eine dünne Haut, die so ähnlich funktioniert wie das Fell einer Trommel. Sie beginnt ebenfalls zu schwingen. Diese Schwingung wird weitergeleitet, bis unser Gehirn daraus einen Ton macht.
+
+Töne können hoch oder tief sein. Das hängt davon ab, wie schnell etwas schwingt. Bei einer Gitarre schwingen die Saiten. Dünne, straff gespannte Saiten schwingen schnell und klingen hoch. Dicke, lockere Saiten schwingen langsamer und klingen tief. Deshalb dreht Ayla an den Wirbeln ihrer Gitarre, wenn sie das Instrument stimmt. So macht sie die Saiten fester oder lockerer.
+
+Du kannst das selbst ausprobieren: Spanne ein Gummiband über eine leere Dose und zupfe daran. Wenn du das Band stärker dehnst, wird der Ton höher. Wenn du es lockerer lässt, wird er tiefer.
+
+Auch deine Stimme funktioniert mit Schwingungen. In deinem Hals sitzen die Stimmbänder. Wenn du sprichst oder singst, strömt Luft aus der Lunge an ihnen vorbei, und sie beginnen zu schwingen. Leg einen Finger vorne an deinen Hals und summe ein Lied. Spürst du das Kribbeln? Das sind deine Stimmbänder bei der Arbeit!
+
+Übrigens: Im Weltall gibt es keine Luft. Deshalb kann sich dort auch kein Schall ausbreiten. Selbst eine riesige Explosion wäre im Weltall völlig lautlos.
+
+Wenn du das nächste Mal Musik hörst, denk daran: Alles, was du hörst, sind winzige Bewegungen der Luft. Eine Geige, ein Klavier, ein bellender Hund und sogar dein eigenes Lachen schwingen, bis die Schwingung bei deinem Ohr ankommt.`,
+q:[['Wodurch entsteht ein Ton?','Durch Schwingungen','Durch Licht','Durch Wärme'],
+   ['Warum hüpfen die Reiskörner auf der Trommel?','Weil das Fell schwingt','Weil der Wind weht','Weil sie Hunger haben'],
+   ['Wie klingen dünne, straff gespannte Saiten?','Hoch','Tief','Gar nicht'],
+   ['Was schwingt, wenn du summst?','Deine Stimmbänder','Deine Haare','Deine Zähne'],
+   ['Warum gibt es im Weltall keinen Schall?','Weil es dort keine Luft gibt','Weil es dort zu kalt ist','Weil es dort zu dunkel ist']]},
+
+/* ---------- Fahrrad ---------- */
+{id:'fa1',theme:'fahrrad',level:1,title:'Ohne Stützräder',
+text:`Finn hat ein blaues Fahrrad mit einer gelben Klingel. Heute schraubt Papa die Stützräder ab. Finn ist ein bisschen nervös. Er setzt seinen Helm auf und steigt auf den Sattel. Papa hält das Fahrrad hinten am Gepäckträger fest. Finn tritt kräftig in die Pedale. Er fährt schneller und schneller. Da ruft Papa von weit hinten: „Ich habe schon lange losgelassen!“ Finn fährt ganz allein. Er klingelt vor Freude. Er ist sehr stolz auf sich.`,
+q:[['Welche Farbe hat Finns Fahrrad?','Blau','Rot','Grün'],
+   ['Was schraubt Papa ab?','Die Stützräder','Die Klingel','Das Licht'],
+   ['Was macht Finn vor Freude?','Er klingelt','Er singt','Er steigt ab']]},
+{id:'fa2',theme:'fahrrad',level:2,title:'Die Fahrradtour',
+text:`Am Sonntag scheint die Sonne, und Finns Familie macht eine Fahrradtour zum Silbersee. Der See liegt zwölf Kilometer entfernt. So weit ist Finn noch nie gefahren.
+
+Vor der Abfahrt prüft Papa alle Fahrräder. Er drückt auf die Reifen, um zu fühlen, ob genug Luft darin ist. Bei Finns Hinterrad pumpt er noch etwas nach. Dann testet er die Bremsen und die Klingeln. Mama packt Brote, Äpfel, Gurken und zwei große Flaschen Wasser in die Satteltasche. Finns kleine Schwester Lina fährt im Kindersitz bei Mama mit.
+
+Zuerst geht es auf einem breiten Radweg an Feldern entlang. Finn fährt vorne und fühlt sich wie ein echter Radrennfahrer. Doch dann kommt ein langer Hügel. Finn muss kräftig strampeln, und seine Beine fangen an zu brennen. Er schaltet in einen leichteren Gang, so wie Papa es ihm gezeigt hat. Oben angekommen, ist er ganz aus der Puste. Aber dann geht es bergab, und der Wind saust ihm um die Ohren. Finn jubelt laut.
+
+Am See breiten sie eine Decke im Gras aus und machen Picknick. Eine Gruppe Enten watschelt neugierig heran. Lina möchte ihnen ein Stück Brot geben. Doch Mama erklärt, dass Brot für Enten ungesund ist. Es macht sie krank und verschmutzt das Wasser. Also schauen sie den Enten nur zu.
+
+Am Nachmittag springen alle noch kurz ins kühle Wasser. Erst am Abend kommen sie müde, aber glücklich nach Hause. Finn ist vierundzwanzig Kilometer gefahren, hin und zurück. Das erzählt er am Montag gleich seiner ganzen Klasse.`,
+q:[['Wie weit ist der Silbersee entfernt?','Zwölf Kilometer','Zwei Kilometer','Hundert Kilometer'],
+   ['Was macht Finn am langen Hügel?','Er schaltet in einen leichteren Gang','Er steigt ab und schiebt','Er dreht um'],
+   ['Warum bekommen die Enten kein Brot?','Es macht sie krank und verschmutzt das Wasser','Sie sind schon satt','Das Brot ist alle'],
+   ['Wie viele Kilometer fährt Finn insgesamt?','Vierundzwanzig','Zwölf','Sechs']]},
+{id:'fa3',theme:'fahrrad',level:3,title:'Sicher im Straßenverkehr',
+text:`In der vierten Klasse machen viele Kinder die Fahrradprüfung. Finn ist zwar erst in der dritten Klasse, aber er übt jetzt schon dafür. Sein großer Cousin Jonas hat die Prüfung letztes Jahr bestanden und hilft ihm.
+
+Zuerst lernt Finn, wie ein verkehrssicheres Fahrrad aussieht. Gemeinsam mit Jonas geht er alle Teile durch. Ein Fahrrad braucht zwei Bremsen, die unabhängig voneinander funktionieren. Wenn eine kaputtgeht, kann man mit der anderen immer noch anhalten. Außerdem braucht es eine helle Klingel, ein weißes Licht vorne und ein rotes Licht hinten. Dazu kommen Reflektoren: gelbe an den Pedalen und in den Speichen, ein weißer vorne und ein roter hinten. Reflektoren leuchten nicht selbst. Sie werfen das Licht von Autoscheinwerfern zurück, damit man das Fahrrad im Dunkeln besser sieht.
+
+Dann geht es um den Helm. Jonas zeigt Finn, wie er richtig sitzt: Er muss die Stirn bedecken und darf nicht wackeln. Zwischen Kinn und Riemen soll gerade noch ein Finger passen.
+
+Am wichtigsten ist das richtige Abbiegen. Bevor Finn nach links abbiegt, muss er über die linke Schulter nach hinten schauen. So sieht er, ob ein Auto kommt. Danach streckt er den linken Arm aus, damit alle wissen, wohin er will. Dann schaut er noch einmal über die Schulter. Erst wenn die Straße frei ist, biegt er in einem großen Bogen ab.
+
+Das Armausstrecken findet Finn am schwierigsten. Mit nur einer Hand am Lenker wackelt das Fahrrad, und einmal fährt er beinahe in eine Hecke. Doch Jonas bleibt geduldig. Jeden Tag üben sie auf dem leeren Parkplatz hinter dem Supermarkt. Nach zwei Wochen fährt Finn sicher mit einer Hand geradeaus.
+
+Im Sommer darf Finn auf dem Übungsplatz der Polizei eine Proberunde fahren. Ein freundlicher Polizist beobachtet ihn genau. Finn schaut über die Schulter, gibt Handzeichen und hält an jedem Stoppschild. Am Ende sagt der Polizist: „Kein einziger Fehler. Du bist bereit für die echte Prüfung.“ Finn strahlt bis über beide Ohren.
+
+Am Abend erzählt Finn seinen Eltern alles. Papa schlägt vor, dass sie am Wochenende zusammen den Schulweg abfahren, damit Finn ihn genau kennenlernt. Finn ist einverstanden. Er will sich jede Kreuzung merken, damit er später allein sicher fahren kann.`,
+q:[['Warum braucht ein Fahrrad zwei Bremsen?','Wenn eine kaputtgeht, kann man mit der anderen anhalten','Damit es schneller fährt','Weil es schöner aussieht'],
+   ['Was machen Reflektoren?','Sie werfen das Licht von Autos zurück','Sie leuchten von selbst','Sie machen Geräusche'],
+   ['Wie viel Platz soll zwischen Kinn und Helmriemen sein?','Gerade ein Finger','Eine ganze Hand','Gar keiner'],
+   ['Was macht Finn vor dem Linksabbiegen zuerst?','Er schaut über die linke Schulter','Er klingelt dreimal','Er steigt ab'],
+   ['Wo üben Finn und Jonas jeden Tag?','Auf dem Parkplatz hinter dem Supermarkt','Im Wald','Auf der Autobahn']]},
+
+/* ---------- Eis essen ---------- */
+{id:'ei1',theme:'eis',level:1,title:'Ein Eis für Nele',
+text:`Es ist ein heißer Tag im Juli. Nele und Opa gehen zur Eisdiele am Marktplatz. Vor der Theke überlegt Nele lange. Dann nimmt sie eine Kugel Erdbeere und eine Kugel Schoko. Opa nimmt wie immer Vanille. Sie setzen sich auf eine Bank im Schatten. Doch das Eis schmilzt trotzdem sehr schnell. Ein dicker Tropfen läuft über Neles Hand. Sie leckt ihn ab und kichert. Opa lacht und gibt ihr ein Taschentuch.`,
+q:[['Mit wem geht Nele zur Eisdiele?','Mit Opa','Mit Mama','Mit ihrer Freundin'],
+   ['Welche Sorte nimmt Opa?','Vanille','Erdbeere','Zitrone'],
+   ['Wo setzen sich die beiden hin?','Auf eine Bank im Schatten','Auf eine Mauer in der Sonne','Ins Gras']]},
+{id:'ei2',theme:'eis',level:2,title:'Die Überraschungssorte',
+text:`In Neles Lieblingseisdiele gibt es jeden Monat eine neue Eissorte. Im Mai gab es Rhabarber, im Juni Holunder. Nele hat alle probiert. Heute steht auf der großen Tafel neben der Tür nur ein einziges Wort: „Überraschung!“
+
+Hinter der Theke steht Luigi, der Besitzer der Eisdiele. Er hat einen dicken Schnurrbart und lacht immer laut. Als Nele fragt, was die neue Sorte ist, legt er einen Finger auf die Lippen. „Das verrate ich nicht“, sagt er. „Aber wer es errät, bekommt eine Extrakugel geschenkt.“
+
+Nele ist neugierig. Sie darf einen kleinen Probierlöffel nehmen. Das Eis ist hellgrün und hat kleine Stückchen darin. Es schmeckt süß, cremig und ein bisschen nach Nuss.
+
+Nele überlegt. Grün ist ja auch Minze. „Ist es Minze?“, fragt sie. Luigi schüttelt den Kopf. „Nein, Minze schmeckt frisch und kühl im Mund.“ Nele probiert noch einmal. „Ist es Apfel?“ Wieder schüttelt Luigi den Kopf. Inzwischen warten schon andere Kinder hinter ihr und rufen eigene Ideen: Kiwi, Waldmeister, Gurke! Alle lachen über die Gurke.
+
+Nele schließt die Augen und achtet nur auf den Geschmack. Da fällt ihr ein, dass Papa manchmal kleine grüne Nüsse aus einer Schale knackt. Die haben genau so geschmeckt. „Pistazie!“, ruft Nele laut.
+
+Luigi lacht so sehr, dass sein Schnurrbart wackelt. Er nickt und klatscht in die Hände. Als Belohnung bekommt Nele eine Extrakugel geschenkt. Sie nimmt natürlich Pistazie. Während sie das Eis schleckt, überlegt sie schon, was wohl im nächsten Monat auf der Tafel stehen wird. Vielleicht Kürbis? Oder sogar Zimt? Sie wird es bestimmt wieder herausfinden.`,
+q:[['Welche Sorte gab es im Juni?','Holunder','Rhabarber','Kirsche'],
+   ['Was bekommt, wer die Sorte errät?','Eine Extrakugel','Einen Luftballon','Ein Bild'],
+   ['Wie schmeckt das Überraschungseis?','Süß, cremig und ein bisschen nach Nuss','Sauer wie Zitrone','Scharf wie Pfeffer'],
+   ['Woran erinnert sich Nele?','An Nüsse, die Papa knackt','An Omas Kuchen','An den letzten Urlaub']]},
+{id:'ei3',theme:'eis',level:3,title:'Wie wird Eis gemacht?',
+text:`In den Sommerferien darf Nele einen ganzen Vormittag in Luigis Eisdiele verbringen. Sie will herausfinden, wie Eis gemacht wird. Luigi bindet ihr eine weiße Schürze um, und dann geht es in die Küche hinter dem Laden.
+
+Dort steht eine große, glänzende Maschine. Luigi erklärt, dass man für Milcheis drei Grundzutaten braucht: Milch, Sahne und Zucker. Für Erdbeereis kommen frische Erdbeeren dazu. Nele darf die Erdbeeren waschen und mit einer Gabel zerdrücken. Dabei spritzt der rote Saft bis auf ihre Nase. Luigi mischt alles in einem großen Topf und gießt die Mischung dann in die Maschine.
+
+In der Maschine passieren zwei Dinge gleichzeitig. Die Mischung wird stark gekühlt, und ein Rührarm dreht sich ständig im Kreis. Nele fragt, warum man das Eis nicht einfach in den Gefrierschrank stellt. Luigi erklärt: „Wenn Flüssigkeit gefriert, bilden sich Eiskristalle. Rührt man nicht, werden die Kristalle groß und hart. Dann ist das Eis körnig wie gefrorener Schnee. Durch das Rühren bleiben die Kristalle winzig klein, und das Eis wird weich und cremig.“ Außerdem kommt beim Rühren Luft in die Masse. Auch das macht das Eis locker.
+
+Nach etwa zehn Minuten ist das Eis fertig. Luigi füllt es in eine Schale, und Nele darf als Erste probieren. Es ist das beste Erdbeereis, das sie je gegessen hat.
+
+Dann erzählt Luigi, wie man früher Eis gemacht hat, als es noch keinen Strom gab. Man stellte einen Topf mit der Eismischung in einen größeren Eimer. In den Eimer kamen Schnee oder Eisstücke und viel Salz. Das Salz sorgt dafür, dass das Eis schmilzt und dabei noch kälter wird, sogar kälter als null Grad.
+
+Zu Hause probiert Nele das gleich aus. Sie füllt einen kleinen Gefrierbeutel mit Milch, Zucker und Vanille. Diesen steckt sie in einen großen Beutel voller Eiswürfel und Salz. Dann schüttelt sie und schüttelt, bis ihre Arme müde sind. Nach zehn Minuten öffnet sie den kleinen Beutel. Darin ist tatsächlich ein bisschen weiches Vanilleeis.
+
+Am nächsten Tag erzählt Nele Luigi stolz von ihrem Versuch. Luigi hört aufmerksam zu, zwirbelt seinen Schnurrbart und sagt feierlich: „Nicht schlecht für eine Anfängerin. Vielleicht arbeitest du später einmal bei mir.“ Nele lacht und nickt begeistert.`,
+q:[['Welche drei Grundzutaten braucht man für Milcheis?','Milch, Sahne und Zucker','Wasser, Mehl und Salz','Eier, Butter und Honig'],
+   ['Warum wird das Eis in der Maschine ständig gerührt?','Damit die Eiskristalle winzig klein bleiben','Damit es warm bleibt','Damit es bunt wird'],
+   ['Was kommt beim Rühren noch in die Masse?','Luft','Wasser','Salz'],
+   ['Womit hat man früher Eis gekühlt?','Mit Schnee oder Eis und viel Salz','Mit kaltem Wasser','Mit Zucker'],
+   ['Wie lange schüttelt Nele ihren Beutel?','Zehn Minuten','Eine Stunde','Eine Minute']]},
+
+/* ---------- Schwimmen ---------- */
+{id:'sw1',theme:'schwimmen',level:1,title:'Im Schwimmbad',
+text:`Am Samstag gehen Tim und Lea ins Schwimmbad. Das Wasser im großen Becken ist blau und kühl. Tim springt mit Anlauf vom Rand. Es spritzt bis zum Bademeister. Lea möchte lieber tauchen. Papa wirft einen roten Ring ins Wasser. Lea holt tief Luft und taucht unter. Unter Wasser macht sie die Augen auf. Alles sieht verschwommen aus. Da liegt der Ring auf dem Boden! Lea holt ihn hoch und jubelt laut.`,
+q:[['Wer taucht nach dem Ring?','Lea','Tim','Papa'],
+   ['Welche Farbe hat der Ring?','Rot','Blau','Gelb'],
+   ['Wie sieht unter Wasser alles aus?','Verschwommen','Ganz klar','Ganz dunkel']]},
+{id:'sw2',theme:'schwimmen',level:2,title:'Das Seepferdchen',
+text:`Heute ist ein wichtiger Tag für Lea. Sie möchte ihr Seepferdchen machen. Seit den Osterferien geht sie jeden Dienstag zum Schwimmkurs. Am Anfang hatte sie sogar Angst, ihr Gesicht ins Wasser zu halten. Jetzt kann sie schon richtig tauchen.
+
+Für das Seepferdchen muss Lea mehrere Aufgaben schaffen. Sie muss fünfundzwanzig Meter am Stück schwimmen, vom Beckenrand ins Wasser springen und einen Gegenstand aus schultertiefem Wasser heraufholen. Außerdem muss sie die Baderegeln kennen.
+
+Zuerst kommen die Fragen. Der Schwimmmeister Herr Brandt fragt: „Warum darf man am Beckenrand nicht rennen?“ Lea antwortet: „Weil es rutschig ist und man hinfallen kann.“ Herr Brandt nickt. „Und was macht man, bevor man ins Wasser geht?“ Lea überlegt kurz. „Duschen und sich abkühlen“, sagt sie. „Und niemals mit vollem Bauch schwimmen.“
+
+Dann kommt der Sprung. Lea stellt sich an den Rand, zählt bis drei und springt. Das Wasser schlägt über ihrem Kopf zusammen, aber sie taucht sofort wieder auf. Danach holt sie den Tauchring vom Boden, ganz ohne Probleme.
+
+Zum Schluss kommen die fünfundzwanzig Meter. Lea schwimmt los. Arme nach vorne, Beine kräftig schieben, so wie sie es gelernt hat. Nach der Hälfte werden ihre Arme schwer. Sie möchte sich am Rand festhalten. Doch dann hört sie Mama von der Tribüne rufen: „Du schaffst das!“ Lea gibt nicht auf. Mit dem letzten Zug berührt sie die Wand.
+
+Herr Brandt überreicht ihr das Abzeichen. Mama näht es noch am selben Abend auf Leas Badeanzug. Lea ist so stolz, dass sie den Badeanzug am liebsten gleich zum Schlafen anziehen würde.`,
+q:[['Wann geht Lea zum Schwimmkurs?','Jeden Dienstag','Jeden Freitag','Jeden Sonntag'],
+   ['Wie weit muss Lea am Stück schwimmen?','25 Meter','100 Meter','5 Meter'],
+   ['Was macht man, bevor man ins Wasser geht?','Duschen und sich abkühlen','Ein großes Eis essen','Schnell rennen'],
+   ['Was hilft Lea, nicht aufzugeben?','Mama ruft „Du schaffst das!“','Eine Schwimmnudel','Ein lauter Pfiff']]},
+{id:'sw3',theme:'schwimmen',level:3,title:'Warum schwimmt ein Schiff?',
+text:`In den Sommerferien fährt Leas Familie an einen großen See. Am Ufer liegt ein Hafen mit vielen Booten, und weiter draußen fährt ein riesiges Ausflugsschiff vorbei. Es ist aus Metall und so groß wie ein ganzes Haus.
+
+Lea runzelt die Stirn. Vorhin hat sie einen kleinen Stein ins Wasser geworfen, und der ist sofort untergegangen. „Tim“, fragt sie ihren großen Bruder, „warum geht so ein schweres Schiff nicht unter, aber ein kleiner Stein schon?“
+
+Tim ist in der vierten Klasse und hat das gerade im Sachunterricht gelernt. „Das liegt am Wasser“, erklärt er. „Wenn etwas ins Wasser kommt, schiebt es Wasser zur Seite. Gleichzeitig drückt das Wasser von unten dagegen. Das nennt man Auftrieb.“
+
+„Und warum sinkt dann der Stein?“, fragt Lea. Tim erklärt: „Der Stein ist klein, aber sehr schwer für seine Größe. Er schiebt nur wenig Wasser weg. Deshalb ist der Druck von unten zu schwach, und er sinkt. Ein Schiff ist zwar viel schwerer, aber es ist innen hohl und sehr breit. Es schiebt so viel Wasser zur Seite, dass das Wasser es tragen kann.“
+
+Lea ist noch nicht ganz überzeugt. Also machen die beiden einen Versuch. Tim holt eine Kugel Knete aus seinem Rucksack und legt sie in einen Eimer mit Wasser. Plopp! Die Kugel geht sofort unter. Dann formt Lea aus derselben Knete ein flaches Boot mit hohem Rand. Vorsichtig setzt sie es aufs Wasser. Es schwimmt! Dabei ist es genau dieselbe Knete wie vorher.
+
+Lea will wissen, wie viel ihr Boot tragen kann. Sie legt eine Murmel hinein, dann noch eine und noch eine. Bei sieben Murmeln schwimmt es immer noch. Bei der achten Murmel schwappt Wasser über den Rand, und das Boot geht unter.
+
+„Siehst du“, sagt Tim, „genauso ist es bei echten Schiffen. Wenn man sie zu schwer belädt, sinken sie. Deshalb hat jedes Schiff eine Markierung, die zeigt, wie tief es höchstens im Wasser liegen darf.“ Lea nickt. Ab jetzt schaut sie sich jedes Schiff ganz genau an.
+
+Am Abend sitzt die Familie am Ufer und schaut den Booten zu. Lea zeigt auf das große Ausflugsschiff und ruft: „Das ist bestimmt ganz hohl und schiebt riesig viel Wasser weg!“ Tim grinst stolz, denn seine kleine Schwester hat alles verstanden.`,
+q:[['Wie nennt man den Druck des Wassers von unten?','Auftrieb','Schwerkraft','Strömung'],
+   ['Warum sinkt der kleine Stein?','Er schiebt zu wenig Wasser weg','Er ist zu nass','Er ist zu rund'],
+   ['Warum schwimmt ein großes Schiff?','Es ist innen hohl und sehr breit','Es ist aus Holz','Es hat einen Motor'],
+   ['Bei welcher Murmel geht das Knetboot unter?','Bei der achten','Bei der ersten','Bei der zwanzigsten'],
+   ['Was zeigt die Markierung an einem Schiff?','Wie tief es höchstens im Wasser liegen darf','Wie schnell es fahren kann','Wie alt es ist']]}
+];
+
+/* =========================================================
+   SPEICHER (nur auf diesem Gerät, im Browser)
+   ========================================================= */
+const KEY = 'lesenlernen.v1';
+const DEFAULTS = {
+  settings:{childName:'', parentName:'Papa', fs:30, syl:false, focus:false, rate:0.9, tandemStart:'child', tabletParent:false},
+  runs:{}, quiz:{}, done:{}, custom:[]
+};
+function clone(o){ return JSON.parse(JSON.stringify(o)); }
+function load(){
+  try{
+    const raw = localStorage.getItem(KEY);
+    if(raw){
+      const s = JSON.parse(raw);
+      const out = Object.assign(clone(DEFAULTS), s);
+      out.settings = Object.assign(clone(DEFAULTS.settings), s.settings || {});
+      return out;
+    }
+  }catch(e){}
+  return clone(DEFAULTS);
+}
+let S = load();
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+
+/* =========================================================
+   HILFSFUNKTIONEN
+   ========================================================= */
+const $  = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+function shuffle(a){ a = a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function fmt(sec){ sec = Math.round(sec); return Math.floor(sec/60)+':'+String(sec%60).padStart(2,'0'); }
+function allTexts(){ return TEXTS.concat(S.custom || []); }
+function getText(id){ return allTexts().find(t => t.id === id); }
+function themeById(id){ return THEMES.find(t => t.id === id); }
+function textsOfTheme(id){
+  return allTexts().filter(t => t.theme === id)
+    .sort((a,b) => ((a.custom?1:0)-(b.custom?1:0)) || (a.level-b.level));
+}
+let toastTimer = null;
+function toast(msg){
+  const t = $('#toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
+}
+function celebrate(){
+  const c = $('#confetti'); const em = ['⭐','🎉','✨','🌟','💛'];
+  for(let i=0;i<26;i++){
+    const s = document.createElement('span');
+    s.textContent = em[i % em.length];
+    s.style.left = (Math.random()*100)+'vw';
+    s.style.fontSize = (22 + Math.random()*26)+'px';
+    s.style.animationDelay = (Math.random()*0.5)+'s';
+    c.appendChild(s); setTimeout(() => s.remove(), 2700);
+  }
+}
+function showModal(html, wide){
+  const o = $('#overlay');
+  o.innerHTML = `<div class="modal${wide?' wide':''}" role="dialog" aria-modal="true">${html}</div>`;
+  o.classList.remove('hidden');
+}
+function closeModal(){ const o = $('#overlay'); o.classList.add('hidden'); o.innerHTML = ''; }
+
+/* ---------- Sterne ---------- */
+function starsOf(id){
+  const t = getText(id);
+  const runs = (S.runs[id] || []).length;
+  const s1 = !!S.done[id] || runs > 0;
+  const nq = t && t.q ? t.q.length : 0;
+  const s2 = nq ? (S.quiz[id] || 0) >= nq : s1;
+  const s3 = runs >= 3;
+  return [s1, s2, s3];
+}
+function starCount(id){ return starsOf(id).filter(Boolean).length; }
+function starHTML(id){ return starsOf(id).map(b => `<span class="${b?'':'star-off'}">⭐</span>`).join(''); }
+function updateStarsTotal(){
+  const n = allTexts().reduce((a,t) => a + starCount(t.id), 0);
+  $('#starsTotal').textContent = '⭐ ' + n;
+}
+
+/* =========================================================
+   SILBENTRENNUNG (Näherung für deutsche Wörter)
+   ========================================================= */
+const C_UNITS = ['sch','ch','ck','ph','qu','th'];
+const V_UNITS = ['äu','ei','ai','au','eu','ie','aa','ee','oo','a','e','i','o','u','ä','ö','ü','y'];
+const ONSETS = new Set(['bl','br','dr','fl','fr','gl','gr','kl','kn','kr','pl','pr','tr','zw','schl','schm','schn','schr','schw']);
+function syllabifyCore(word){
+  const lw = word.toLowerCase();
+  if(lw.length < 4 || /[^a-zäöüß]/.test(lw)) return [word];
+  const units = []; let i = 0;
+  while(i < lw.length){
+    let m = null;
+    for(const u of C_UNITS){ if(lw.startsWith(u, i)){ m = {u, v:false}; break; } }
+    if(!m) for(const u of V_UNITS){ if(lw.startsWith(u, i)){ m = {u, v:true}; break; } }
+    if(!m) m = {u:lw[i], v:false};
+    units.push({u:m.u, v:m.v, start:i});
+    i += m.u.length;
+  }
+  const vIdx = []; units.forEach((u,k) => { if(u.v) vIdx.push(k); });
+  if(vIdx.length < 2) return [word];
+  const cuts = [];
+  for(let a=0; a<vIdx.length-1; a++){
+    const v1 = vIdx[a], v2 = vIdx[a+1], n = v2 - v1 - 1;
+    let cut;
+    if(n <= 1) cut = v1 + 1;
+    else {
+      cut = v2 - 1;
+      const two = units[v2-2].u + units[v2-1].u;
+      if(n >= 3 && ONSETS.has(two)) cut = v2 - 2;
+      if(n === 2 && units[v2-2].u === 'sch') cut = v2 - 2;
+    }
+    cuts.push(units[cut].start);
+  }
+  const parts = []; let last = 0;
+  cuts.forEach(c => { if(c > last){ parts.push(word.slice(last, c)); last = c; } });
+  parts.push(word.slice(last));
+  return parts.filter(Boolean);
+}
+function syllabify(word){
+  if(word.indexOf('-') === -1) return syllabifyCore(word);
+  const out = []; const segs = word.split('-');
+  segs.forEach((seg, i) => {
+    if(!seg) return;
+    const s = syllabifyCore(seg);
+    if(i < segs.length-1) s[s.length-1] += '-';
+    out.push(...s);
+  });
+  return out;
+}
+function sylSpans(w){ return syllabify(w).map((p,i) => `<span class="${i%2?'sb':'sa'}">${esc(p)}</span>`).join(''); }
+
+/* =========================================================
+   TEXT ZERLEGEN: Absätze → Sätze → Wörter
+   ========================================================= */
+const WORD_RE = /^([^\p{L}\p{N}]*)([\p{L}\p{N}](?:[\p{L}\p{N}'’-]*[\p{L}\p{N}])?)(.*)$/u;
+function splitSentences(s){
+  const out = []; let start = 0;
+  for(let i=0; i<s.length; i++){
+    if('.!?'.indexOf(s[i]) === -1) continue;
+    let j = i + 1;
+    while(j < s.length && '.!?“"»)'.indexOf(s[j]) !== -1) j++;
+    let k = j;
+    while(k < s.length && /\s/.test(s[k])) k++;
+    if(k >= s.length){ out.push(s.slice(start).trim()); start = s.length; break; }
+    if(k > j && /[A-ZÄÖÜ„"«0-9]/.test(s[k])){ out.push(s.slice(start, j).trim()); start = k; i = k - 1; }
+  }
+  if(start < s.length){ const r = s.slice(start).trim(); if(r) out.push(r); }
+  return out.filter(Boolean);
+}
+function parseText(text){
+  const paras = String(text).trim().split(/\n\s*\n/);
+  const sentences = [], wordList = [], paraIdx = [];
+  let gi = 0;
+  paras.forEach(pt => {
+    const idx = [];
+    splitSentences(pt.replace(/\s+/g,' ').trim()).forEach(st => {
+      const toks = []; let pos = 0;
+      st.split(' ').forEach(tok => {
+        if(!tok){ pos++; return; }
+        const m = tok.match(WORD_RE);
+        if(m && m[2]){
+          toks.push({pre:m[1], w:m[2], post:m[3], gi:gi++, off:pos + m[1].length});
+          wordList.push(m[2]);
+        } else toks.push({plain:tok});
+        pos += tok.length + 1;
+      });
+      idx.push(sentences.length);
+      sentences.push({text:st, toks});
+    });
+    paraIdx.push(idx);
+  });
+  return {sentences, paras:paraIdx, wordList, wordCount:wordList.length};
+}
+function norm(s){ return String(s).toLowerCase().replace(/[^\p{L}\p{N}\s]/gu,' ').replace(/\s+/g,' ').trim(); }
+
+/* =========================================================
+   VORLESEN (Sprachausgabe des Geräts)
+   ========================================================= */
+const TTS = {ok: 'speechSynthesis' in window, voice:null};
+const RATES = [[0.75,'Langsam'],[0.9,'Normal'],[1.05,'Schneller']];
+function pickVoice(){
+  if(!TTS.ok) return;
+  const de = speechSynthesis.getVoices().filter(v => /^de([-_]|$)/i.test(v.lang));
+  TTS.voice = de.find(v => /anna|petra|helena|marlene|vicki|google/i.test(v.name)) || de.find(v => v.localService) || de[0] || null;
+}
+if(TTS.ok){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function utter(text, rate){
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'de-DE'; if(TTS.voice) u.voice = TTS.voice;
+  u.rate = rate || +S.settings.rate || 0.9; u.pitch = 1.05;
+  return u;
+}
+function stopSpeech(){ if(TTS.ok) speechSynthesis.cancel(); }
+function sayWord(w){ if(!TTS.ok) return; stopSpeech(); speechSynthesis.speak(utter(w, 0.7)); }
+
+/* =========================================================
+   MIKROFON: Spracherkennung und Aufnahme
+   ========================================================= */
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition || null;
+function canRecord(){ return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder); }
+
+/* =========================================================
+   ROUTING
+   ========================================================= */
+let unlocked = false;
+function route(){
+  stopAll(); closeModal();
+  const h = location.hash.replace(/^#\/?/, '');
+  const parts = h.split('/'); const a = parts[0], b = decodeURIComponent(parts[1] || '');
+  if(a === 't' && themeById(b)) renderTheme(b);
+  else if(a === 'r' && getText(b)) renderReader(b);
+  else if(a === 'q' && getText(b)) renderQuiz(b);
+  else if(a === 'eltern') renderParents();
+  else renderHome();
+  updateStarsTotal();
+  window.scrollTo(0, 0);
+}
+function go(h){ if(location.hash === h) route(); else location.hash = h; }
+window.addEventListener('hashchange', route);
+
+/* =========================================================
+   STARTSEITE
+   ========================================================= */
+function renderHome(){
+  const n = S.settings.childName;
+  let h = '';
+  if(!n){
+    h += `<div class="panel"><h2>Hallo! Wie heißt du?</h2>
+      <div class="row"><input id="nameIn" class="inp" placeholder="Dein Name" autocomplete="off" autocapitalize="words">
+      <button class="btn primary" data-act="saveName">Los geht's</button></div></div>`;
+  }
+  h += `<h1>${n ? 'Hallo ' + esc(n) + '! 👋' : 'Willkommen! 👋'}</h1>
+    <p class="sub">Worüber möchtest du heute lesen?</p><div class="grid">`;
+  THEMES.forEach(t => {
+    const ts = textsOfTheme(t.id);
+    const got = ts.reduce((a,x) => a + starCount(x.id), 0);
+    h += `<button class="theme-card" style="--c:${t.c}" data-act="theme" data-id="${t.id}">
+      <span class="emo">${t.emo}</span><span class="nm">${esc(t.name)}</span>
+      <span class="pr">⭐ ${got} von ${ts.length*3}</span></button>`;
+  });
+  h += `</div>
+    <div class="tip" style="margin-top:24px">💡 Tipp: Lies jeden Text dreimal. Beim dritten Mal klingt er schon richtig flüssig!</div>
+    <div class="row" style="margin-top:16px;justify-content:flex-end"><button class="btn small" data-act="parents">👨‍👧 Für Eltern</button></div>`;
+  $('#app').innerHTML = h;
+}
+
+/* =========================================================
+   THEMENSEITE
+   ========================================================= */
+function renderTheme(id){
+  const t = themeById(id);
+  let h = `<button class="btn small back" data-act="home">← Alle Themen</button>
+    <h1>${t.emo} ${esc(t.name)}</h1>
+    <p class="sub">Such dir einen Text aus. 🌱 kurz (ca. 80 Wörter), 🌿 mittel (ca. 250), 🌳 lang (ca. 350).</p>
+    <div class="text-list">`;
+  textsOfTheme(id).forEach(x => {
+    const runs = S.runs[x.id] || [];
+    const best = runs.length ? Math.max.apply(null, runs.map(r => r.wpm)) : 0;
+    const wc = parseText(x.text).wordCount;
+    h += `<button class="text-item" data-act="read" data-id="${esc(x.id)}">
+      <span class="lvl">${LEVELS[x.level] || 'Stufe'}</span>
+      <span><span class="t">${esc(x.title)}${x.custom ? ' ✏️' : ''}</span>
+      <span class="m">${wc} Wörter${runs.length ? ` · ${runs.length}× mit Stoppuhr · beste Runde ${best} Wörter/Min.` : ''}</span></span>
+      <span class="starrow">${starHTML(x.id)}</span></button>`;
+  });
+  h += `</div>
+    <div class="tip" style="margin-top:20px">So bekommst du deine Sterne:<br>
+    ⭐ Text gelesen &nbsp;·&nbsp; ⭐ Alle Fragen richtig &nbsp;·&nbsp; ⭐ Dreimal mit der Stoppuhr gelesen</div>`;
+  $('#app').innerHTML = h;
+}
+
+/* =========================================================
+   LESESEITE
+   ========================================================= */
+let R = {};
+function renderReader(id){
+  const t = getText(id);
+  const prevMode = (R.id === id && R.mode) ? R.mode : 'lesen';
+  R = {id, t, parsed:parseText(t.text), mode:prevMode, cur:0, phase:'idle', opt:R.opt || 'zeit', readPtr:0, swap:false, speaking:false, running:false};
+  const th = themeById(t.theme);
+  const tabs = [['lesen','📖','Lesen'],['vorlesen','🔊','Vorlesen'],['zusammen','👫','Zusammen'],['stoppuhr','⏱️','Stoppuhr']];
+  $('#app').innerHTML = `
+    <button class="btn small back" data-act="theme" data-id="${t.theme}">← ${th ? th.emo + ' ' + esc(th.name) : 'Zurück'}</button>
+    <div class="tabs">${tabs.map(([m,i,l]) => `<button class="tab" data-act="mode" data-m="${m}"><span class="i">${i}</span>${l}</button>`).join('')}</div>
+    <div class="tools">
+      <button class="btn small" data-act="fs" data-d="-2" aria-label="Schrift kleiner">A−</button>
+      <button class="btn small" data-act="fs" data-d="2" aria-label="Schrift größer">A+</button>
+      <button class="btn small" data-act="syl" id="sylBtn" aria-pressed="${S.settings.syl}">🌈 Silben</button>
+      <button class="btn small" data-act="focus" id="focusBtn" aria-pressed="${S.settings.focus}">📏 Lesezeile</button>
+    </div>
+    <div id="panel" class="panel"></div>
+    <article id="reading" class="reading"></article>
+    <div class="row center" style="margin-top:18px" id="after"></div>
+    <div id="bottomnav" class="bottomnav hidden">
+      <button class="btn big" data-act="prev" aria-label="Zurück">◀</button>
+      <button class="btn big primary" data-act="next">Weiter ▶</button>
+    </div>`;
+  setMode(R.mode);
+}
+function isFocus(){ return S.settings.focus && (R.mode === 'lesen' || R.mode === 'stoppuhr'); }
+function roleOf(i){
+  let start = S.settings.tandemStart === 'parent' ? 1 : 0;
+  if(R.swap) start = 1 - start;
+  return ((i + start) % 2 === 0) ? 'child' : 'parent';
+}
+function setMode(m){
+  stopSpeech(); R.speaking = false;
+  if(R.running) stopRunInternals();
+  R.mode = m; R.cur = 0; R.phase = 'idle'; R.readPtr = 0;
+  $$('.tab').forEach(b => b.classList.toggle('active', b.dataset.m === m));
+  renderText(); renderPanel();
+  if(m === 'zusammen') maybeTabletSpeak();
+}
+function textHTML(P, tandem){
+  return P.paras.map(idx => '<p>' + idx.map(si => {
+    const s = P.sentences[si];
+    const cls = 'sent' + (tandem ? (roleOf(si) === 'child' ? ' r-child' : ' r-parent') : '');
+    return `<span class="${cls}" data-s="${si}">` + s.toks.map(t =>
+      t.plain != null ? esc(t.plain)
+        : esc(t.pre) + `<span class="w" data-w="${t.gi}">${S.settings.syl ? sylSpans(t.w) : esc(t.w)}</span>` + esc(t.post)
+    ).join(' ') + '</span>';
+  }).join(' ') + '</p>').join('');
+}
+function renderText(){
+  const el = $('#reading'); if(!el) return;
+  const tandem = R.mode === 'zusammen';
+  el.style.setProperty('--fs', S.settings.fs + 'px');
+  el.classList.toggle('syl', S.settings.syl);
+  el.classList.toggle('tandem', tandem);
+  el.classList.toggle('focus', isFocus());
+  el.innerHTML = `<h2>${esc(R.t.title)}</h2>` + textHTML(R.parsed, tandem);
+  $('#focusBtn').classList.toggle('hidden', R.mode === 'zusammen' || R.mode === 'vorlesen');
+  $('#bottomnav').classList.toggle('hidden', !((tandem && R.phase !== 'done') || isFocus()));
+  applyCur(false);
+}
+function applyCur(scroll){
+  const show = R.mode === 'zusammen' || isFocus() || (R.mode === 'vorlesen' && R.speaking);
+  $$('#reading .sent').forEach(s => s.classList.toggle('cur', show && +s.dataset.s === R.cur));
+  for(let i=0; i<R.readPtr; i++){ const w = $(`#reading .w[data-w="${i}"]`); if(w) w.classList.add('read'); }
+  if(scroll !== false && show){
+    const c = $('#reading .sent.cur');
+    if(c) c.scrollIntoView({block:'center', behavior:'smooth'});
+  }
+}
+function setCur(i){
+  R.cur = clamp(i, 0, R.parsed.sentences.length - 1);
+  applyCur();
+  if(R.mode === 'zusammen'){ renderPanel(); maybeTabletSpeak(); }
+}
+function markSpokenWord(si, ci){
+  const s = R.parsed.sentences[si]; if(!s) return;
+  let w = null;
+  s.toks.forEach(t => { if(t.plain == null && t.off <= ci) w = t; });
+  clearSpoken();
+  if(w){ const el = $(`#reading .w[data-w="${w.gi}"]`); if(el) el.classList.add('speak'); }
+}
+function clearSpoken(){ $$('#reading .w.speak').forEach(e => e.classList.remove('speak')); }
+
+function quizBtn(){ return (R.t.q && R.t.q.length) ? `<button class="btn primary" data-act="quiz" data-id="${esc(R.id)}">❓ Fragen zum Text</button>` : ''; }
+
+function renderPanel(){
+  const p = $('#panel'); if(!p) return;
+  const m = R.mode;
+  const child = esc(S.settings.childName || 'Du');
+  const parent = esc(S.settings.parentName || 'Papa');
+  let h = '';
+  if(m === 'lesen'){
+    if(R.phase === 'done'){
+      h = `<div class="status">🎉 Toll gelesen!</div>
+        <p class="center muted">Beantworte jetzt die Fragen – oder lies den Text mit der Stoppuhr.</p>
+        <div class="row center">${quizBtn()}<button class="btn" data-act="mode" data-m="stoppuhr">⏱️ Mit Stoppuhr</button></div>`;
+    } else {
+      h = `<div class="status">📖 Lies den Text in deinem Tempo.</div>
+        <p class="center muted" style="margin:0">Schweres Wort? Tippe darauf – dann hilft dir die Silbenhilfe.</p>`;
+    }
+  }
+  else if(m === 'vorlesen'){
+    if(!TTS.ok){
+      h = `<div class="status">🔇 Vorlesen funktioniert auf diesem Gerät leider nicht.</div>`;
+    } else {
+      h = `<div class="status">🔊 Hör zu und lies mit den Augen mit.</div>
+        <div class="row center">
+          ${R.speaking ? `<button class="btn big" data-act="stopSpeak">⏹ Stopp</button>` : `<button class="btn big primary" data-act="speak">▶ Vorlesen</button>`}
+          <label class="rate">Tempo<select data-set="rate">${RATES.map(([v,l]) => `<option value="${v}" ${+S.settings.rate === v ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
+        </div>`;
+      if(R.phase === 'heard'){
+        h += `<div class="tip" style="margin-top:12px">👏 Jetzt bist du dran! Lies den Text selbst laut vor.
+          <div class="row" style="margin-top:8px"><button class="btn small" data-act="mode" data-m="zusammen">👫 Zusammen lesen</button>
+          <button class="btn small" data-act="mode" data-m="stoppuhr">⏱️ Mit Stoppuhr</button></div></div>`;
+      }
+    }
+  }
+  else if(m === 'zusammen'){
+    if(R.phase === 'done'){
+      h = `<div class="status">🎉 Geschafft! Ihr habt den Text zusammen gelesen.</div>
+        <div class="row center"><button class="btn" data-act="again">🔁 Nochmal – Rollen tauschen</button>${quizBtn()}</div>`;
+    } else {
+      const role = roleOf(R.cur);
+      h = `<div class="status">Jetzt liest: ${role === 'child' ? '👧 ' + child : '🧑 ' + parent}</div>
+        <p class="center muted" style="margin:0">Satz ${R.cur + 1} von ${R.parsed.sentences.length} ·
+        <span class="chip c1">grün: ${child}</span> <span class="chip c2">lila: ${parent}</span></p>
+        ${S.settings.tabletParent && TTS.ok ? '<p class="center muted" style="margin:6px 0 0">Das Tablet liest die lila Sätze vor.</p>' : ''}`;
+    }
+  }
+  else if(m === 'stoppuhr'){
+    if(R.phase === 'idle'){
+      const opts = [['zeit','⏱️ Nur Zeit']];
+      if(canRecord()) opts.push(['rec','🎙️ Mit Aufnahme']);
+      if(SR) opts.push(['mit','👂 Tablet hört mit']);
+      if(!opts.find(o => o[0] === R.opt)) R.opt = 'zeit';
+      const runs = (S.runs[R.id] || []).length;
+      h = `<div class="status">⏱️ Lies den Text laut vor.</div>
+        <p class="center muted" style="margin:0 0 10px">Drück auf „Los!“, wenn du anfängst, und auf „Fertig“ beim letzten Wort.</p>
+        ${opts.length > 1 ? `<div class="row center">${opts.map(([v,l]) => `<button class="btn small" data-act="opt" data-v="${v}" aria-pressed="${R.opt === v}">${l}</button>`).join('')}</div>` : ''}
+        <div class="row center" style="margin-top:12px"><button class="btn big primary" data-act="start">▶ Los!</button></div>
+        ${runs ? `<p class="center muted" style="margin:10px 0 0">Du hast diesen Text schon ${runs}× mit der Stoppuhr gelesen.</p>` : ''}`;
+    } else if(R.phase === 'running'){
+      h = `<div class="status" id="clock">⏱ 0:00</div>
+        <div class="row center"><button class="btn big mint" data-act="finish">✅ Fertig</button><button class="btn small" data-act="cancel">Abbrechen</button></div>
+        ${R.opt === 'mit' ? '<p class="center muted" style="margin:8px 0 0">👂 Das Tablet hört zu und färbt gelesene Wörter grün.</p>' : ''}
+        ${R.opt === 'rec' ? '<p class="center muted" style="margin:8px 0 0">🔴 Aufnahme läuft …</p>' : ''}`;
+    } else if(R.phase === 'done' && R.last){
+      const r = R.last;
+      h = `<div class="result">
+          <div><span class="n">${fmt(r.sec)}</span><span class="l">Zeit</span></div>
+          <div><span class="n">${r.wpm}</span><span class="l">Wörter pro Minute</span></div>
+          <div><span class="n">${r.round}.</span><span class="l">Runde</span></div></div>
+        <div class="tip" style="margin-top:12px">${r.msg}</div>
+        ${R.audioURL ? `<div class="center" style="margin-top:12px"><p class="muted" style="margin:0 0 6px">🎧 Hör dir selbst zu:</p><audio controls src="${R.audioURL}"></audio></div>` : ''}
+        <div class="row center" style="margin-top:12px"><button class="btn" data-act="again">🔁 Nochmal lesen</button>${quizBtn()}</div>`;
+    }
+  }
+  p.innerHTML = h;
+  const after = $('#after');
+  if(after){
+    let a = '';
+    if(m === 'lesen' && R.phase !== 'done') a += `<button class="btn mint" data-act="markDone">✅ Fertig gelesen</button>`;
+    if(R.phase !== 'done' && R.phase !== 'running') a += quizBtn();
+    after.innerHTML = a;
+  }
+  $('#bottomnav').classList.toggle('hidden', !((m === 'zusammen' && R.phase !== 'done') || isFocus()));
+}
+
+/* ---------- Vorlesen ---------- */
+function startVorlesen(){
+  if(!TTS.ok) return;
+  stopSpeech(); R.speaking = true; R.phase = 'idle';
+  const sents = R.parsed.sentences;
+  const from = R.cur >= sents.length - 1 ? 0 : R.cur;
+  for(let i=from; i<sents.length; i++){
+    const u = utter(sents[i].text);
+    u.onstart = () => { if(!R.speaking || R.mode !== 'vorlesen') return; R.cur = i; applyCur(); };
+    u.onboundary = e => { if(!R.speaking) return; if(e.name && e.name !== 'word') return; markSpokenWord(i, e.charIndex); };
+    u.onend = () => {
+      clearSpoken();
+      if(i === sents.length - 1 && R.speaking && R.mode === 'vorlesen'){
+        R.speaking = false; R.cur = 0; R.phase = 'heard'; applyCur(false); renderPanel();
+      }
+    };
+    speechSynthesis.speak(u);
+  }
+  renderPanel();
+}
+function stopVorlesen(){ R.speaking = false; stopSpeech(); clearSpoken(); applyCur(false); renderPanel(); }
+
+/* ---------- Zusammen lesen (Lautlese-Tandem) ---------- */
+function tandemNext(){
+  stopSpeech(); clearSpoken();
+  if(R.cur >= R.parsed.sentences.length - 1){
+    R.phase = 'done'; R.cur = -1;
+    S.done[R.id] = true; save(); updateStarsTotal(); celebrate();
+    applyCur(false); renderPanel();
+    return;
+  }
+  setCur(R.cur + 1);
+}
+function tandemPrev(){ stopSpeech(); clearSpoken(); if(R.cur > 0) setCur(R.cur - 1); }
+function maybeTabletSpeak(){
+  if(R.mode !== 'zusammen' || R.phase === 'done' || !S.settings.tabletParent || !TTS.ok) return;
+  if(roleOf(R.cur) !== 'parent') return;
+  const i = R.cur;
+  const u = utter(R.parsed.sentences[i].text);
+  u.onboundary = e => { if(R.cur === i && (!e.name || e.name === 'word')) markSpokenWord(i, e.charIndex); };
+  u.onend = () => {
+    clearSpoken();
+    if(R.mode === 'zusammen' && R.cur === i && R.phase !== 'done'){
+      setTimeout(() => { if(R.mode === 'zusammen' && R.cur === i && R.phase !== 'done') tandemNext(); }, 400);
+    }
+  };
+  stopSpeech(); speechSynthesis.speak(u);
+}
+
+/* ---------- Stoppuhr ---------- */
+async function startRun(){
+  R.audioURL = null; R.readPtr = 0; R.autoDone = false;
+  $$('#reading .w.read').forEach(w => w.classList.remove('read'));
+  if(R.opt === 'rec'){
+    try{ await startRecording(); }
+    catch(e){ toast('Mikrofon nicht verfügbar – wir messen nur die Zeit.'); R.opt = 'zeit'; }
+  }
+  if(R.opt === 'mit') startRecog();
+  R.running = true; R.phase = 'running'; R.t0 = performance.now(); R.cur = 0;
+  renderPanel(); applyCur();
+  R.timer = setInterval(() => {
+    const c = $('#clock'); if(c) c.textContent = '⏱ ' + fmt((performance.now() - R.t0) / 1000);
+  }, 250);
+}
+function stopRunInternals(){
+  clearInterval(R.timer); R.timer = null; R.running = false;
+  if(R.mr && R.mr.state !== 'inactive'){ try{ R.mr.stop(); }catch(e){} }
+  R.mr = null;
+  if(R.recog){ const r = R.recog; R.recog = null; try{ r.stop(); }catch(e){} }
+}
+function finishRun(){
+  if(!R.running) return;
+  const sec = Math.max(1, (performance.now() - R.t0) / 1000);
+  stopRunInternals();
+  const words = R.parsed.wordCount;
+  const wpm = Math.round(words / (sec / 60));
+  const runs = S.runs[R.id] || (S.runs[R.id] = []);
+  const prev = runs.length ? runs[runs.length - 1] : null;
+  const best = runs.length ? Math.max.apply(null, runs.map(r => r.wpm)) : 0;
+  runs.push({t:Date.now(), sec:Math.round(sec), words, wpm});
+  S.done[R.id] = true; save(); updateStarsTotal();
+  let msg;
+  if(!prev) msg = 'Erste Runde geschafft! 💪 Lies den Text noch zweimal – du wirst merken, wie es immer leichter geht.';
+  else if(wpm > best) msg = `Neuer Rekord! 🚀 ${wpm - prev.wpm > 0 ? (wpm - prev.wpm) + ' Wörter pro Minute schneller als letztes Mal.' : ''}`;
+  else if(wpm > prev.wpm) msg = `Super! ${wpm - prev.wpm} Wörter pro Minute schneller als letztes Mal. 👍`;
+  else if(wpm === prev.wpm) msg = 'Genauso schnell wie letztes Mal. Weiter so!';
+  else msg = 'Diesmal etwas langsamer – das ist völlig okay. Genau lesen ist wichtiger als schnell lesen.';
+  if(runs.length === 3) msg += ' Du hast den dritten Stern! ⭐';
+  if(!prev || wpm > prev.wpm || runs.length === 3) celebrate();
+  R.last = {sec, wpm, round:runs.length, msg};
+  R.phase = 'done'; renderPanel();
+}
+function cancelRun(){ stopRunInternals(); R.phase = 'idle'; R.readPtr = 0; renderText(); renderPanel(); }
+
+async function startRecording(){
+  if(!canRecord()) throw new Error('no recorder');
+  const stream = await navigator.mediaDevices.getUserMedia({audio:true});
+  const types = ['audio/mp4','audio/webm;codecs=opus','audio/webm'];
+  const type = types.find(t => MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t));
+  const mr = type ? new MediaRecorder(stream, {mimeType:type}) : new MediaRecorder(stream);
+  const chunks = [];
+  mr.ondataavailable = e => { if(e.data && e.data.size) chunks.push(e.data); };
+  mr.onstop = () => {
+    stream.getTracks().forEach(t => t.stop());
+    const blob = new Blob(chunks, {type: mr.mimeType || type || 'audio/mp4'});
+    if(R.audioURL) URL.revokeObjectURL(R.audioURL);
+    R.audioURL = URL.createObjectURL(blob);
+    if(R.phase === 'done' && R.mode === 'stoppuhr') renderPanel();
+  };
+  mr.start(); R.mr = mr;
+}
+
+function lev(a, b){
+  if(Math.abs(a.length - b.length) > 1) return 2;
+  const d = Array.from({length:a.length+1}, (_, i) => [i]);
+  for(let j=1; j<=b.length; j++) d[0][j] = j;
+  for(let i=1; i<=a.length; i++) for(let j=1; j<=b.length; j++)
+    d[i][j] = Math.min(d[i-1][j]+1, d[i][j-1]+1, d[i-1][j-1] + (a[i-1] === b[j-1] ? 0 : 1));
+  return d[a.length][b.length];
+}
+function similar(a, b){
+  if(a === b) return true;
+  if(a.length > 3 && b.length > 3) return a.slice(0,4) === b.slice(0,4) || lev(a, b) <= 1;
+  return false;
+}
+function startRecog(){
+  if(!SR) return;
+  const r = new SR();
+  r.lang = 'de-DE'; r.continuous = true; r.interimResults = true;
+  R.recog = r; R.recogBase = []; R.recogFinal = '';
+  R.normWords = R.parsed.wordList.map(norm);
+  r.onresult = e => {
+    const finals = [], interim = [];
+    for(let i=0; i<e.results.length; i++){
+      const t = e.results[i][0].transcript;
+      (e.results[i].isFinal ? finals : interim).push(t);
+    }
+    R.recogFinal = finals.join(' ');
+    matchTranscript(R.recogBase.join(' ') + ' ' + R.recogFinal + ' ' + interim.join(' '));
+  };
+  r.onend = () => {
+    if(R.running && R.recog === r){
+      R.recogBase.push(R.recogFinal || ''); R.recogFinal = '';
+      try{ r.start(); }catch(e){}
+    }
+  };
+  r.onerror = e => {
+    if(e.error === 'not-allowed' || e.error === 'service-not-allowed'){
+      toast('Mikrofon ist nicht erlaubt – die Stoppuhr läuft trotzdem.'); R.recog = null;
+    }
+  };
+  try{ r.start(); }catch(e){}
+}
+function matchTranscript(all){
+  const toks = norm(all).split(' ').filter(Boolean);
+  const W = R.normWords; let p = 0;
+  toks.forEach(t => {
+    for(let k=p; k<Math.min(p+5, W.length); k++){ if(similar(t, W[k])){ p = k + 1; break; } }
+  });
+  if(p > R.readPtr){
+    for(let i=R.readPtr; i<p; i++){ const w = $(`#reading .w[data-w="${i}"]`); if(w) w.classList.add('read'); }
+    R.readPtr = p;
+    const lastW = $(`#reading .w[data-w="${p-1}"]`);
+    const sent = lastW && lastW.closest('.sent');
+    if(sent && +sent.dataset.s !== R.cur){ R.cur = +sent.dataset.s; applyCur(); }
+  }
+  if(p >= W.length && R.running && !R.autoDone){ R.autoDone = true; setTimeout(finishRun, 700); }
+}
+
+/* ---------- Silbenhilfe ---------- */
+function openWord(gi){
+  const w = R.parsed.wordList[gi]; if(!w) return;
+  const parts = syllabify(w);
+  showModal(`<div class="bigword">${parts.map((p,i) => `<span class="${i%2?'sb':'sa'}">${esc(p)}</span>`).join('<span class="dot">·</span>')}</div>
+    <p class="muted" style="margin:0 0 16px">${parts.length} ${parts.length === 1 ? 'Silbe' : 'Silben'} – klatsch mit!</p>
+    <div class="row center">${TTS.ok ? `<button class="btn primary" data-act="sayWord" data-w="${esc(w)}">🔊 Anhören</button>` : ''}
+    <button class="btn" data-act="closeModal">Schließen</button></div>`);
+  if(!R.speaking && !R.running) sayWord(w);
+}
+
+/* =========================================================
+   QUIZ
+   ========================================================= */
+let Q = {};
+function renderQuiz(id){
+  const t = getText(id);
+  if(!t.q || !t.q.length){ go('#/r/' + id); return; }
+  Q = {id, t, i:0, right:0, answered:false, orders:t.q.map(q => shuffle(q.slice(1).map((_, k) => k + 1)))};
+  drawQuiz();
+}
+function drawQuiz(){
+  const q = Q.t.q[Q.i], n = Q.t.q.length;
+  $('#app').innerHTML = `
+    <button class="btn small back" data-act="read" data-id="${esc(Q.id)}">← Zum Text</button>
+    <div class="panel">
+      <div class="dots">${Q.t.q.map((_, k) => `<span class="${k < Q.i ? 'on' : ''}${k === Q.i ? ' now' : ''}"></span>`).join('')}</div>
+      <div class="row" style="justify-content:space-between"><span class="muted">Frage ${Q.i + 1} von ${n} · ${esc(Q.t.title)}</span>
+        <span class="row">${TTS.ok ? '<button class="btn small" data-act="sayQ" aria-label="Frage vorlesen">🔊</button>' : ''}<button class="btn small" data-act="peek">📖 Nachschauen</button></span></div>
+      <div class="quiz-q">${esc(q[0])}</div>
+      <div class="answers">${Q.orders[Q.i].map(a => `<button class="ans" data-act="ans" data-a="${a}">${esc(q[a])}</button>`).join('')}</div>
+      <div id="qfb" class="center" style="margin-top:16px"></div>
+    </div>`;
+  Q.answered = false;
+}
+function answer(a){
+  if(Q.answered) return; Q.answered = true;
+  const ok = a === 1;
+  if(ok) Q.right++;
+  $$('.ans').forEach(b => {
+    const v = +b.dataset.a;
+    if(v === 1) b.classList.add('ok');
+    else if(v === a) b.classList.add('no');
+  });
+  const praise = ['Richtig! 🎉','Super! ⭐','Genau! 👍','Klasse! 🌟'];
+  const last = Q.i >= Q.t.q.length - 1;
+  $('#qfb').innerHTML = `<div class="status">${ok ? praise[Math.floor(Math.random()*praise.length)] : 'Nicht ganz – die richtige Antwort ist grün.'}</div>
+    <button class="btn primary" data-act="qnext">${last ? 'Ergebnis ▶' : 'Weiter ▶'}</button>`;
+}
+function quizNext(){ Q.i++; if(Q.i >= Q.t.q.length) quizResult(); else { drawQuiz(); window.scrollTo(0,0); } }
+function quizResult(){
+  const n = Q.t.q.length;
+  S.quiz[Q.id] = Math.max(S.quiz[Q.id] || 0, Q.right); save(); updateStarsTotal();
+  if(Q.right === n) celebrate();
+  $('#app').innerHTML = `<div class="panel center">
+    <div style="font-size:70px">${Q.right === n ? '🏆' : (Q.right >= n - 1 ? '👏' : '💪')}</div>
+    <h1>${Q.right} von ${n} richtig</h1>
+    <p class="sub">${Q.right === n ? 'Alles richtig! Du hast den Text super verstanden.' : 'Lies den Text noch einmal genau – dann klappt es bestimmt.'}</p>
+    <div style="font-size:38px;margin-bottom:16px">${starHTML(Q.id)}</div>
+    <div class="row center">${Q.right < n ? `<button class="btn primary" data-act="quiz" data-id="${esc(Q.id)}">🔁 Nochmal versuchen</button>` : ''}
+      <button class="btn" data-act="read" data-id="${esc(Q.id)}">📖 Zum Text</button>
+      <button class="btn" data-act="theme" data-id="${Q.t.theme}">Anderen Text wählen</button></div></div>`;
+  window.scrollTo(0,0);
+}
+function peek(){
+  const P = parseText(Q.t.text);
+  showModal(`<h2>${esc(Q.t.title)}</h2><div style="font-size:22px;line-height:1.8">${P.paras.map(idx => '<p>' + idx.map(si => esc(P.sentences[si].text)).join(' ') + '</p>').join('')}</div>
+    <div class="row center"><button class="btn primary" data-act="closeModal">Zurück zur Frage</button></div>`, true);
+}
+
+/* =========================================================
+   ELTERN-BEREICH
+   ========================================================= */
+function gate(){
+  const a = 3 + Math.floor(Math.random()*7), b = 4 + Math.floor(Math.random()*6);
+  showModal(`<h2>👨‍👧 Für Eltern</h2><p style="font-size:20px">Bitte kurz rechnen: <b>${a} × ${b}</b> = ?</p>
+    <input id="gateIn" class="inp" inputmode="numeric" autocomplete="off" style="text-align:center;max-width:180px">
+    <div class="row center" style="margin-top:16px"><button class="btn primary" data-act="gateOk" data-r="${a*b}">OK</button>
+    <button class="btn" data-act="closeModal">Abbrechen</button></div>`);
+  setTimeout(() => { const i = $('#gateIn'); if(i) i.focus(); }, 60);
+}
+function chartSVG(runs){
+  const W = 640, H = 240, P = 40;
+  const top = Math.max.apply(null, runs.map(r => r.wpm)) || 10;
+  const max = top * 1.15, n = runs.length;
+  const x = i => P + (n === 1 ? (W - P*1.5)/2 : i * (W - P*1.5) / (n - 1));
+  const y = v => H - P - (v / max) * (H - P*1.6);
+  const pts = runs.map((r,i) => x(i).toFixed(1) + ',' + y(r.wpm).toFixed(1)).join(' ');
+  const grid = [0, 0.5, 1].map(f => {
+    const v = Math.round(top * f);
+    return `<line x1="${P}" x2="${W - P/2}" y1="${y(v)}" y2="${y(v)}" stroke="#EFE6D8"/>
+      <text x="${P-8}" y="${y(v)+4}" text-anchor="end" font-size="12" fill="#6B6878">${v}</text>`;
+  }).join('');
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Verlauf der Wörter pro Minute">${grid}
+    <polyline points="${pts}" fill="none" stroke="#FF7A59" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+    ${runs.map((r,i) => `<circle cx="${x(i)}" cy="${y(r.wpm)}" r="5" fill="#FF7A59"><title>${esc(r.title)}: ${r.wpm} Wörter/Min.</title></circle>`).join('')}
+    <text x="${W/2}" y="${H-10}" text-anchor="middle" font-size="12" fill="#6B6878">Stoppuhr-Runden, zeitlich sortiert · Wörter pro Minute</text></svg>`;
+}
+function renderParents(){
+  if(!unlocked){ renderHome(); gate(); return; }
+  const st = S.settings;
+  const all = allTexts();
+  const flat = [];
+  all.forEach(t => (S.runs[t.id] || []).forEach(r => flat.push(Object.assign({title:t.title}, r))));
+  flat.sort((a,b) => a.t - b.t);
+  const readTexts = all.filter(t => starsOf(t.id)[0]).length;
+  const totalStars = all.reduce((a,t) => a + starCount(t.id), 0);
+  const last5 = flat.slice(-5);
+  const avg = last5.length ? Math.round(last5.reduce((a,r) => a + r.wpm, 0) / last5.length) : '–';
+  const rows = all.filter(t => (S.runs[t.id] || []).length || S.quiz[t.id] != null || S.done[t.id]).map(t => {
+    const r = S.runs[t.id] || [];
+    const first = r.length ? r[0].wpm : null;
+    const best = r.length ? Math.max.apply(null, r.map(x => x.wpm)) : null;
+    const nq = t.q ? t.q.length : 0;
+    return `<tr><td>${esc(t.title)}<br><span class="muted">${LEVELS[t.level] || ''}</span></td><td>${r.length}</td>
+      <td>${r.length ? first + ' → ' + best : '–'}</td><td>${nq ? (S.quiz[t.id] != null ? S.quiz[t.id] + '/' + nq : '–') : 'keine'}</td><td>${starHTML(t.id)}</td></tr>`;
+  }).join('');
+  const themeOpts = THEMES.map(t => `<option value="${t.id}">${t.emo} ${esc(t.name)}</option>`).join('');
+  const qBlock = k => `<div class="qbox"><b>Frage ${k}</b> <span class="muted">(optional)</span>
+    <label class="field">Frage<input id="cq${k}" autocomplete="off"></label>
+    <div class="cols"><label class="field">Richtige Antwort<input id="ca${k}" autocomplete="off"></label>
+    <label class="field">Falsche Antwort<input id="cw${k}a" autocomplete="off"></label>
+    <label class="field">Falsche Antwort<input id="cw${k}b" autocomplete="off"></label></div></div>`;
+
+  $('#app').innerHTML = `
+    <button class="btn small back" data-act="home">← Zur App</button>
+    <h1>👨‍👧 Eltern-Bereich</h1>
+
+    <div class="panel"><h2>Einstellungen</h2>
+      <div class="cols">
+        <label class="field">Name des Kindes<input data-set="childName" value="${esc(st.childName)}" autocomplete="off"></label>
+        <label class="field">Wer liest mit?<input data-set="parentName" value="${esc(st.parentName)}" autocomplete="off"></label>
+        <label class="field">Vorlese-Tempo<select data-set="rate">${RATES.map(([v,l]) => `<option value="${v}" ${+st.rate === v ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
+        <label class="field">Zusammen lesen – wer beginnt?<select data-set="tandemStart">
+          <option value="child" ${st.tandemStart === 'child' ? 'selected' : ''}>Das Kind</option>
+          <option value="parent" ${st.tandemStart === 'parent' ? 'selected' : ''}>Der Erwachsene</option></select></label>
+      </div>
+      <label class="check"><input type="checkbox" data-set="tabletParent" ${st.tabletParent ? 'checked' : ''}>
+        <span>Beim Zusammen-Lesen liest das Tablet die Sätze des Erwachsenen vor (wenn gerade niemand mitlesen kann).</span></label>
+      ${TTS.ok ? '' : '<p class="muted">Hinweis: Dieses Gerät unterstützt keine Sprachausgabe.</p>'}
+    </div>
+
+    <div class="panel"><h2>Fortschritt</h2>
+      <div class="stat">
+        <div><b>${readTexts}</b>Texte gelesen</div>
+        <div><b>${flat.length}</b>Stoppuhr-Runden</div>
+        <div><b>${avg}</b>Ø Wörter/Min. (letzte 5)</div>
+        <div><b>${totalStars}</b>Sterne</div>
+      </div>
+      ${flat.length >= 2 ? chartSVG(flat) : '<p class="muted">Der Verlauf erscheint, sobald zwei Stoppuhr-Runden gelesen wurden.</p>'}
+      <p class="muted" style="font-size:15px">Stufe-3-Texte sind schwerer. Am aussagekräftigsten ist der Vergleich mehrerer Runden desselben Textes (Spalte „erste → beste“).</p>
+      ${rows ? `<div style="overflow-x:auto"><table><thead><tr><th>Text</th><th>Runden</th><th>W/Min. erste → beste</th><th>Fragen</th><th>Sterne</th></tr></thead><tbody>${rows}</tbody></table></div>` : '<p class="muted">Noch keine Texte gelesen.</p>'}
+    </div>
+
+    <div class="panel"><h2>So übt ihr am wirkungsvollsten</h2>
+      <ul class="tips">
+        <li><b>Zusammen lesen</b> 3- bis 5-mal pro Woche, je 15–20 Minuten. Die Sätze wechseln sich ab – du bist das Lesevorbild.</li>
+        <li><b>Jeden Text dreimal lesen.</b> Wiederholtes lautes Lesen macht flüssig; die Stoppuhr macht den Fortschritt sichtbar.</li>
+        <li><b>Erst hören, dann lesen:</b> Bei neuen oder schweren Texten zuerst „Vorlesen“ nutzen, dann selbst lesen.</li>
+        <li><b>Bei Fehlern kurz warten.</b> Oft korrigiert sich das Kind selbst. Danach das Wort gemeinsam in Silben lesen.</li>
+        <li><b>Verstehen zählt:</b> Die Fragen nach dem Lesen zeigen, ob der Inhalt angekommen ist.</li>
+        <li><b>Silbenfarben</b> helfen bei langen Wörtern – nach und nach wieder ausschalten.</li>
+      </ul>
+    </div>
+
+    <div class="panel"><h2>Eigenen Text hinzufügen</h2>
+      <p class="muted" style="margin-top:0">Zum Beispiel ein Kapitel aus eurem Buch, ein Gedicht oder eine Geschichte über euren Alltag. Absätze mit einer Leerzeile trennen.</p>
+      <div class="cols">
+        <label class="field">Thema<select id="cTheme">${themeOpts}</select></label>
+        <label class="field">Stufe<select id="cLevel"><option value="1">🌱 Stufe 1 (leicht)</option><option value="2" selected>🌿 Stufe 2 (mittel)</option><option value="3">🌳 Stufe 3 (schwer)</option></select></label>
+      </div>
+      <label class="field">Titel<input id="cTitle" autocomplete="off"></label>
+      <label class="field">Text<textarea id="cText"></textarea></label>
+      ${qBlock(1)}${qBlock(2)}${qBlock(3)}
+      <button class="btn primary" data-act="saveCustom">💾 Text speichern</button>
+      ${(S.custom || []).length ? `<h3 style="margin-top:22px">Eigene Texte</h3>
+        <table><tbody>${S.custom.map(c => `<tr><td>${esc(c.title)}<br><span class="muted">${esc((themeById(c.theme) || {}).name || '')} · ${LEVELS[c.level] || ''}</span></td>
+        <td style="text-align:right"><button class="btn small danger" data-act="delCustom" data-id="${esc(c.id)}">Löschen</button></td></tr>`).join('')}</tbody></table>` : ''}
+    </div>
+
+    <div class="panel"><h2>Daten</h2>
+      <p class="muted" style="margin-top:0">Alles wird nur in diesem Browser auf diesem Gerät gespeichert. Mit der Sicherung kannst du den Stand auf ein anderes Gerät übertragen.</p>
+      <div class="row">
+        <button class="btn small" data-act="export">⬇️ Sicherung herunterladen</button>
+        <label class="btn small">⬆️ Sicherung laden<input type="file" id="importIn" accept="application/json,.json" class="hidden"></label>
+        <button class="btn small danger" data-act="reset">Fortschritt löschen</button>
+      </div>
+    </div>`;
+}
+function saveCustom(){
+  const title = $('#cTitle').value.trim(), text = $('#cText').value.trim();
+  if(!title || !text){ toast('Bitte Titel und Text eintragen.'); return; }
+  if(parseText(text).wordCount < 5){ toast('Der Text ist zu kurz.'); return; }
+  const q = [];
+  [1,2,3].forEach(k => {
+    const qq = $('#cq'+k).value.trim(), a = $('#ca'+k).value.trim();
+    const w1 = $('#cw'+k+'a').value.trim(), w2 = $('#cw'+k+'b').value.trim();
+    if(qq && a && w1) q.push(w2 ? [qq, a, w1, w2] : [qq, a, w1]);
+  });
+  S.custom = S.custom || [];
+  S.custom.push({id:'c' + Date.now(), theme:$('#cTheme').value, level:+$('#cLevel').value, title, text, q, custom:true});
+  save(); toast('Text gespeichert ✔'); renderParents(); window.scrollTo(0, 0);
+}
+function delCustom(id){
+  if(!confirm('Diesen Text wirklich löschen?')) return;
+  S.custom = (S.custom || []).filter(c => c.id !== id);
+  delete S.runs[id]; delete S.quiz[id]; delete S.done[id];
+  save(); renderParents(); updateStarsTotal();
+}
+function exportData(){
+  const blob = new Blob([JSON.stringify(S, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'lesen-lernen-sicherung-' + new Date().toISOString().slice(0,10) + '.json';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+}
+function importData(file){
+  const fr = new FileReader();
+  fr.onload = () => {
+    try{
+      const d = JSON.parse(fr.result);
+      if(!d || typeof d !== 'object' || !d.settings) throw new Error('format');
+      S = Object.assign(clone(DEFAULTS), d);
+      S.settings = Object.assign(clone(DEFAULTS.settings), d.settings);
+      save(); toast('Sicherung geladen ✔'); renderParents(); updateStarsTotal();
+    }catch(e){ toast('Diese Datei ist keine gültige Sicherung.'); }
+  };
+  fr.readAsText(file);
+}
+
+/* =========================================================
+   STOPP BEIM SEITENWECHSEL
+   ========================================================= */
+function stopAll(){
+  stopSpeech();
+  if(R && R.running) stopRunInternals();
+  if(R){ R.speaking = false; }
+}
+
+/* =========================================================
+   EREIGNISSE
+   ========================================================= */
+document.addEventListener('click', e => {
+  if(e.target.id === 'overlay'){ closeModal(); return; }
+  const actEl = e.target.closest('[data-act]');
+  const w = e.target.closest('#reading .w');
+  if(w && !actEl){ openWord(+w.dataset.w); return; }
+  if(!actEl || actEl.tagName === 'SELECT') return;
+  const act = actEl.dataset.act, d = actEl.dataset;
+  switch(act){
+    case 'home': go('#/'); break;
+    case 'theme': go('#/t/' + d.id); break;
+    case 'read': go('#/r/' + encodeURIComponent(d.id)); break;
+    case 'quiz': go('#/q/' + encodeURIComponent(d.id || R.id || Q.id)); break;
+    case 'parents': if(unlocked) go('#/eltern'); else gate(); break;
+    case 'saveName': {
+      const v = ($('#nameIn').value || '').trim();
+      if(v){ S.settings.childName = v; save(); renderHome(); }
+      break;
+    }
+    case 'mode': setMode(d.m); window.scrollTo({top:0, behavior:'smooth'}); break;
+    case 'fs':
+      S.settings.fs = clamp(S.settings.fs + +d.d, 20, 48); save();
+      $('#reading').style.setProperty('--fs', S.settings.fs + 'px'); break;
+    case 'syl':
+      S.settings.syl = !S.settings.syl; save();
+      actEl.setAttribute('aria-pressed', S.settings.syl); renderText(); break;
+    case 'focus':
+      S.settings.focus = !S.settings.focus; save();
+      actEl.setAttribute('aria-pressed', S.settings.focus); R.cur = Math.max(0, R.cur); renderText(); renderPanel(); applyCur(); break;
+    case 'prev':
+      if(R.mode === 'zusammen') tandemPrev(); else setCur(R.cur - 1); break;
+    case 'next':
+      if(R.mode === 'zusammen') tandemNext(); else setCur(R.cur + 1); break;
+    case 'speak': startVorlesen(); break;
+    case 'stopSpeak': stopVorlesen(); break;
+    case 'markDone':
+      S.done[R.id] = true; save(); updateStarsTotal(); celebrate();
+      R.phase = 'done'; renderPanel(); window.scrollTo({top:0, behavior:'smooth'}); break;
+    case 'opt': R.opt = d.v; renderPanel(); break;
+    case 'start': startRun(); break;
+    case 'finish': finishRun(); break;
+    case 'cancel': cancelRun(); break;
+    case 'again':
+      if(R.mode === 'zusammen'){ R.swap = !R.swap; R.phase = 'idle'; R.cur = 0; renderText(); renderPanel(); maybeTabletSpeak(); }
+      else { R.phase = 'idle'; R.readPtr = 0; R.cur = 0; renderText(); renderPanel(); }
+      window.scrollTo({top:0, behavior:'smooth'}); break;
+    case 'sayWord': sayWord(d.w); break;
+    case 'closeModal': closeModal(); break;
+    case 'ans': answer(+d.a); break;
+    case 'qnext': quizNext(); break;
+    case 'sayQ': if(TTS.ok){ stopSpeech(); speechSynthesis.speak(utter(Q.t.q[Q.i][0])); } break;
+    case 'peek': peek(); break;
+    case 'gateOk': {
+      const i = $('#gateIn');
+      if(i && +i.value === +d.r){ unlocked = true; closeModal(); go('#/eltern'); }
+      else if(i){ i.value = ''; i.classList.remove('shake'); void i.offsetWidth; i.classList.add('shake'); }
+      break;
+    }
+    case 'saveCustom': saveCustom(); break;
+    case 'delCustom': delCustom(d.id); break;
+    case 'export': exportData(); break;
+    case 'reset':
+      if(confirm('Wirklich den gesamten Lese-Fortschritt löschen? Einstellungen und eigene Texte bleiben erhalten.')){
+        S.runs = {}; S.quiz = {}; S.done = {}; save(); updateStarsTotal(); renderParents(); toast('Fortschritt gelöscht');
+      }
+      break;
+  }
+});
+document.addEventListener('change', e => {
+  const el = e.target;
+  if(el.id === 'importIn' && el.files && el.files[0]){ importData(el.files[0]); el.value = ''; return; }
+  const key = el.dataset && el.dataset.set; if(!key) return;
+  let v = el.type === 'checkbox' ? el.checked : el.value;
+  if(key === 'rate') v = +v;
+  if(key === 'childName' || key === 'parentName') v = String(v).trim();
+  S.settings[key] = v; save();
+  if(location.hash.indexOf('eltern') !== -1) toast('Gespeichert ✔');
+});
+document.addEventListener('keydown', e => {
+  if(e.key !== 'Enter') return;
+  if(e.target.id === 'nameIn'){ const b = $('[data-act="saveName"]'); if(b) b.click(); }
+  if(e.target.id === 'gateIn'){ const b = $('[data-act="gateOk"]'); if(b) b.click(); }
+});
+document.addEventListener('visibilitychange', () => { if(document.hidden && R && R.speaking) stopVorlesen(); });
+
+route();
+</script>
+</body>
+</html>
