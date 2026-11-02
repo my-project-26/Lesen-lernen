@@ -125,6 +125,13 @@ ul.tips{margin:6px 0 0;padding-left:22px;line-height:1.6;font-size:17px}
 @keyframes fall{to{transform:translateY(115vh) rotate(540deg)}}
 .shake{animation:shake .35s}
 @keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.tenframe{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(10px,3vw,22px);max-width:560px;margin:8px auto 18px;padding:clamp(14px,3vw,24px);border:3px solid #CBD5E1;border-radius:22px;background:#F8FAFC}
+.dot{aspect-ratio:1/1;width:100%;border-radius:50%;border:0;background:#E2E6EB;padding:0;transition:background .15s,transform .1s;min-width:40px}
+.dot.on{background:#D94C45}
+.dot:active{transform:scale(.92)}
+.dot.hint{outline:4px dashed var(--coral);outline-offset:4px}
+.bignum{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:96px;line-height:1;margin:4px 0 8px}
+.mmsg{min-height:32px;font-size:21px;font-weight:700;margin:0 0 14px;line-height:1.4}
 @media (max-width:640px){
   .tabs{grid-template-columns:repeat(2,1fr)}
   h1{font-size:28px}
@@ -415,7 +422,7 @@ q:[['Wie nennt man den Druck des Wassers von unten?','Auftrieb','Schwerkraft','S
 const KEY = 'lesenlernen.v1';
 const DEFAULTS = {
   settings:{childName:'', parentName:'Papa', fs:30, syl:false, focus:false, rate:0.9, tandemStart:'child', tabletParent:false},
-  runs:{}, quiz:{}, done:{}, custom:[]
+  runs:{}, quiz:{}, done:{}, custom:[], math:{best:0, sessions:0}
 };
 function clone(o){ return JSON.parse(JSON.stringify(o)); }
 function load(){
@@ -622,6 +629,7 @@ function route(){
   else if(a === 'r' && getText(b)) renderReader(b);
   else if(a === 'q' && getText(b)) renderQuiz(b);
   else if(a === 'eltern') renderParents();
+  else if(a === 'rechnen') renderMath();
   else renderHome();
   updateStarsTotal();
   window.scrollTo(0, 0);
@@ -649,7 +657,12 @@ function renderHome(){
       <span class="emo">${t.emo}</span><span class="nm">${esc(t.name)}</span>
       <span class="pr">⭐ ${got} von ${ts.length*3}</span></button>`;
   });
+  const mb = (S.math && S.math.best) || 0;
   h += `</div>
+    <h2 style="margin-top:30px">🔢 Rechnen</h2>
+    <div class="grid"><button class="theme-card" style="--c:#FFE1DE" data-act="math">
+      <span class="emo">🔴</span><span class="nm">Zehnerfeld</span>
+      <span class="pr">${mb ? 'Bestes Ergebnis: ' + mb + ' von 10' : 'Zahlen bis 10'}</span></button></div>
     <div class="tip" style="margin-top:24px">💡 Tipp: Lies jeden Text dreimal. Beim dritten Mal klingt er schon richtig flüssig!</div>
     <div class="row" style="margin-top:16px;justify-content:flex-end"><button class="btn small" data-act="parents">👨‍👧 Für Eltern</button></div>`;
   $('#app').innerHTML = h;
@@ -1092,6 +1105,93 @@ function peek(){
 }
 
 /* =========================================================
+   RECHNEN: ZEHNERFELD
+   Kind tippt so viele graue Kreise an, wie die Zahl zeigt.
+   ========================================================= */
+let M = {};
+function mathOrder(n){
+  const out = []; let last = 0;
+  while(out.length < n){ const v = 1 + Math.floor(Math.random()*10); if(v !== last){ out.push(v); last = v; } }
+  return out;
+}
+function renderMath(){ M = {i:0, n:10, right:0, order:mathOrder(10)}; newMathTask(); }
+function newMathTask(){
+  M.target = M.order[M.i]; M.sel = new Array(10).fill(false);
+  M.tries = 0; M.helped = false; M.lock = false;
+  drawMath('');
+}
+function mathCount(){ return M.sel.filter(Boolean).length; }
+function drawMath(msg){
+  const dots = M.sel.map((on,k) => `<button class="dot${on ? ' on' : ''}" data-act="mdot" data-k="${k}" aria-label="Kreis ${k+1}"></button>`).join('');
+  $('#app').innerHTML = `
+    <button class="btn small back" data-act="home">← Zurück zum Menü</button>
+    <div class="panel center">
+      <div class="dots">${M.order.map((_,k) => `<span class="${k < M.i ? 'on' : ''}${k === M.i ? ' now' : ''}"></span>`).join('')}</div>
+      <h2>🔢 Zehnerfeld</h2>
+      <p class="muted" style="margin:0 0 6px;font-size:19px">Tippe genau so viele Kreise an, wie die Zahl zeigt.</p>
+      <div class="tenframe" id="tf">${dots}</div>
+      <div class="bignum">${M.target}</div>
+      <div id="mmsg" class="mmsg">${msg}</div>
+      <div class="row center" id="mbtns">
+        <button class="btn big mint" data-act="mok">✅ OK</button>
+        <button class="btn big" data-act="mhelp">💡 Hilfe</button>
+      </div>
+    </div>`;
+}
+function mathToggle(k){
+  if(M.lock) return;
+  M.sel[k] = !M.sel[k];
+  const el = $(`.dot[data-k="${k}"]`); if(el) el.classList.toggle('on', M.sel[k]);
+  const msg = $('#mmsg'); if(msg && M.tries) msg.textContent = '';
+}
+function mathOk(){
+  if(M.lock) return;
+  const c = mathCount(), t = M.target, msg = $('#mmsg');
+  if(c === t){
+    M.lock = true;
+    const clean = M.tries === 0 && !M.helped;
+    if(clean) M.right++;
+    msg.innerHTML = clean ? ['Richtig! 🎉','Super! ⭐','Genau! 👍','Klasse! 🌟'][Math.floor(Math.random()*4)] : 'Richtig! Gut gemacht. 👍';
+    $$('.dot').forEach(d => d.classList.remove('hint'));
+    if(clean) celebrate();
+    $('#mbtns').innerHTML = `<button class="btn big primary" data-act="mnext">Weiter ▶</button>`;
+    return;
+  }
+  M.tries++;
+  msg.textContent = c < t
+    ? `Du hast ${c} angetippt. Es fehlen noch welche – zähl noch einmal nach.`
+    : `Du hast ${c} angetippt. Das sind zu viele – zähl noch einmal nach.`;
+  const tf = $('#tf'); tf.classList.remove('shake'); void tf.offsetWidth; tf.classList.add('shake');
+}
+function mathHelp(){
+  if(M.lock) return;
+  M.helped = true;
+  const t = M.target, c = mathCount();
+  let tip;
+  if(t === 10) tip = '10 – das sind beide Reihen ganz voll.';
+  else if(t === 5) tip = '5 – das ist genau eine ganze Reihe.';
+  else if(t > 5) tip = `${t} = 5 + ${t-5}: Die obere Reihe ganz voll und unten noch ${t-5}.`;
+  else tip = `${t} – das ist weniger als eine Reihe. Tippe oben ${t} Kreise an.`;
+  $('#mmsg').innerHTML = `💡 ${tip}<br><span class="muted" style="font-weight:400">Gerade angetippt: ${c}. Die gestrichelten Kreise zeigen dir den Weg.</span>`;
+  $$('.dot').forEach((d,k) => d.classList.toggle('hint', k < t));
+  if(TTS.ok){ stopSpeech(); speechSynthesis.speak(utter(tip.replace(/=/g,' ist ').replace(/\+/g,' plus '))); }
+}
+function mathNext(){
+  M.i++;
+  if(M.i < M.n){ newMathTask(); return; }
+  S.math = S.math || {best:0, sessions:0};
+  S.math.best = Math.max(S.math.best || 0, M.right);
+  S.math.sessions = (S.math.sessions || 0) + 1; save();
+  if(M.right >= 8) celebrate();
+  $('#app').innerHTML = `<div class="panel center">
+    <div style="font-size:70px">${M.right === M.n ? '🏆' : (M.right >= 7 ? '👏' : '💪')}</div>
+    <h1>${M.right} von ${M.n} auf Anhieb richtig</h1>
+    <p class="sub">${M.right === M.n ? 'Alles beim ersten Versuch – super!' : 'Mit jeder Runde wird es leichter. Probier es gleich nochmal!'}</p>
+    <div class="row center"><button class="btn primary" data-act="math">🔁 Nochmal</button><button class="btn" data-act="home">Zurück zum Menü</button></div></div>`;
+  window.scrollTo(0,0);
+}
+
+/* =========================================================
    ELTERN-BEREICH
    ========================================================= */
 function gate(){
@@ -1277,6 +1377,11 @@ document.addEventListener('click', e => {
     case 'read': go('#/r/' + encodeURIComponent(d.id)); break;
     case 'quiz': go('#/q/' + encodeURIComponent(d.id || R.id || Q.id)); break;
     case 'parents': if(unlocked) go('#/eltern'); else gate(); break;
+    case 'math': go('#/rechnen'); break;
+    case 'mdot': mathToggle(+d.k); break;
+    case 'mok': mathOk(); break;
+    case 'mhelp': mathHelp(); break;
+    case 'mnext': mathNext(); break;
     case 'saveName': {
       const v = ($('#nameIn').value || '').trim();
       if(v){ S.settings.childName = v; save(); renderHome(); }
