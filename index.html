@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Lesen lernen">
+<meta name="apple-mobile-web-app-title" content="Lern-App">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#FFF8EF">
-<title>Lesen lernen</title>
+<title>Lern-App</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -132,6 +132,54 @@ ul.tips{margin:6px 0 0;padding-left:22px;line-height:1.6;font-size:17px}
 .dot.hint{outline:4px dashed var(--coral);outline-offset:4px}
 .bignum{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:96px;line-height:1;margin:4px 0 8px}
 .mmsg{min-height:32px;font-size:21px;font-weight:700;margin:0 0 14px;line-height:1.4}
+/* Klassenwahl und Übungen */
+.klasse{display:flex;gap:10px;margin:0 0 18px;flex-wrap:wrap}
+.kchip{border:0;border-radius:999px;padding:10px 22px;font-size:19px;font-weight:700;background:#fff;box-shadow:var(--shadow);color:var(--ink);min-height:50px}
+.kchip.active{background:var(--ink);color:#fff}
+.xq{font-size:26px;font-weight:700;line-height:1.4;margin:6px 0 12px}
+.xq .btn.small{vertical-align:middle;margin-left:6px}
+.xvis{margin:4px 0 14px}
+.calc{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:52px;display:block;margin:6px 0;line-height:1.2}
+.qbox2{display:inline-block;border:3px dashed #CBD5E1;border-radius:12px;min-width:64px;color:#9AA3AE}
+.story{font-size:24px;font-weight:400;line-height:1.55;text-align:left;max-width:640px;margin:0 auto;background:#FFF8EF;border-radius:16px;padding:14px 18px}
+.wbig{font-family:'Andika',sans-serif;font-size:44px;font-weight:700;letter-spacing:.05em;margin:6px 0 8px}
+.emo-big{font-size:96px;line-height:1.1;display:inline-block}
+.emorow{font-size:46px;line-height:1.35;letter-spacing:6px}
+.xopts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;max-width:680px;margin:0 auto 14px}
+.xopts.nums{grid-template-columns:repeat(auto-fit,minmax(110px,1fr));max-width:560px}
+.xopts.pics{grid-template-columns:repeat(2,1fr);max-width:480px}
+.xopts.wide{grid-template-columns:1fr;max-width:620px}
+.xopts.wide .xopt{font-size:22px;text-align:left;padding:14px 18px}
+.xopt{border:3px solid var(--line);background:#fff;border-radius:18px;padding:12px;font-size:26px;font-weight:700;color:var(--ink);min-height:74px;line-height:1.25;transition:transform .1s}
+.xopt:active{transform:scale(.97)}
+.xopt.sel{border-color:var(--coral);background:#FFF0EA}
+.xopt.ok{border-color:var(--mint-d);background:var(--mint)}
+.xopt.gone{opacity:.2;pointer-events:none}
+.xopt .emo{font-size:60px;display:block;line-height:1.15}
+.numdisp{display:inline-flex;min-width:170px;justify-content:center;align-items:baseline;gap:8px;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:56px;border:3px solid #CBD5E1;border-radius:18px;padding:2px 22px;background:#F8FAFC;margin-bottom:12px;min-height:84px}
+.numdisp small{font-size:26px;color:var(--muted)}
+.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:330px;margin:0 auto 14px}
+.key{border:0;border-radius:16px;background:#fff;box-shadow:var(--shadow);font-size:30px;font-weight:700;min-height:64px;color:var(--ink)}
+.key:active{transform:scale(.95)}
+.slots{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:4px 0 16px;min-height:66px}
+.slot{width:54px;height:64px;border-radius:12px;border:3px dashed #CBD5E1;font-size:34px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;background:#fff;color:var(--ink);padding:0}
+.slot.full{border-style:solid;border-color:var(--coral)}
+.tiles{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:14px;min-height:64px}
+.tile{width:58px;height:64px;border-radius:14px;border:0;background:#FFE9B8;box-shadow:var(--shadow);font-size:32px;font-weight:700;color:var(--ink)}
+.minis{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+.mini{display:grid;grid-template-columns:repeat(5,26px);gap:6px;padding:8px;border:2px solid #CBD5E1;border-radius:12px;background:#F8FAFC}
+.md{width:26px;height:26px;border-radius:50%;background:#E2E6EB;position:relative;display:block}
+.md.r{background:#D94C45} .md.b{background:#3B82F6}
+.md.x{background:#F2B8B5}
+.md.x::after{content:'✕';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#B42318;font-weight:700;font-size:16px}
+.nline{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+.nline span{min-width:44px;padding:8px 6px;border-radius:10px;background:#fff;border:2px solid var(--line);font-weight:700;font-size:20px}
+.nline span.q{background:var(--sun)}
+.sw{display:inline-block;width:64px;height:64px;border-radius:50%;border:3px solid rgba(0,0,0,.15)}
+.sw.big{width:110px;height:110px}
+.clock{width:min(250px,68vw);height:auto}
+.stw{border-collapse:collapse;margin:8px auto;font-size:22px;width:auto}
+.stw td,.stw th{border:2px solid #CBD5E1;padding:6px 16px;text-align:center}
 @media (max-width:640px){
   .tabs{grid-template-columns:repeat(2,1fr)}
   h1{font-size:28px}
@@ -143,7 +191,7 @@ ul.tips{margin:6px 0 0;padding-left:22px;line-height:1.6;font-size:17px}
 </head>
 <body>
 <header class="topbar">
-  <button class="brand" data-act="home">📖 Lesen lernen</button>
+  <button class="brand" data-act="home">🎒 Lern-App</button>
   <span class="stars-total" id="starsTotal">⭐ 0</span>
 </header>
 <main id="app"></main>
@@ -421,10 +469,17 @@ q:[['Wie nennt man den Druck des Wassers von unten?','Auftrieb','Schwerkraft','S
    ========================================================= */
 const KEY = 'lesenlernen.v1';
 const DEFAULTS = {
-  settings:{childName:'', parentName:'Papa', fs:30, syl:false, focus:false, rate:0.9, tandemStart:'child', tabletParent:false},
-  runs:{}, quiz:{}, done:{}, custom:[], math:{best:0, sessions:0}
+  settings:{klasse:3, names:{}, childName:'', parentName:'Papa', fs:30, syl:false, focus:false, rate:0.9, tandemStart:'child', tabletParent:false},
+  runs:{}, quiz:{}, done:{}, custom:[], ex:{}
 };
 function clone(o){ return JSON.parse(JSON.stringify(o)); }
+function migrate(o){
+  o.settings.names = o.settings.names || {};
+  if(o.settings.childName && !o.settings.names[3]) o.settings.names[3] = o.settings.childName;
+  o.ex = o.ex || {};
+  if(o.math && o.math.best && !o.ex['m1-zehner']) o.ex['m1-zehner'] = {best:o.math.best, rounds:o.math.sessions || 1};
+  return o;
+}
 function load(){
   try{
     const raw = localStorage.getItem(KEY);
@@ -432,6 +487,7 @@ function load(){
       const s = JSON.parse(raw);
       const out = Object.assign(clone(DEFAULTS), s);
       out.settings = Object.assign(clone(DEFAULTS.settings), s.settings || {});
+      migrate(out);
       return out;
     }
   }catch(e){}
@@ -492,7 +548,7 @@ function starsOf(id){
 function starCount(id){ return starsOf(id).filter(Boolean).length; }
 function starHTML(id){ return starsOf(id).map(b => `<span class="${b?'':'star-off'}">⭐</span>`).join(''); }
 function updateStarsTotal(){
-  const n = allTexts().reduce((a,t) => a + starCount(t.id), 0);
+  const n = textStarsTotal() + EX.filter(e => !e.link).reduce((a,e) => a + exStars(e.id), 0);
   $('#starsTotal').textContent = '⭐ ' + n;
 }
 
@@ -598,6 +654,8 @@ const TTS = {ok: 'speechSynthesis' in window, voice:null};
 const RATES = [[0.75,'Langsam'],[0.9,'Normal'],[1.05,'Schneller']];
 function pickVoice(){
   if(!TTS.ok) return;
+  const en = speechSynthesis.getVoices().filter(v => /^en([-_]|$)/i.test(v.lang));
+  TTS.voiceEn = en.find(v => /en[-_]GB/i.test(v.lang)) || en[0] || null;
   const de = speechSynthesis.getVoices().filter(v => /^de([-_]|$)/i.test(v.lang));
   TTS.voice = de.find(v => /anna|petra|helena|marlene|vicki|google/i.test(v.name)) || de.find(v => v.localService) || de[0] || null;
 }
@@ -629,7 +687,10 @@ function route(){
   else if(a === 'r' && getText(b)) renderReader(b);
   else if(a === 'q' && getText(b)) renderQuiz(b);
   else if(a === 'eltern') renderParents();
-  else if(a === 'rechnen') renderMath();
+  else if(a === 'rechnen'){ location.replace('#/u/m1-zehner'); return; }
+  else if(a === 'lesen') renderLesen();
+  else if(a === 'f' && FAECHER.find(f => f.id === b)) renderFach(b);
+  else if(a === 'u' && exById(b)) startEx(b);
   else renderHome();
   updateStarsTotal();
   window.scrollTo(0, 0);
@@ -641,15 +702,45 @@ window.addEventListener('hashchange', route);
    STARTSEITE
    ========================================================= */
 function renderHome(){
-  const n = S.settings.childName;
-  let h = '';
+  const kl = klasse(), n = kidName(), names = S.settings.names || {};
+  let h = `<div class="klasse">${[1,3].map(k => `<button class="kchip${k === kl ? ' active' : ''}" data-act="klasse" data-k="${k}">Klasse ${k}${names[k] ? ' · ' + esc(names[k]) : ''}</button>`).join('')}</div>`;
   if(!n){
     h += `<div class="panel"><h2>Hallo! Wie heißt du?</h2>
       <div class="row"><input id="nameIn" class="inp" placeholder="Dein Name" autocomplete="off" autocapitalize="words">
       <button class="btn primary" data-act="saveName">Los geht's</button></div></div>`;
   }
   h += `<h1>${n ? 'Hallo ' + esc(n) + '! 👋' : 'Willkommen! 👋'}</h1>
-    <p class="sub">Worüber möchtest du heute lesen?</p><div class="grid">`;
+    <p class="sub">Was möchtest du heute üben?</p><div class="grid">`;
+  FAECHER.forEach(f => {
+    const cnt = EX.filter(e => e.fach === f.id && e.klasse === kl).length;
+    h += `<button class="theme-card" style="--c:${f.c}" data-act="fach" data-id="${f.id}">
+      <span class="emo">${f.emo}</span><span class="nm">${f.name}</span>
+      <span class="pr">${cnt} Übungen · ⭐ ${fachStars(f.id, kl)}</span></button>`;
+  });
+  h += `</div>
+    <div class="tip" style="margin-top:24px">💡 Jeden Tag ein bisschen üben bringt am meisten – zum Beispiel eine Übung in Mathe und einen Lesetext.</div>
+    <div class="row" style="margin-top:16px;justify-content:flex-end"><button class="btn small" data-act="parents">👨‍👧 Für Eltern</button></div>`;
+  $('#app').innerHTML = h;
+}
+function renderFach(fid){
+  const f = FAECHER.find(x => x.id === fid), kl = klasse();
+  const list = EX.filter(e => e.fach === fid && e.klasse === kl);
+  let h = `<button class="btn small back" data-act="home">← Alle Fächer</button>
+    <h1>${f.emo} ${f.name} <span class="muted" style="font-size:20px">· Klasse ${kl}</span></h1>
+    <p class="sub">Such dir eine Übung aus.</p><div class="text-list">`;
+  list.forEach(e => {
+    const r = (S.ex || {})[e.id];
+    h += `<button class="text-item" data-act="ex" data-id="${e.id}">
+      <span style="font-size:40px;line-height:1">${e.emo}</span>
+      <span><span class="t">${esc(e.title)}</span><span class="m">${esc(e.desc || '')}${r ? ` · bestes Ergebnis ${r.best} von 10` : ''}</span></span>
+      <span class="starrow">${e.link ? '▶' : exStarHTML(e.id)}</span></button>`;
+  });
+  h += `</div><div class="tip" style="margin-top:20px">Jede Übung hat 10 Aufgaben. Gezählt wird, was auf Anhieb ohne Hilfe richtig ist.<br>⭐ ab 5 richtig · ⭐⭐ ab 8 · ⭐⭐⭐ bei 10 von 10</div>`;
+  $('#app').innerHTML = h;
+}
+function renderLesen(){
+  let h = `<button class="btn small back" data-act="fach" data-id="deutsch">← Deutsch</button>
+    <h1>📚 Lesetexte</h1><p class="sub">Worüber möchtest du heute lesen?</p><div class="grid">`;
   THEMES.forEach(t => {
     const ts = textsOfTheme(t.id);
     const got = ts.reduce((a,x) => a + starCount(x.id), 0);
@@ -657,14 +748,7 @@ function renderHome(){
       <span class="emo">${t.emo}</span><span class="nm">${esc(t.name)}</span>
       <span class="pr">⭐ ${got} von ${ts.length*3}</span></button>`;
   });
-  const mb = (S.math && S.math.best) || 0;
-  h += `</div>
-    <h2 style="margin-top:30px">🔢 Rechnen</h2>
-    <div class="grid"><button class="theme-card" style="--c:#FFE1DE" data-act="math">
-      <span class="emo">🔴</span><span class="nm">Zehnerfeld</span>
-      <span class="pr">${mb ? 'Bestes Ergebnis: ' + mb + ' von 10' : 'Zahlen bis 10'}</span></button></div>
-    <div class="tip" style="margin-top:24px">💡 Tipp: Lies jeden Text dreimal. Beim dritten Mal klingt er schon richtig flüssig!</div>
-    <div class="row" style="margin-top:16px;justify-content:flex-end"><button class="btn small" data-act="parents">👨‍👧 Für Eltern</button></div>`;
+  h += `</div><div class="tip" style="margin-top:24px">💡 Tipp: Lies jeden Text dreimal. Beim dritten Mal klingt er schon richtig flüssig!</div>`;
   $('#app').innerHTML = h;
 }
 
@@ -673,7 +757,7 @@ function renderHome(){
    ========================================================= */
 function renderTheme(id){
   const t = themeById(id);
-  let h = `<button class="btn small back" data-act="home">← Alle Themen</button>
+  let h = `<button class="btn small back" data-act="lesen">← Alle Themen</button>
     <h1>${t.emo} ${esc(t.name)}</h1>
     <p class="sub">Such dir einen Text aus. 🌱 kurz (ca. 80 Wörter), 🌿 mittel (ca. 250), 🌳 lang (ca. 350).</p>
     <div class="text-list">`;
@@ -785,7 +869,7 @@ function quizBtn(){ return (R.t.q && R.t.q.length) ? `<button class="btn primary
 function renderPanel(){
   const p = $('#panel'); if(!p) return;
   const m = R.mode;
-  const child = esc(S.settings.childName || 'Du');
+  const child = esc(kidName() || 'Du');
   const parent = esc(S.settings.parentName || 'Papa');
   let h = '';
   if(m === 'lesen'){
@@ -1105,90 +1189,809 @@ function peek(){
 }
 
 /* =========================================================
-   RECHNEN: ZEHNERFELD
-   Kind tippt so viele graue Kreise an, wie die Zahl zeigt.
+   ÜBUNGEN: Fächer, Klassen und Aufgaben-Engine
+   Jede Übung = 10 Aufgaben mit „OK“ und „Hilfe“.
    ========================================================= */
-let M = {};
-function mathOrder(n){
-  const out = []; let last = 0;
-  while(out.length < n){ const v = 1 + Math.floor(Math.random()*10); if(v !== last){ out.push(v); last = v; } }
-  return out;
+const FAECHER = [
+  {id:'deutsch',        name:'Deutsch',        emo:'📖', c:'#FFE3D3'},
+  {id:'mathe',          name:'Mathe',          emo:'🔢', c:'#DDF1FF'},
+  {id:'englisch',       name:'Englisch',       emo:'🇬🇧', c:'#E6E1FF'},
+  {id:'sachunterricht', name:'Sachunterricht', emo:'🌍', c:'#D5F5EE'}
+];
+const EX = [];
+function addEx(d){ d.n = d.n || 10; EX.push(d); }
+function exById(id){ return EX.find(e => e.id === id); }
+function klasse(){ return +S.settings.klasse === 1 ? 1 : 3; }
+function kidName(){ const n = S.settings.names || {}; return n[klasse()] || ''; }
+const rnd = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
+const pick = a => a[Math.floor(Math.random() * a.length)];
+function pickN(a, n, not){ return shuffle(a.filter(x => x !== not)).slice(0, n); }
+function strip(h){ return String(h).replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim(); }
+function exStars(id){ const r = (S.ex || {})[id]; const b = r ? r.best : 0; return b >= 10 ? 3 : b >= 8 ? 2 : b >= 5 ? 1 : 0; }
+function exStarHTML(id){ const n = exStars(id); return [0,1,2].map(k => `<span class="${k < n ? '' : 'star-off'}">⭐</span>`).join(''); }
+function textStarsTotal(){ return allTexts().reduce((a, t) => a + starCount(t.id), 0); }
+function fachStars(f, kl){
+  let s = 0;
+  EX.filter(e => e.fach === f && e.klasse === kl).forEach(e => { s += e.link ? textStarsTotal() : exStars(e.id); });
+  return s;
 }
-function renderMath(){ M = {i:0, n:10, right:0, order:mathOrder(10)}; newMathTask(); }
-function newMathTask(){
-  M.target = M.order[M.i]; M.sel = new Array(10).fill(false);
-  M.tries = 0; M.helped = false; M.lock = false;
-  drawMath('');
+
+/* ---------- Sprache ---------- */
+function utterEn(text){
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-GB'; if(TTS.voiceEn) u.voice = TTS.voiceEn;
+  u.rate = 0.8;
+  return u;
 }
-function mathCount(){ return M.sel.filter(Boolean).length; }
-function drawMath(msg){
-  const dots = M.sel.map((on,k) => `<button class="dot${on ? ' on' : ''}" data-act="mdot" data-k="${k}" aria-label="Kreis ${k+1}"></button>`).join('');
+function speakDe(text){ if(!TTS.ok) return; stopSpeech(); speechSynthesis.speak(utter(text)); }
+function speakEn(text){ if(!TTS.ok) return; stopSpeech(); speechSynthesis.speak(utterEn(text)); }
+
+/* ---------- Bausteine für Aufgaben ---------- */
+function choiceTask(o){
+  const vals = shuffle([o.right].concat(o.wrong));
+  const r = o.render || (v => esc(String(v)));
+  return Object.assign({type:'choice', answer:o.right, options: vals.map(v => ({v, html:r(v)}))}, o);
+}
+function numOpts(right, lo, hi){
+  const s = new Set([right]); let g = 0;
+  while(s.size < 4 && g < 200){ const v = right + rnd(-3, 3); if(v >= lo && v <= hi) s.add(v); g++; }
+  for(let v = lo; s.size < 4 && v <= hi; v++) s.add(v);
+  return [...s].filter(x => x !== right);
+}
+function emoBig(e){ return `<span class="emo-big">${e}</span>`; }
+function repc(c, n){ return new Array(Math.max(0, n)).fill(c); }
+function minis(cols){
+  const frames = Math.max(1, Math.ceil(cols.length / 10));
+  let h = '';
+  for(let f = 0; f < frames; f++){
+    h += '<div class="mini">' + Array.from({length:10}, (_, k) => `<span class="md ${cols[f*10 + k] || ''}"></span>`).join('') + '</div>';
+  }
+  return `<div class="minis">${h}</div>`;
+}
+function nline(from, to, q){
+  let h = '';
+  for(let i = from; i <= to; i++) h += `<span class="${i === q ? 'q' : ''}">${i === q ? '?' : i}</span>`;
+  return `<div class="nline">${h}</div>`;
+}
+function stw(H, Z, E){
+  return `<table class="stw"><tr><th>H</th><th>Z</th><th>E</th></tr><tr><td>${H}</td><td>${Z}</td><td>${E}</td></tr></table>`;
+}
+function sylHTML(s){ return s.split('-').map((p, i) => `<span class="${i % 2 ? 'sb' : 'sa'}">${esc(p)}</span>`).join('<span class="dot">·</span>'); }
+function clockSVG(h, m){
+  const ha = ((h % 12) + m / 60) * 30, ma = m * 6;
+  let nums = '', ticks = '';
+  for(let i = 1; i <= 12; i++){
+    const a = (i * 30 - 90) * Math.PI / 180;
+    nums += `<text x="${(100 + 72*Math.cos(a)).toFixed(1)}" y="${(100 + 72*Math.sin(a) + 7).toFixed(1)}" text-anchor="middle" font-size="20" font-weight="700" fill="#2B2A33">${i}</text>`;
+  }
+  for(let i = 0; i < 60; i++){
+    const a = (i * 6 - 90) * Math.PI / 180, r1 = i % 5 ? 89 : 84;
+    ticks += `<line x1="${(100 + r1*Math.cos(a)).toFixed(1)}" y1="${(100 + r1*Math.sin(a)).toFixed(1)}" x2="${(100 + 93*Math.cos(a)).toFixed(1)}" y2="${(100 + 93*Math.sin(a)).toFixed(1)}" stroke="#2B2A33" stroke-width="${i % 5 ? 1 : 3}"/>`;
+  }
+  return `<svg class="clock" viewBox="0 0 200 200" role="img" aria-label="Uhr">
+    <circle cx="100" cy="100" r="96" fill="#fff" stroke="#2B2A33" stroke-width="4"/>${ticks}${nums}
+    <line x1="100" y1="100" x2="100" y2="56" stroke="#D94C45" stroke-width="8" stroke-linecap="round" transform="rotate(${ha} 100 100)"/>
+    <line x1="100" y1="100" x2="100" y2="22" stroke="#1F6FEB" stroke-width="5" stroke-linecap="round" transform="rotate(${ma} 100 100)"/>
+    <circle cx="100" cy="100" r="6" fill="#2B2A33"/></svg>`;
+}
+const SHAPES = {
+  Kreis:'<circle cx="60" cy="50" r="40"/>',
+  Dreieck:'<polygon points="60,8 108,92 12,92"/>',
+  Quadrat:'<rect x="18" y="8" width="84" height="84" rx="3"/>',
+  Rechteck:'<rect x="2" y="26" width="116" height="50" rx="3"/>'
+};
+const SHAPE_ART = {Kreis:'den', Dreieck:'das', Quadrat:'das', Rechteck:'das'};
+const SHAPE_HINT = {
+  Kreis:'Ein Kreis ist ganz rund und hat keine Ecken.',
+  Dreieck:'Ein Dreieck hat genau 3 Ecken.',
+  Quadrat:'Ein Quadrat hat 4 Ecken und 4 gleich lange Seiten.',
+  Rechteck:'Ein Rechteck hat 4 Ecken: zwei lange und zwei kurze Seiten.'
+};
+function shapeSVG(n, col){ return `<svg viewBox="0 0 120 100" width="110" height="92" fill="${col}">${SHAPES[n]}</svg>`; }
+
+/* =========================================================
+   ENGINE
+   ========================================================= */
+let X = {};
+function startEx(id){
+  const d = exById(id);
+  if(d.link){ go(d.link); return; }
+  X = {d, i:0, right:0, used:{}};
+  loadTask();
+}
+function loadTask(){
+  let t, g = 0;
+  do { t = X.d.gen(); g++; } while(t.key != null && X.used[t.key] && g < 40);
+  if(t.key != null) X.used[t.key] = true;
+  X.t = t; X.tries = 0; X.helped = false; X.lock = false; X.gone = {}; X.hintFrame = false;
+  X.val = t.type === 'num' ? '' : t.type === 'tiles' ? [] : t.type === 'frame' ? new Array(10).fill(false) : null;
+  drawTask('');
+  if(t.sayEn || (t.say && (klasse() === 1 || t.autoSay))) setTimeout(() => { if(X.t === t) speakTask(); }, 350);
+}
+function speakTask(){
+  if(!TTS.ok) return;
+  const t = X.t; stopSpeech();
+  if(t.say){
+    let s = t.say;
+    if(t.sayOpts && t.options){
+      const o = t.options.filter((_, k) => !X.gone[k]).map(x => String(x.v));
+      s += ' Ist es ' + (o.length > 1 ? o.slice(0, -1).join(', ') + ' oder ' + o[o.length - 1] : o[0]) + '?';
+    }
+    speechSynthesis.speak(utter(s));
+  }
+  if(t.sayEn) speechSynthesis.speak(utterEn(t.sayEn));
+}
+function drawTask(msg){
+  const t = X.t, d = X.d;
+  const canSay = TTS.ok && (t.say || t.sayEn);
   $('#app').innerHTML = `
-    <button class="btn small back" data-act="home">← Zurück zum Menü</button>
+    <button class="btn small back" data-act="fach" data-id="${d.fach}">← Zurück zum Menü</button>
     <div class="panel center">
-      <div class="dots">${M.order.map((_,k) => `<span class="${k < M.i ? 'on' : ''}${k === M.i ? ' now' : ''}"></span>`).join('')}</div>
-      <h2>🔢 Zehnerfeld</h2>
-      <p class="muted" style="margin:0 0 6px;font-size:19px">Tippe genau so viele Kreise an, wie die Zahl zeigt.</p>
-      <div class="tenframe" id="tf">${dots}</div>
-      <div class="bignum">${M.target}</div>
-      <div id="mmsg" class="mmsg">${msg}</div>
-      <div class="row center" id="mbtns">
-        <button class="btn big mint" data-act="mok">✅ OK</button>
-        <button class="btn big" data-act="mhelp">💡 Hilfe</button>
+      <div class="dots">${Array.from({length:d.n}, (_, k) => `<span class="${k < X.i ? 'on' : ''}${k === X.i ? ' now' : ''}"></span>`).join('')}</div>
+      <h2>${d.emo} ${esc(d.title)}</h2>
+      <div class="xq">${t.prompt}${canSay ? ' <button class="btn small" data-act="xsay" aria-label="Vorlesen">🔊</button>' : ''}</div>
+      ${t.visual ? `<div class="xvis">${t.visual}</div>` : ''}
+      <div id="xin">${inputHTML()}</div>
+      <div id="xmsg" class="mmsg">${msg}</div>
+      <div class="row center" id="xbtns">
+        <button class="btn big mint" data-act="xok">✅ OK</button>
+        <button class="btn big" data-act="xhelp">💡 Hilfe</button>
       </div>
     </div>`;
 }
-function mathToggle(k){
-  if(M.lock) return;
-  M.sel[k] = !M.sel[k];
-  const el = $(`.dot[data-k="${k}"]`); if(el) el.classList.toggle('on', M.sel[k]);
-  const msg = $('#mmsg'); if(msg && M.tries) msg.textContent = '';
+function inputHTML(){
+  const t = X.t;
+  if(t.type === 'choice'){
+    return `<div class="xopts${t.optClass ? ' ' + t.optClass : ''}">` + t.options.map((o, k) =>
+      `<button class="xopt${X.val === k ? ' sel' : ''}${X.gone[k] ? ' gone' : ''}${X.lock && o.v === t.answer ? ' ok' : ''}" data-act="xsel" data-k="${k}">${o.html}</button>`
+    ).join('') + '</div>';
+  }
+  if(t.type === 'num'){
+    const keys = ['1','2','3','4','5','6','7','8','9','⌫','0','C'];
+    return `<div class="numdisp">${X.val === '' ? '<span class="muted">?</span>' : esc(X.val)}${t.unit ? ` <small>${esc(t.unit)}</small>` : ''}</div>
+      <div class="pad">${keys.map(k => `<button class="key" data-act="xkey" data-v="${k}">${k}</button>`).join('')}</div>`;
+  }
+  if(t.type === 'tiles'){
+    const used = {}; X.val.forEach(i => { used[i] = true; });
+    const slots = t.word.split('').map((_, p) => {
+      const ti = X.val[p];
+      return ti != null ? `<button class="slot full" data-act="xslot" data-p="${p}">${esc(t.tiles[ti])}</button>` : '<span class="slot"></span>';
+    }).join('');
+    const tiles = t.tiles.map((c, i) => used[i] ? '' : `<button class="tile" data-act="xtile" data-k="${i}">${esc(c)}</button>`).join('');
+    return `<div class="slots">${slots}</div><div class="tiles">${tiles}</div>`;
+  }
+  if(t.type === 'frame'){
+    return `<div class="tenframe">${X.val.map((on, k) => `<button class="dot${on ? ' on' : ''}${X.hintFrame && k < t.answer ? ' hint' : ''}" data-act="xdot" data-k="${k}" aria-label="Kreis ${k + 1}"></button>`).join('')}</div><div class="bignum">${t.answer}</div>`;
+  }
+  return '';
 }
-function mathOk(){
-  if(M.lock) return;
-  const c = mathCount(), t = M.target, msg = $('#mmsg');
-  if(c === t){
-    M.lock = true;
-    const clean = M.tries === 0 && !M.helped;
-    if(clean) M.right++;
-    msg.innerHTML = clean ? ['Richtig! 🎉','Super! ⭐','Genau! 👍','Klasse! 🌟'][Math.floor(Math.random()*4)] : 'Richtig! Gut gemacht. 👍';
-    $$('.dot').forEach(d => d.classList.remove('hint'));
-    if(clean) celebrate();
-    $('#mbtns').innerHTML = `<button class="btn big primary" data-act="mnext">Weiter ▶</button>`;
+function refreshIn(){ const el = $('#xin'); if(el) el.innerHTML = inputHTML(); }
+function setMsg(h){ const m = $('#xmsg'); if(m) m.innerHTML = h; }
+
+function xSel(k){ if(X.lock || X.gone[k]) return; X.val = k; refreshIn(); setMsg(''); }
+function xKey(v){
+  if(X.lock) return;
+  if(v === '⌫') X.val = X.val.slice(0, -1);
+  else if(v === 'C') X.val = '';
+  else if(X.val.length < (X.t.maxLen || 4)) X.val = (X.val === '0' ? '' : X.val) + v;
+  refreshIn(); setMsg('');
+}
+function xTile(k){ if(X.lock || X.val.length >= X.t.word.length) return; X.val.push(k); refreshIn(); setMsg(''); }
+function xSlot(p){ if(X.lock) return; X.val.splice(p, 1); refreshIn(); }
+function xDot(k){
+  if(X.lock) return;
+  X.val[k] = !X.val[k];
+  const el = $(`.dot[data-k="${k}"]`); if(el) el.classList.toggle('on', X.val[k]);
+}
+function xValue(){
+  const t = X.t;
+  if(t.type === 'choice') return X.val == null ? null : t.options[X.val].v;
+  if(t.type === 'num') return X.val === '' ? null : +X.val;
+  if(t.type === 'tiles') return X.val.length ? X.val.map(i => t.tiles[i]).join('') : null;
+  if(t.type === 'frame') return X.val.filter(Boolean).length;
+  return null;
+}
+const EMPTY_MSG = {choice:'Tippe zuerst auf eine Antwort.', num:'Tippe zuerst eine Zahl ein.', tiles:'Tippe zuerst auf die Buchstaben.', frame:'Tippe zuerst Kreise an.'};
+function xSolution(){
+  const t = X.t;
+  if(t.type === 'choice'){ const o = t.options.find(x => x.v === t.answer); return o ? o.html : esc(t.answer); }
+  if(t.type === 'tiles') return esc(t.word);
+  return esc(String(t.answer)) + (t.unit ? ' ' + esc(t.unit) : '');
+}
+function revealInput(){
+  const t = X.t;
+  if(t.type === 'num') X.val = String(t.answer);
+  if(t.type === 'frame') X.val = X.val.map((_, k) => k < t.answer);
+  if(t.type === 'tiles'){
+    const used = {}; X.val = [];
+    t.word.split('').forEach(c => { const k = t.tiles.findIndex((x, i) => !used[i] && x === c); used[k] = true; X.val.push(k); });
+  }
+}
+function toWeiter(){ $('#xbtns').innerHTML = '<button class="btn big primary" data-act="xnext">Weiter ▶</button>'; }
+function afterHTML(){ return X.t.after ? `<div class="muted" style="font-weight:400;margin-top:6px">${X.t.after}</div>` : ''; }
+function xOk(){
+  if(X.lock) return;
+  const t = X.t, v = xValue();
+  if(v == null || (t.type === 'frame' && v === 0)){ setMsg(EMPTY_MSG[t.type]); return; }
+  const ok = t.type === 'tiles' ? v === t.word : v === t.answer;
+  if(ok){
+    X.lock = true; X.hintFrame = false;
+    const clean = X.tries === 0 && !X.helped;
+    if(clean){ X.right++; celebrate(); }
+    setMsg((clean ? pick(['Richtig! 🎉','Super! ⭐','Genau! 👍','Klasse! 🌟']) : 'Richtig! Gut gemacht. 👍') + afterHTML());
+    refreshIn(); toWeiter();
+    if(t.okEn) speakEn(t.okEn);
     return;
   }
-  M.tries++;
-  msg.textContent = c < t
-    ? `Du hast ${c} angetippt. Es fehlen noch welche – zähl noch einmal nach.`
-    : `Du hast ${c} angetippt. Das sind zu viele – zähl noch einmal nach.`;
-  const tf = $('#tf'); tf.classList.remove('shake'); void tf.offsetWidth; tf.classList.add('shake');
+  X.tries++;
+  if(t.type === 'choice'){ X.gone[X.val] = true; X.val = null; }
+  if(X.tries >= 3){
+    X.lock = true; X.hintFrame = false;
+    revealInput();
+    setMsg(`Die richtige Lösung ist: <b>${xSolution()}</b>` + afterHTML());
+    refreshIn(); toWeiter();
+    if(t.okEn) speakEn(t.okEn);
+    return;
+  }
+  setMsg(t.wrong ? t.wrong(v) : (t.type === 'choice' ? 'Das stimmt noch nicht. Versuch es nochmal!' : 'Das stimmt noch nicht. Schau noch einmal genau hin!'));
+  refreshIn();
+  const el = $('#xin'); el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake');
 }
-function mathHelp(){
-  if(M.lock) return;
-  M.helped = true;
-  const t = M.target, c = mathCount();
-  let tip;
-  if(t === 10) tip = '10 – das sind beide Reihen ganz voll.';
-  else if(t === 5) tip = '5 – das ist genau eine ganze Reihe.';
-  else if(t > 5) tip = `${t} = 5 + ${t-5}: Die obere Reihe ganz voll und unten noch ${t-5}.`;
-  else tip = `${t} – das ist weniger als eine Reihe. Tippe oben ${t} Kreise an.`;
-  $('#mmsg').innerHTML = `💡 ${tip}<br><span class="muted" style="font-weight:400">Gerade angetippt: ${c}. Die gestrichelten Kreise zeigen dir den Weg.</span>`;
-  $$('.dot').forEach((d,k) => d.classList.toggle('hint', k < t));
-  if(TTS.ok){ stopSpeech(); speechSynthesis.speak(utter(tip.replace(/=/g,' ist ').replace(/\+/g,' plus '))); }
+function xHelp(){
+  if(X.lock) return;
+  const t = X.t; X.helped = true;
+  let h = t.hint ? t.hint() : '';
+  if(t.type === 'choice'){
+    const wrong = t.options.map((_, k) => k).filter(k => t.options[k].v !== t.answer && !X.gone[k]);
+    if(wrong.length > 1){
+      const k = pick(wrong); X.gone[k] = true; if(X.val === k) X.val = null;
+      h = (h ? h + '<br>' : '') + '<span class="muted" style="font-weight:400">Eine falsche Antwort ist jetzt weg.</span>';
+    }
+  }
+  if(t.type === 'tiles'){
+    const w = t.word; let p = 0;
+    while(p < X.val.length && t.tiles[X.val[p]] === w[p]) p++;
+    X.val = X.val.slice(0, p);
+    if(p < w.length){
+      const used = {}; X.val.forEach(i => { used[i] = true; });
+      const k = t.tiles.findIndex((c, i) => !used[i] && c === w[p]);
+      if(k >= 0) X.val.push(k);
+    }
+    h = (h ? h + '<br>' : '') + 'Ich habe dir den nächsten Buchstaben hingelegt.';
+  }
+  if(t.type === 'frame') X.hintFrame = true;
+  refreshIn();
+  setMsg('💡 ' + (h || 'Lies die Aufgabe noch einmal in Ruhe.'));
+  if(t.hintEn) speakEn(t.hintEn);
+  else if(t.hintSay) speakDe(t.hintSay);
+  else if(klasse() === 1 && h && !t.quietHint) speakDe(strip(h));
 }
-function mathNext(){
-  M.i++;
-  if(M.i < M.n){ newMathTask(); return; }
-  S.math = S.math || {best:0, sessions:0};
-  S.math.best = Math.max(S.math.best || 0, M.right);
-  S.math.sessions = (S.math.sessions || 0) + 1; save();
-  if(M.right >= 8) celebrate();
+function xNext(){
+  X.i++;
+  if(X.i >= X.d.n) exResult();
+  else { loadTask(); window.scrollTo(0, 0); }
+}
+function exResult(){
+  const id = X.d.id, n = X.d.n;
+  S.ex = S.ex || {};
+  const r = S.ex[id] || (S.ex[id] = {best:0, rounds:0});
+  r.best = Math.max(r.best, X.right); r.rounds++; r.last = X.right; r.t = Date.now();
+  save(); updateStarsTotal();
+  if(X.right >= 8) celebrate();
   $('#app').innerHTML = `<div class="panel center">
-    <div style="font-size:70px">${M.right === M.n ? '🏆' : (M.right >= 7 ? '👏' : '💪')}</div>
-    <h1>${M.right} von ${M.n} auf Anhieb richtig</h1>
-    <p class="sub">${M.right === M.n ? 'Alles beim ersten Versuch – super!' : 'Mit jeder Runde wird es leichter. Probier es gleich nochmal!'}</p>
-    <div class="row center"><button class="btn primary" data-act="math">🔁 Nochmal</button><button class="btn" data-act="home">Zurück zum Menü</button></div></div>`;
-  window.scrollTo(0,0);
+    <div style="font-size:70px">${X.right === n ? '🏆' : (X.right >= 7 ? '👏' : '💪')}</div>
+    <h1>${X.right} von ${n} auf Anhieb richtig</h1>
+    <p class="sub">${X.right === n ? 'Alles beim ersten Versuch – super!' : 'Mit jeder Runde wird es leichter. Probier es gleich nochmal!'}</p>
+    <div style="font-size:38px;margin-bottom:8px">${exStarHTML(id)}</div>
+    <p class="muted" style="margin:0 0 16px">⭐ ab 5 richtig · ⭐⭐ ab 8 · ⭐⭐⭐ bei 10 von 10</p>
+    <div class="row center"><button class="btn primary" data-act="ex" data-id="${id}">🔁 Nochmal</button>
+      <button class="btn" data-act="fach" data-id="${X.d.fach}">Zurück zum Menü</button></div></div>`;
+  window.scrollTo(0, 0);
+}
+
+/* =========================================================
+   KLASSE 1 – MATHE
+   ========================================================= */
+addEx({id:'m1-zaehlen', klasse:1, fach:'mathe', title:'Mengen zählen', emo:'🍎', desc:'Wie viele siehst du?',
+  gen(){
+    const n = rnd(1, 10), e = pick(['🍎','⭐','🐞','🎈','🐟','🌸','🚗','🍓','🐥','⚽']);
+    const rows = n > 5 ? e.repeat(5) + '<br>' + e.repeat(n - 5) : e.repeat(n);
+    return choiceTask({key:n, prompt:'Wie viele siehst du?', say:'Wie viele siehst du? Zähle genau.', visual:`<div class="emorow">${rows}</div>`,
+      right:n, wrong:numOpts(n, 1, 10).slice(0, 3), optClass:'nums',
+      hint:() => n > 5 ? 'In der oberen Reihe sind immer 5. Zähl unten weiter: 6, 7, …' : 'Zeig mit dem Finger auf jedes Bild und zähl laut mit.'});
+  }});
+addEx({id:'m1-zehner', klasse:1, fach:'mathe', title:'Zehnerfeld', emo:'🔴', desc:'Tippe so viele Kreise an, wie die Zahl zeigt',
+  gen(){
+    const n = rnd(1, 10);
+    return {type:'frame', key:n, answer:n, prompt:'Tippe genau so viele Kreise an, wie die Zahl zeigt.', say:`Tippe ${n} Kreise an.`,
+      wrong: c => c < n ? `Du hast ${c} angetippt. Es fehlen noch welche – zähl noch einmal nach.` : `Du hast ${c} angetippt. Das sind zu viele – zähl noch einmal nach.`,
+      hint: () => {
+        const c = X.val.filter(Boolean).length;
+        const tip = n === 10 ? '10 – das sind beide Reihen ganz voll.' : n === 5 ? '5 – das ist genau eine ganze Reihe.'
+          : n > 5 ? `${n} ist 5 und ${n - 5}: Die obere Reihe ganz voll und unten noch ${n - 5}.` : `${n} ist weniger als eine Reihe. Tippe oben ${n} Kreise an.`;
+        return `${tip}<br><span class="muted" style="font-weight:400">Gerade angetippt: ${c}. Die gestrichelten Kreise zeigen dir den Weg.</span>`;
+      }};
+  }});
+addEx({id:'m1-plus10', klasse:1, fach:'mathe', title:'Plus bis 10', emo:'➕', desc:'Zusammenzählen bis 10',
+  gen(){
+    const a = rnd(1, 9), b = rnd(0, 10 - a);
+    return {type:'num', key:a + '+' + b, answer:a + b, maxLen:2, prompt:`<span class="calc">${a} + ${b} = ?</span>`, say:`Wie viel ist ${a} plus ${b}?`,
+      hint:() => `Rot sind ${a}, blau sind ${b}. Zähl alle zusammen!` + minis(repc('r', a).concat(repc('b', b)))};
+  }});
+addEx({id:'m1-minus10', klasse:1, fach:'mathe', title:'Minus bis 10', emo:'➖', desc:'Abziehen bis 10',
+  gen(){
+    const a = rnd(2, 10), b = rnd(1, a);
+    return {type:'num', key:a + '-' + b, answer:a - b, maxLen:2, prompt:`<span class="calc">${a} − ${b} = ?</span>`, say:`Wie viel ist ${a} minus ${b}?`,
+      hint:() => `Von ${a} werden ${b} weggenommen. Zähl die Punkte, die übrig bleiben!` + minis(repc('r', a - b).concat(repc('x', b)))};
+  }});
+addEx({id:'m1-bis20', klasse:1, fach:'mathe', title:'Plus und Minus bis 20', emo:'🧮', desc:'Mit Zehnerübergang',
+  gen(){
+    if(Math.random() < 0.5){
+      const a = rnd(2, 15), b = rnd(1, 20 - a);
+      const hint = (a < 10 && a + b > 10)
+        ? () => `Erst bis 10: ${a} + ${10 - a} = 10. Dann noch ${b - (10 - a)} dazu.`
+        : () => `Rot sind ${a}, blau sind ${b}. Zähl alle zusammen!` + minis(repc('r', a).concat(repc('b', b)));
+      return {type:'num', key:a + '+' + b, answer:a + b, maxLen:2, prompt:`<span class="calc">${a} + ${b} = ?</span>`, say:`Wie viel ist ${a} plus ${b}?`, hint};
+    }
+    const a = rnd(6, 20), b = rnd(1, a - 1);
+    const hint = (a > 10 && a - b < 10)
+      ? () => `Erst bis 10: ${a} − ${a - 10} = 10. Dann noch ${b - (a - 10)} weg.`
+      : () => `Von ${a} werden ${b} weggenommen. Zähl, was übrig bleibt!` + minis(repc('r', a - b).concat(repc('x', b)));
+    return {type:'num', key:a + '-' + b, answer:a - b, maxLen:2, prompt:`<span class="calc">${a} − ${b} = ?</span>`, say:`Wie viel ist ${a} minus ${b}?`, hint};
+  }});
+addEx({id:'m1-vergleich', klasse:1, fach:'mathe', title:'Zahlen vergleichen', emo:'🐊', desc:'Größer, kleiner oder gleich?',
+  gen(){
+    const a = rnd(0, 20), b = Math.random() < 0.2 ? a : rnd(0, 20);
+    const right = a < b ? '<' : a > b ? '>' : '=';
+    return choiceTask({key:a + '/' + b, prompt:`<span class="calc">${a} <span class="qbox2">?</span> ${b}</span>`, say:`Welches Zeichen gehört zwischen ${a} und ${b}?`,
+      right, wrong:['<','>','='].filter(x => x !== right), optClass:'nums',
+      hint:() => 'Das Zeichen ist wie ein Krokodil-Maul 🐊: Es öffnet sich immer zur größeren Zahl. Sind beide gleich, nimm =.'
+        + (a <= 10 && b <= 10 ? `<div class="row center" style="gap:24px;margin-top:8px"><div>${a}${minis(repc('r', a))}</div><div>${b}${minis(repc('b', b))}</div></div>` : '')});
+  }});
+addEx({id:'m1-nachbar', klasse:1, fach:'mathe', title:'Nachbarzahlen', emo:'🔢', desc:'Welche Zahl kommt davor oder danach?',
+  gen(){
+    const n = rnd(2, 19), after = Math.random() < 0.5, right = after ? n + 1 : n - 1;
+    return {type:'num', key:n + (after ? 'n' : 'v'), answer:right, maxLen:2,
+      prompt: after ? `Welche Zahl kommt direkt <b>nach</b> ${n}?` : `Welche Zahl kommt direkt <b>vor</b> ${n}?`,
+      say: after ? `Welche Zahl kommt direkt nach ${n}?` : `Welche Zahl kommt direkt vor ${n}?`,
+      hint:() => (after ? 'Nach heißt: eins mehr.' : 'Vor heißt: eins weniger.') + nline(Math.max(0, right - 3), right + 3, right)};
+  }});
+addEx({id:'m1-formen', klasse:1, fach:'mathe', title:'Formen erkennen', emo:'🔺', desc:'Kreis, Dreieck, Quadrat, Rechteck',
+  gen(){
+    const names = Object.keys(SHAPES), n = pick(names);
+    const cols = shuffle(['#D94C45','#3B82F6','#2E9E6E','#F59E0B']), cm = {};
+    names.forEach((x, i) => { cm[x] = cols[i]; });
+    return choiceTask({prompt:`Tippe auf ${SHAPE_ART[n]} <b>${n}</b>.`, say:`Tippe auf ${SHAPE_ART[n]} ${n}.`, right:n, wrong:names.filter(x => x !== n),
+      render: v => shapeSVG(v, cm[v]), optClass:'pics', hint:() => SHAPE_HINT[n]});
+  }});
+
+/* =========================================================
+   KLASSE 1 – DEUTSCH
+   [Wort, Bild, Silben, Anlaut eindeutig?]
+   ========================================================= */
+const W1 = [
+  ['Ball','⚽','Ball',1],['Hund','🐶','Hund',1],['Katze','🐱','Kat-ze',1],['Maus','🐭','Maus',1],['Haus','🏠','Haus',1],
+  ['Auto','🚗','Au-to',0],['Apfel','🍎','Ap-fel',1],['Banane','🍌','Ba-na-ne',1],['Tomate','🍅','To-ma-te',1],['Igel','🦔','I-gel',1],
+  ['Ente','🦆','En-te',1],['Fisch','🐟','Fisch',1],['Mond','🌙','Mond',1],['Sonne','☀️','Son-ne',1],['Stern','⭐','Stern',0],
+  ['Blume','🌸','Blu-me',1],['Baum','🌳','Baum',1],['Rose','🌹','Ro-se',1],['Nase','👃','Na-se',1],['Hose','👖','Ho-se',1],
+  ['Hut','🎩','Hut',1],['Uhr','⌚','Uhr',1],['Oma','👵','O-ma',1],['Opa','👴','O-pa',1],['Eis','🍦','Eis',0],
+  ['Rakete','🚀','Ra-ke-te',1],['Tiger','🐯','Ti-ger',1],['Löwe','🦁','Lö-we',1],['Giraffe','🦒','Gi-raf-fe',1],['Zebra','🦓','Ze-bra',1],
+  ['Pinguin','🐧','Pin-gu-in',1],['Krokodil','🐊','Kro-ko-dil',1],['Elefant','🐘','E-le-fant',1],['Lampe','💡','Lam-pe',1],['Buch','📖','Buch',1],
+  ['Brot','🍞','Brot',1],['Dino','🦕','Di-no',1],['Wolke','☁️','Wol-ke',1],['Nudeln','🍝','Nu-deln',1],['Kuchen','🍰','Ku-chen',1],
+  ['Melone','🍉','Me-lo-ne',1],['Ananas','🍍','A-na-nas',1],['Zitrone','🍋','Zi-tro-ne',1],['Karotte','🥕','Ka-rot-te',1],['Schokolade','🍫','Scho-ko-la-de',0],
+  ['Schmetterling','🦋','Schmet-ter-ling',0],['Gitarre','🎸','Gi-tar-re',1],['Trommel','🥁','Trom-mel',1],['Ring','💍','Ring',1],['Lolli','🍭','Lol-li',1],
+  ['Roller','🛴','Rol-ler',1],['Ampel','🚦','Am-pel',1],['Tasse','☕','Tas-se',1],['Lama','🦙','La-ma',1],['Insel','🏝️','In-sel',1],['Erdbeere','🍓','Erd-bee-re',1]
+];
+const LETTERS = 'ABDEFGHIKLMNOPRSTUWZ'.split('');
+addEx({id:'d1-anlaut', klasse:1, fach:'deutsch', title:'Anlaute', emo:'🔤', desc:'Mit welchem Buchstaben fängt das Wort an?',
+  gen(){
+    const w = pick(W1.filter(x => x[3])), L = w[0][0].toUpperCase();
+    return choiceTask({key:w[0], prompt:'Mit welchem Buchstaben fängt das Wort an?', say:`Mit welchem Buchstaben fängt ${w[0]} an?`, visual:emoBig(w[1]),
+      right:L, wrong:pickN(LETTERS, 3, L), optClass:'nums', render: v => `${v}<span style="font-weight:400"> ${v.toLowerCase()}</span>`,
+      after:`<b>${esc(w[0])}</b>`, hint:() => `Hör genau auf den Anfang: ${w[0]}`});
+  }});
+addEx({id:'d1-silben', klasse:1, fach:'deutsch', title:'Silben klatschen', emo:'👏', desc:'Wie viele Silben hat das Wort?',
+  gen(){
+    const w = pick(W1), n = w[2].split('-').length;
+    return choiceTask({key:w[0], prompt:'Wie viele Silben hat das Wort? Klatsch mit!', say:`Klatsch mit: ${w[0]}. Wie viele Silben hat das Wort?`,
+      visual:emoBig(w[1]) + `<div class="wbig">${esc(w[0])}</div>`, right:n, wrong:[1,2,3,4].filter(x => x !== n), optClass:'nums',
+      render: v => `${v}<br><span style="font-size:18px">${'👏'.repeat(v)}</span>`,
+      hint:() => `Klatsch bei jeder Silbe: <span class="bigword" style="font-size:34px">${sylHTML(w[2])}</span>`, hintSay:w[2].split('-').join(' – ')});
+  }});
+addEx({id:'d1-lesen', klasse:1, fach:'deutsch', title:'Wörter lesen', emo:'👀', desc:'Lies das Wort und finde das Bild',
+  gen(){
+    const w = pick(W1), others = pickN(W1, 3, w), find = s => W1.find(x => x[0] === s);
+    return choiceTask({key:w[0], prompt:`<div class="wbig">${esc(w[0])}</div>Lies das Wort. Welches Bild passt?`, say:'Lies das Wort. Welches Bild passt?',
+      right:w[0], wrong:others.map(o => o[0]), render: v => `<span class="emo">${find(v)[1]}</span>`, optClass:'pics', quietHint:true,
+      hint:() => `Lies in Silben: <span class="bigword" style="font-size:34px">${sylHTML(w[2])}</span>`});
+  }});
+const W1B = ['Hut','Oma','Opa','Auto','Nase','Hose','Rose','Mond','Ente','Igel','Ball','Maus','Haus','Eis','Hund','Lama','Dino','Tiger','Sonne','Lampe','Brot','Buch','Ring'];
+addEx({id:'d1-bauen', klasse:1, fach:'deutsch', title:'Wörter bauen', emo:'🧩', desc:'Lege das Wort mit Buchstaben',
+  gen(){
+    const word = pick(W1B), e = W1.find(x => x[0] === word)[1];
+    let tiles = word.split(''), g = 0;
+    do { tiles = shuffle(word.split('')); g++; } while(tiles.join('') === word && g < 10);
+    return {type:'tiles', key:word, word, tiles, prompt:'Lege das Wort mit den Buchstaben.', say:`Lege das Wort: ${word}`, visual:emoBig(e), quietHint:true,
+      hintSay:word};
+  }});
+addEx({id:'d1-texte', klasse:1, fach:'deutsch', title:'Lesetexte', emo:'📚', desc:'Geschichten lesen, vorlesen und zusammen lesen', link:'#/lesen'});
+
+/* =========================================================
+   KLASSE 3 – MATHE
+   ========================================================= */
+addEx({id:'m3-einmaleins', klasse:3, fach:'mathe', title:'Einmaleins', emo:'✖️', desc:'Malaufgaben bis 10 · 10',
+  gen(){
+    const a = rnd(1, 10), b = rnd(2, 10);
+    return {type:'num', key:a + 'x' + b, answer:a * b, maxLen:3, prompt:`<span class="calc">${a} · ${b} = ?</span>`,
+      hint:() => a === 1 ? `1 · ${b} ist einfach ${b}.`
+        : a === 10 ? `10 · ${b}: Hänge an die ${b} eine 0 an.`
+        : a === 5 ? `10 · ${b} = ${10 * b}. 5 · ${b} ist die Hälfte davon.`
+        : a > 5 ? `5 · ${b} = ${5 * b}. Dazu noch ${a - 5} · ${b} = ${(a - 5) * b}. Rechne beides zusammen.`
+        : `Rechne ${repc(b, a).join(' + ')}.`};
+  }});
+addEx({id:'m3-geteilt', klasse:3, fach:'mathe', title:'Geteilt', emo:'➗', desc:'Geteiltaufgaben aus dem Einmaleins',
+  gen(){
+    const a = rnd(2, 10), k = rnd(1, 10), c = a * k;
+    return {type:'num', key:c + ':' + a, answer:k, maxLen:2, prompt:`<span class="calc">${c} : ${a} = ?</span>`,
+      hint:() => `Denk an die Malaufgabe: ? · ${a} = ${c}.<br>Zähl in ${a}er-Schritten: ${Array.from({length:k}, (_, i) => (i + 1) * a).join(', ')} …`};
+  }});
+addEx({id:'m3-plus1000', klasse:3, fach:'mathe', title:'Plus bis 1000', emo:'➕', desc:'Addieren mit Hundertern, Zehnern, Einern',
+  gen(){
+    const a = rnd(100, 850), b = rnd(12, 1000 - a);
+    const [h1, z1, e1] = [Math.floor(a / 100), Math.floor(a / 10) % 10, a % 10], [h2, z2, e2] = [Math.floor(b / 100), Math.floor(b / 10) % 10, b % 10];
+    return {type:'num', key:a + '+' + b, answer:a + b, maxLen:4, prompt:`<span class="calc">${a} + ${b} = ?</span>`,
+      hint:() => `Rechne Stelle für Stelle:<br>Hunderter: ${h1 * 100} + ${h2 * 100} = ${(h1 + h2) * 100}<br>Zehner: ${z1 * 10} + ${z2 * 10} = ${(z1 + z2) * 10}<br>Einer: ${e1} + ${e2} = ${e1 + e2}<br>Jetzt alles zusammenzählen.`};
+  }});
+addEx({id:'m3-minus1000', klasse:3, fach:'mathe', title:'Minus bis 1000', emo:'➖', desc:'Subtrahieren in Schritten',
+  gen(){
+    const a = rnd(200, 999), b = rnd(12, a - 50);
+    const h = Math.floor(b / 100), z = Math.floor(b / 10) % 10, e = b % 10;
+    const s1 = a - h * 100, s2 = s1 - z * 10;
+    return {type:'num', key:a + '-' + b, answer:a - b, maxLen:4, prompt:`<span class="calc">${a} − ${b} = ?</span>`,
+      hint:() => `Rechne in Schritten:<br>${a} − ${h * 100} = ${s1}<br>${s1} − ${z * 10} = ${s2}<br>${s2} − ${e} = ?`};
+  }});
+addEx({id:'m3-stellen', klasse:3, fach:'mathe', title:'Zahlen bis 1000', emo:'🏛️', desc:'Hunderter, Zehner, Einer und Runden',
+  gen(){
+    const v = rnd(0, 3), n = rnd(101, 989), H = Math.floor(n / 100), Z = Math.floor(n / 10) % 10, E = n % 10;
+    if(v === 0) return {type:'num', key:'a' + n, answer:n, maxLen:4, prompt:`Wie heißt die Zahl?<span class="calc">${H} H &nbsp;${Z} Z &nbsp;${E} E</span>`,
+      hint:() => 'H = Hunderter, Z = Zehner, E = Einer. Trag sie in die Stellentafel ein:' + stw(H, Z, E)};
+    if(v === 1){
+      const w = pick(['H','Z','E']), ans = {H, Z, E}[w], name = {H:'Hunderter', Z:'Zehner', E:'Einer'}[w];
+      return {type:'num', key:'b' + n + w, answer:ans, maxLen:1, prompt:`Welche Ziffer steht an der <b>${name}stelle</b>?<span class="calc">${n}</span>`,
+        hint:() => 'So sieht die Zahl in der Stellentafel aus:' + stw(H, Z, E)};
+    }
+    if(v === 2){
+      const m = pick([1, 10, 100]); let up = Math.random() < 0.5;
+      if(n + m > 1000) up = false;
+      const ans = up ? n + m : n - m, st = m === 1 ? 'Einer' : m === 10 ? 'Zehner' : 'Hunderter';
+      return {type:'num', key:'c' + n + m + up, answer:ans, maxLen:4, prompt:`Welche Zahl ist um <b>${m}</b> ${up ? 'größer' : 'kleiner'} als ${n}?`,
+        hint:() => `Rechne ${n} ${up ? '+' : '−'} ${m}. Meistens ändern sich nur die ${st}.` + stw(H, Z, E)};
+    }
+    const r = Math.round(n / 10) * 10;
+    return {type:'num', key:'d' + n, answer:r, maxLen:4, prompt:`Runde <b>${n}</b> auf Zehner.`,
+      hint:() => `Schau auf die Einer: Bei 0 bis 4 rundest du ab, bei 5 bis 9 rundest du auf. Hier sind es ${E} Einer.`};
+  }});
+addEx({id:'m3-uhr', klasse:3, fach:'mathe', title:'Uhrzeit lesen', emo:'🕐', desc:'Wie spät ist es?',
+  gen(){
+    const h = rnd(1, 12), m = rnd(0, 11) * 5, f = (hh, mm) => `${hh}:${String(mm).padStart(2, '0')} Uhr`, right = f(h, m);
+    const cand = new Set(), add = (hh, mm) => { hh = ((hh - 1 + 24) % 12) + 1; mm = (mm + 60) % 60; const s = f(hh, mm); if(s !== right) cand.add(s); };
+    add(m / 5 || 12, (h % 12) * 5); add(h + 1, m); add(h - 1, m); add(h, m + 15); add(h, m - 15); add(h, m + 30);
+    const next = h % 12 + 1;
+    return choiceTask({key:right, prompt:'Wie spät ist es?', visual:clockSVG(h, m), right, wrong:shuffle([...cand]).slice(0, 3), optClass:'nums',
+      hint:() => `Der kurze <b style="color:#D94C45">rote</b> Zeiger zeigt die Stunde. ${m === 0 ? `Er steht genau auf der ${h}.` : `Er steht zwischen der ${h} und der ${next} – also ist es ${h} Uhr und ein bisschen.`}<br>Der lange <b style="color:#1F6FEB">blaue</b> Zeiger zeigt die Minuten. Jede Zahl bedeutet 5 Minuten.`});
+  }});
+const SACH = [
+  () => { const a = rnd(12, 60), b = rnd(5, 40); return {txt:`Lea hat ${a} Murmeln. Tim schenkt ihr noch ${b} dazu. Wie viele Murmeln hat Lea jetzt?`, ans:a + b, unit:'Murmeln', hint:'Es kommen welche dazu – also rechnest du plus.'}; },
+  () => { const a = rnd(25, 48), b = rnd(5, a - 5); return {txt:`Im Bus sitzen ${a} Kinder. An der Haltestelle steigen ${b} Kinder aus. Wie viele Kinder sitzen noch im Bus?`, ans:a - b, unit:'Kinder', hint:'Es gehen welche weg – also rechnest du minus.'}; },
+  () => { const a = rnd(3, 10), b = rnd(2, 9); return {txt:`In einer Packung sind ${a} Stifte. Wie viele Stifte sind in ${b} Packungen?`, ans:a * b, unit:'Stifte', hint:`Jede Packung hat gleich viele Stifte – rechne mal: ${b} · ${a}.`}; },
+  () => { const b = rnd(2, 8), k = rnd(2, 9); return {txt:`${b * k} Äpfel werden gerecht an ${b} Kinder verteilt. Wie viele Äpfel bekommt jedes Kind?`, ans:k, unit:'Äpfel', hint:`Gerecht verteilen heißt geteilt rechnen: ${b * k} : ${b}.`}; },
+  () => { const a = rnd(2, 5), b = rnd(2, 6); return {txt:`Eine Kugel Eis kostet ${a} €. Finn kauft ${b} Kugeln. Wie viel muss er bezahlen?`, ans:a * b, unit:'€', hint:`Jede Kugel kostet gleich viel – rechne mal: ${b} · ${a}.`}; },
+  () => { const a = rnd(20, 50), b = rnd(5, a - 5); return {txt:`Mia hat ${a} €. Sie kauft ein Buch für ${b} €. Wie viel Geld hat sie noch?`, ans:a - b, unit:'€', hint:'Sie gibt Geld aus – es wird weniger. Rechne minus.'}; },
+  () => { const a = rnd(8, 15), b = rnd(8, 15); return {txt:`In einer Klasse sind ${a} Mädchen und ${b} Jungen. Wie viele Kinder sind in der Klasse?`, ans:a + b, unit:'Kinder', hint:'Mädchen und Jungen zusammen – rechne plus.'}; },
+  () => { const a = rnd(4, 10), b = rnd(3, 6); return {txt:`Ein Regal hat ${b} Bretter. Auf jedem Brett stehen ${a} Bücher. Wie viele Bücher stehen im Regal?`, ans:a * b, unit:'Bücher', hint:`Auf jedem Brett stehen gleich viele – rechne mal: ${b} · ${a}.`}; },
+  () => { const b = rnd(3, 6), k = rnd(3, 8); return {txt:`${b * k} Kinder fahren mit Booten. In jedes Boot passen ${b} Kinder. Wie viele Boote braucht man?`, ans:k, unit:'Boote', hint:`Wie oft passt ${b} in ${b * k}? Rechne ${b * k} : ${b}.`}; },
+  () => { const a = rnd(60, 120), b = rnd(10, a - 10); return {txt:`Ein Film dauert ${a} Minuten. Er läuft schon ${b} Minuten. Wie viele Minuten dauert er noch?`, ans:a - b, unit:'Minuten', hint:`Ein Teil ist schon vorbei – rechne ${a} − ${b}.`}; },
+  () => { const a = rnd(2, 4) * 100 + rnd(1, 9) * 10, b = rnd(1, 3) * 100 + rnd(1, 9) * 10; return {txt:`Ein Bauer erntet am Montag ${a} Kartoffeln und am Dienstag ${b} Kartoffeln. Wie viele Kartoffeln sind es zusammen?`, ans:a + b, unit:'Kartoffeln', hint:'Beide Tage zusammen – rechne plus. Erst die Hunderter, dann die Zehner.'}; }
+];
+addEx({id:'m3-sachaufgaben', klasse:3, fach:'mathe', title:'Sachaufgaben', emo:'📝', desc:'Rechengeschichten lösen',
+  gen(){
+    const s = pick(SACH)();
+    return {type:'num', key:s.txt, answer:s.ans, unit:s.unit, maxLen:4, prompt:`<div class="story">${esc(s.txt)}</div>`, say:s.txt, hint:() => s.hint};
+  }});
+const GR = [
+  () => { const m = rnd(1, 9); return {p:`${m} m = ? cm`, a:m * 100, u:'cm', h:'1 m = 100 cm. Also Meter mal 100.'}; },
+  () => { const m = rnd(1, 9); return {p:`${m * 100} cm = ? m`, a:m, u:'m', h:'100 cm = 1 m. Wie oft passt 100 in die Zahl?'}; },
+  () => { const m = rnd(1, 5), c = rnd(1, 9) * 10; return {p:`${m} m ${c} cm = ? cm`, a:m * 100 + c, u:'cm', h:`${m} m = ${m * 100} cm. Dann noch ${c} cm dazu.`}; },
+  () => { const e = rnd(1, 9); return {p:`${e} € = ? ct`, a:e * 100, u:'ct', h:'1 € = 100 ct (Cent).'}; },
+  () => { const e = rnd(1, 5), c = rnd(1, 9) * 10; return {p:`${e},${c} € = ? ct`, a:e * 100 + c, u:'ct', h:`${e} € = ${e * 100} ct. Dann noch ${c} ct dazu.`}; },
+  () => { const k = rnd(1, 5); return {p:`${k} kg = ? g`, a:k * 1000, u:'g', h:'1 kg = 1000 g.'}; },
+  () => { const h = rnd(1, 3); return {p:`${h} h = ? min`, a:h * 60, u:'min', h:'1 Stunde (h) = 60 Minuten (min).'}; },
+  () => { const w = rnd(1, 4); return {p:`${w} ${w === 1 ? 'Woche' : 'Wochen'} = ? Tage`, a:w * 7, u:'Tage', h:'1 Woche = 7 Tage.'}; }
+];
+addEx({id:'m3-groessen', klasse:3, fach:'mathe', title:'Größen umrechnen', emo:'📏', desc:'Meter, Euro, Kilogramm, Zeit',
+  gen(){
+    const g = pick(GR)();
+    return {type:'num', key:g.p, answer:g.a, unit:g.u, maxLen:4, prompt:`<span class="calc" style="font-size:40px">${esc(g.p)}</span>`, hint:() => g.h};
+  }});
+
+/* =========================================================
+   KLASSE 3 – DEUTSCH
+   ========================================================= */
+const WA = {
+  Nomen:['Hund','Schule','Baum','Freundin','Tisch','Apfel','Sonne','Lehrer','Fahrrad','Wasser','Garten','Buch','Katze','Stadt','Ball'],
+  Verb:['laufen','spielen','lesen','schreiben','essen','schwimmen','singen','malen','springen','lachen','schlafen','rennen','trinken','tanzen','fliegen'],
+  Adjektiv:['groß','klein','schnell','langsam','laut','leise','schön','rot','warm','kalt','lustig','müde','hell','dunkel','süß']
+};
+addEx({id:'d3-wortarten', klasse:3, fach:'deutsch', title:'Wortarten', emo:'🏷️', desc:'Nomen, Verb oder Adjektiv?',
+  gen(){
+    const art = pick(Object.keys(WA)), w = pick(WA[art]);
+    return choiceTask({key:w, prompt:`Was für ein Wort ist das?<div class="wbig">${esc(w.toUpperCase())}</div>`, right:art, wrong:Object.keys(WA).filter(x => x !== art),
+      after:`Man schreibt: <b>${esc(w)}</b> – ${art === 'Nomen' ? 'groß, weil es ein Nomen ist.' : 'klein, weil es kein Nomen ist.'}`,
+      hint:() => 'Mach die Proben:<br><b>Nomen:</b> Kann man der, die oder das davor sagen? (der Hund)<br><b>Verb:</b> Kann man „ich …“ sagen? (ich laufe)<br><b>Adjektiv:</b> Beschreibt es, wie etwas ist? (Der Hund ist groß.)'});
+  }});
+const ART = [['Hund','der'],['Katze','die'],['Haus','das'],['Baum','der'],['Blume','die'],['Auto','das'],['Tisch','der'],['Schule','die'],['Buch','das'],['Apfel','der'],
+  ['Banane','die'],['Fahrrad','das'],['Löffel','der'],['Gabel','die'],['Messer','das'],['Stuhl','der'],['Tür','die'],['Fenster','das'],['Mond','der'],['Sonne','die'],
+  ['Pferd','das'],['Vogel','der'],['Maus','die'],['Schaf','das'],['Teller','der'],['Tasse','die'],['Glas','das'],['Schrank','der'],['Lampe','die'],['Bett','das']];
+addEx({id:'d3-artikel', klasse:3, fach:'deutsch', title:'Der, die oder das?', emo:'🎯', desc:'Den richtigen Begleiter finden',
+  gen(){
+    const [w, a] = pick(ART);
+    return choiceTask({key:w, prompt:`Welcher Begleiter passt?<div class="wbig">___ ${esc(w)}</div>`, right:a, wrong:['der','die','das'].filter(x => x !== a), optClass:'nums',
+      after:`<b>${a} ${esc(w)}</b>`, hint:() => `Sag es laut: der ${w}? die ${w}? das ${w}? Was klingt richtig?`});
+  }});
+const MZ = [['der Hund','die Hunde','die Hunds','die Hünde'],['die Katze','die Katzen','die Katzes','die Kätze'],['das Haus','die Häuser','die Hause','die Hausen'],
+  ['der Baum','die Bäume','die Baume','die Bäumer'],['das Kind','die Kinder','die Kinde','die Kinds'],['die Maus','die Mäuse','die Mausen','die Mäuser'],
+  ['der Apfel','die Äpfel','die Apfeln','die Apfels'],['das Buch','die Bücher','die Buchen','die Buche'],['die Blume','die Blumen','die Blumes','die Blüme'],
+  ['der Stuhl','die Stühle','die Stuhlen','die Stuhls'],['das Auto','die Autos','die Auten','die Autoe'],['die Hand','die Hände','die Handen','die Hands'],
+  ['der Vogel','die Vögel','die Vogeln','die Vogels'],['das Ei','die Eier','die Eis','die Eien'],['die Nuss','die Nüsse','die Nussen','die Nüsser'],
+  ['der Ball','die Bälle','die Balls','die Ballen'],['das Bild','die Bilder','die Bilde','die Bilds'],['die Tür','die Türen','die Türe','die Türs'],
+  ['der Zahn','die Zähne','die Zahne','die Zähner'],['das Glas','die Gläser','die Glase','die Glasen'],['die Stadt','die Städte','die Stadten','die Stadts'],
+  ['der Fuß','die Füße','die Fußen','die Fuße'],['das Schaf','die Schafe','die Schäfe','die Schafen'],['die Kuh','die Kühe','die Kuhen','die Kuhs'],
+  ['der Freund','die Freunde','die Freünde','die Freunds']];
+addEx({id:'d3-mehrzahl', klasse:3, fach:'deutsch', title:'Einzahl und Mehrzahl', emo:'👥', desc:'Wie heißt die Mehrzahl?',
+  gen(){
+    const q = pick(MZ);
+    return choiceTask({key:q[0], prompt:`Einzahl: <b>${esc(q[0])}</b><br>Wie heißt die Mehrzahl?`, right:q[1], wrong:q.slice(2), optClass:'wide',
+      hint:() => `Sag es laut: ein ${q[0].split(' ')[1]}, zwei …? Welche Form hast du schon oft gehört?`});
+  }});
+const ZF = [['ich gehe','ich ging','ich gehte','ich gang'],['ich laufe','ich lief','ich laufte','ich luf'],['ich spiele','ich spielte','ich spol','ich spielete'],
+  ['ich esse','ich aß','ich esste','ich iss'],['ich trinke','ich trank','ich trinkte','ich trunk'],['ich lese','ich las','ich leste','ich lies'],
+  ['ich schreibe','ich schrieb','ich schreibte','ich schrob'],['ich singe','ich sang','ich singte','ich sung'],['ich komme','ich kam','ich kommte','ich kom'],
+  ['ich sehe','ich sah','ich sehte','ich sih'],['ich male','ich malte','ich mol','ich malete'],['ich lache','ich lachte','ich luch','ich lachete'],
+  ['ich springe','ich sprang','ich springte','ich sprung'],['ich schwimme','ich schwamm','ich schwimmte','ich schwumm'],['ich schlafe','ich schlief','ich schlafte','ich schluf'],
+  ['ich fahre','ich fuhr','ich fahrte','ich fahr'],['ich finde','ich fand','ich findete','ich fund'],['ich rufe','ich rief','ich rufte','ich ruf'],
+  ['ich tanze','ich tanzte','ich tunz','ich tanzete'],['ich baue','ich baute','ich bieb','ich bauete'],['ich gebe','ich gab','ich gebte','ich gib'],
+  ['ich nehme','ich nahm','ich nehmte','ich nimm'],['ich bin','ich war','ich binte','ich ware'],['ich habe','ich hatte','ich habte','ich hab']];
+addEx({id:'d3-zeitformen', klasse:3, fach:'deutsch', title:'Gegenwart und Vergangenheit', emo:'⏳', desc:'Was war gestern?',
+  gen(){
+    const q = pick(ZF);
+    return choiceTask({key:q[0], prompt:`Heute: <b>${esc(q[0])}</b>.<br>Gestern: … ?`, right:q[1], wrong:q.slice(2), optClass:'wide',
+      hint:() => 'Manche Verben ändern sich ganz (gehen → ging). Andere bekommen nur -te (spielen → spielte). Sag den Satz laut: „Gestern …“'});
+  }});
+const RS_HINT = {
+  ie:'Ein langes i schreibt man meistens ie: Bie-ne.',
+  dk:'Nach einem kurzen Selbstlaut kommen oft zwei gleiche Mitlaute: Son-ne.',
+  er:'Am Wortende hört man oft „a“ – geschrieben wird aber -er.',
+  ck:'Nach einem kurzen Selbstlaut schreibt man ck statt kk und tz statt zz.',
+  h:'In diesem Wort steht ein Dehnungs-h. Das muss man sich merken.',
+  'äu':'Gibt es ein verwandtes Wort mit au? Haus → Häuser, Baum → Bäume.',
+  ausl:'Verlängere das Wort: Hund → Hun-de. Dann hörst du, ob am Ende d oder t, g oder k, b oder p steht.',
+  v:'Das ist ein Merkwort mit V.',
+  'ß':'Nach einem langen Selbstlaut schreibt man ß: Stra-ße, Fü-ße.'
+};
+const RS = [['Biene','Bine','Bihne','ie'],['Spiegel','Spigel','Spiegl','ie'],['Wiese','Wise','Wiehse','ie'],['Tier','Tir','Tiehr','ie'],
+  ['Zimmer','Zimer','Zimma','dk'],['Sonne','Sone','Sohne','dk'],['Wasser','Waser','Wassa','dk'],['Butter','Buter','Butta','dk'],
+  ['Kinder','Kinda','Kindar','er'],['Fenster','Fensta','Fenstr','er'],['Brücke','Brüke','Brükke','ck'],['Katze','Kaze','Kazze','ck'],['Glück','Glük','Glükk','ck'],
+  ['Uhr','Ur','Uhhr','h'],['Stuhl','Stul','Stuul','h'],['Zahn','Zan','Zaan','h'],
+  ['Fahrrad','Farrad','Fahrad','Fahr-rad kommt von fahren und Rad: also mit h und mit zwei r.'],
+  ['Mädchen','Medchen','Mätchen','Mädchen ist ein Merkwort mit ä.'],['Häuser','Heuser','Hoiser','äu'],['Bäume','Beume','Boime','äu'],
+  ['Kälte','Kelte','Källte','Hier hilft ein verwandtes Wort mit a: kalt → Kälte.'],
+  ['Hund','Hunt','Hundt','ausl'],['Wald','Walt','Wahld','ausl'],['Berg','Berk','Bärg','ausl'],['Korb','Korp','Korbb','ausl'],
+  ['Vogel','Fogel','Vogl','v'],['Vater','Fater','Vata','v'],['Straße','Strahse','Strase','ß'],['Fuß','Fuss','Fus','ß'],
+  ['Schule','Schuhle','Shule','Schule schreibt man mit sch und ohne h.'],['Freund','Froind','Freunt','Den Laut „oi“ schreibt man hier eu. Verlängere: Freun-de.'],
+  ['Fisch','Fish','Visch','Den Laut „sch“ schreibt man mit drei Buchstaben: s-c-h.'],['Pferd','Ferd','Pfert','Am Anfang steht Pf. Verlängere: Pfer-de – also d am Ende.']];
+addEx({id:'d3-rechtschreibung', klasse:3, fach:'deutsch', title:'Rechtschreibung', emo:'✍️', desc:'Welches Wort ist richtig geschrieben?',
+  gen(){
+    const q = pick(RS);
+    return choiceTask({key:q[0], prompt:'Welches Wort ist richtig geschrieben?', right:q[0], wrong:[q[1], q[2]], optClass:'wide', hint:() => RS_HINT[q[3]] || q[3]});
+  }});
+const DIK = ['Fahrrad','Schule','Freund','Straße','Wasser','Fenster','Brücke','Katze','Biene','Spiegel','Zimmer','Mädchen','Bäume','Stuhl','Zahn','Tier','Vogel','Kinder','Pferd','Hund'];
+addEx({id:'d3-diktat', klasse:3, fach:'deutsch', title:'Hör-Diktat', emo:'🎧', desc:'Hören und das Wort legen',
+  gen(){
+    const word = pick(DIK), extra = pickN('ehstdkri'.split(''), 2);
+    const tiles = shuffle(word.split('').concat(extra));
+    return {type:'tiles', key:word, word, tiles, prompt:'Hör gut zu und lege das Wort.', visual:emoBig('🎧'), say:`Schreib das Wort: ${word}.`, autoSay:true,
+      hint:() => 'Sprich das Wort langsam in Silben mit.'};
+  }});
+addEx({id:'d3-texte', klasse:3, fach:'deutsch', title:'Lesetexte', emo:'📚', desc:'Geschichten lesen, vorlesen, zusammen lesen und Fragen', link:'#/lesen'});
+
+/* =========================================================
+   ENGLISCH (Klasse 1 und 3)
+   ========================================================= */
+const EN = {
+  colours:[{en:'red',de:'rot',sw:'#E53935'},{en:'blue',de:'blau',sw:'#1E66F5'},{en:'green',de:'grün',sw:'#2E9E44'},{en:'yellow',de:'gelb',sw:'#FACC15'},
+    {en:'orange',de:'orange',sw:'#F97316'},{en:'purple',de:'lila',sw:'#8B5CF6'},{en:'black',de:'schwarz',sw:'#111111'},{en:'white',de:'weiß',sw:'#FFFFFF'},
+    {en:'brown',de:'braun',sw:'#8B5A2B'},{en:'pink',de:'rosa',sw:'#F472B6'},{en:'grey',de:'grau',sw:'#9CA3AF'}],
+  numbers:['one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen','twenty']
+    .map((en, i) => ({en, num:i + 1, de:['eins','zwei','drei','vier','fünf','sechs','sieben','acht','neun','zehn','elf','zwölf','dreizehn','vierzehn','fünfzehn','sechzehn','siebzehn','achtzehn','neunzehn','zwanzig'][i]})),
+  animals:[{en:'dog',de:'Hund',emo:'🐶'},{en:'cat',de:'Katze',emo:'🐱'},{en:'mouse',de:'Maus',emo:'🐭'},{en:'horse',de:'Pferd',emo:'🐴'},{en:'cow',de:'Kuh',emo:'🐮'},
+    {en:'pig',de:'Schwein',emo:'🐷'},{en:'sheep',de:'Schaf',emo:'🐑'},{en:'bird',de:'Vogel',emo:'🐦'},{en:'fish',de:'Fisch',emo:'🐟'},{en:'rabbit',de:'Hase',emo:'🐰'},
+    {en:'duck',de:'Ente',emo:'🦆'},{en:'frog',de:'Frosch',emo:'🐸'},{en:'lion',de:'Löwe',emo:'🦁'},{en:'elephant',de:'Elefant',emo:'🐘'},{en:'monkey',de:'Affe',emo:'🐵'},
+    {en:'bear',de:'Bär',emo:'🐻'},{en:'tiger',de:'Tiger',emo:'🐯'},{en:'snake',de:'Schlange',emo:'🐍'},{en:'giraffe',de:'Giraffe',emo:'🦒'},{en:'owl',de:'Eule',emo:'🦉'}],
+  food:[{en:'apple',de:'Apfel',emo:'🍎'},{en:'banana',de:'Banane',emo:'🍌'},{en:'bread',de:'Brot',emo:'🍞'},{en:'cheese',de:'Käse',emo:'🧀'},{en:'egg',de:'Ei',emo:'🥚'},
+    {en:'milk',de:'Milch',emo:'🥛'},{en:'pizza',de:'Pizza',emo:'🍕'},{en:'cake',de:'Kuchen',emo:'🍰'},{en:'carrot',de:'Karotte',emo:'🥕'},{en:'tomato',de:'Tomate',emo:'🍅'},
+    {en:'strawberry',de:'Erdbeere',emo:'🍓'},{en:'ice cream',de:'Eis',emo:'🍦'},{en:'chocolate',de:'Schokolade',emo:'🍫'},{en:'orange',de:'Orange',emo:'🍊'},
+    {en:'grapes',de:'Weintrauben',emo:'🍇'},{en:'juice',de:'Saft',emo:'🧃'},{en:'sandwich',de:'Sandwich',emo:'🥪'},{en:'potato',de:'Kartoffel',emo:'🥔'}],
+  body:[{en:'eye',de:'Auge',emo:'👁️'},{en:'ear',de:'Ohr',emo:'👂'},{en:'nose',de:'Nase',emo:'👃'},{en:'mouth',de:'Mund',emo:'👄'},{en:'hand',de:'Hand',emo:'✋'},
+    {en:'foot',de:'Fuß',emo:'🦶'},{en:'leg',de:'Bein',emo:'🦵'},{en:'arm',de:'Arm',emo:'💪'},{en:'tooth',de:'Zahn',emo:'🦷'},{en:'tongue',de:'Zunge',emo:'👅'},{en:'face',de:'Gesicht',emo:'🙂'}],
+  clothes:[{en:'T-shirt',de:'T-Shirt',emo:'👕'},{en:'trousers',de:'Hose',emo:'👖'},{en:'dress',de:'Kleid',emo:'👗'},{en:'shoes',de:'Schuhe',emo:'👟'},{en:'socks',de:'Socken',emo:'🧦'},
+    {en:'cap',de:'Mütze',emo:'🧢'},{en:'scarf',de:'Schal',emo:'🧣'},{en:'gloves',de:'Handschuhe',emo:'🧤'},{en:'jacket',de:'Jacke',emo:'🧥'},{en:'boots',de:'Stiefel',emo:'👢'},{en:'glasses',de:'Brille',emo:'👓'}],
+  school:[{en:'pen',de:'Kuli',emo:'🖊️'},{en:'pencil',de:'Bleistift',emo:'✏️'},{en:'book',de:'Buch',emo:'📕'},{en:'ruler',de:'Lineal',emo:'📏'},{en:'scissors',de:'Schere',emo:'✂️'},
+    {en:'schoolbag',de:'Schulranzen',emo:'🎒'},{en:'crayon',de:'Wachsmalstift',emo:'🖍️'},{en:'computer',de:'Computer',emo:'💻'},{en:'clock',de:'Uhr',emo:'🕐'},{en:'paper',de:'Papier',emo:'📄'}],
+  family:[{en:'mother',de:'Mutter',emo:'👩'},{en:'father',de:'Vater',emo:'👨'},{en:'sister',de:'Schwester',emo:'👧'},{en:'brother',de:'Bruder',emo:'👦'},
+    {en:'grandma',de:'Oma',emo:'👵'},{en:'grandpa',de:'Opa',emo:'👴'},{en:'baby',de:'Baby',emo:'👶'},{en:'family',de:'Familie',emo:'👨‍👩‍👧'}],
+  weather:[{en:'sunny',de:'sonnig',emo:'☀️'},{en:'rainy',de:'regnerisch',emo:'🌧️'},{en:'snowy',de:'verschneit',emo:'❄️'},{en:'windy',de:'windig',emo:'💨'},
+    {en:'cloudy',de:'bewölkt',emo:'☁️'},{en:'stormy',de:'stürmisch',emo:'⛈️'},{en:'rainbow',de:'Regenbogen',emo:'🌈'}]
+};
+function vocabVis(x, big){
+  if(x.sw) return `<span class="sw${big ? ' big' : ''}" style="background:${x.sw}"></span>`;
+  if(x.num != null) return `<span class="bignum" style="font-size:${big ? 96 : 56}px">${x.num}</span>`;
+  return `<span class="${big ? 'emo-big' : 'emo'}">${x.emo}</span>`;
+}
+function vocabEx(id, kl, title, emo, bank, modes){
+  addEx({id, klasse:kl, fach:'englisch', title, emo, desc: kl === 1 ? 'Hören und das richtige Bild antippen' : 'Hören, lesen und übersetzen',
+    gen(){
+      const it = pick(bank), others = pickN(bank, 3, it), mode = pick(modes), find = en => bank.find(b => b.en === en);
+      const base = {key:it.en, right:it.en, wrong:others.map(o => o.en), after:`<b>${esc(it.en)}</b> = ${esc(it.de)}`, okEn:it.en};
+      if(mode === 'hear') return choiceTask(Object.assign(base, {prompt:'Hör zu: Welches Bild passt?', sayEn:it.en, render: v => vocabVis(find(v)), optClass:'pics',
+        hint:() => 'Hör noch einmal ganz genau hin.', hintEn:it.en}));
+      if(mode === 'read') return choiceTask(Object.assign(base, {prompt:'Wie heißt das auf Englisch?', visual:vocabVis(it, true),
+        hint:() => `Auf Deutsch heißt es: <b>${esc(it.de)}</b>.`}));
+      return choiceTask(Object.assign(base, {prompt:`Was heißt <b>${esc(it.de)}</b> auf Englisch?`, hint:() => 'So sieht es aus: ' + vocabVis(it)}));
+    }});
+}
+vocabEx('e1-colours', 1, 'Colours – Farben', '🎨', EN.colours, ['hear']);
+vocabEx('e1-numbers', 1, 'Numbers 1–10', '🔟', EN.numbers.slice(0, 10), ['hear']);
+vocabEx('e1-animals', 1, 'Animals – Tiere', '🐶', EN.animals.slice(0, 12), ['hear']);
+vocabEx('e1-food', 1, 'Food – Essen', '🍎', EN.food.slice(0, 12), ['hear']);
+const M3 = ['hear','read','translate'];
+vocabEx('e3-colours', 3, 'Colours – Farben', '🎨', EN.colours, M3);
+vocabEx('e3-numbers', 3, 'Numbers 1–20', '🔢', EN.numbers, M3);
+vocabEx('e3-animals', 3, 'Animals – Tiere', '🐶', EN.animals, M3);
+vocabEx('e3-food', 3, 'Food – Essen', '🍎', EN.food, M3);
+vocabEx('e3-body', 3, 'My body – Körper', '✋', EN.body, M3);
+vocabEx('e3-clothes', 3, 'Clothes – Kleidung', '👕', EN.clothes, M3);
+vocabEx('e3-school', 3, 'School – Schulsachen', '🎒', EN.school, M3);
+vocabEx('e3-family', 3, 'Family – Familie', '👨‍👩‍👧', EN.family, M3);
+vocabEx('e3-weather', 3, 'Weather – Wetter', '🌦️', EN.weather, M3);
+
+/* =========================================================
+   SACHUNTERRICHT
+   [Frage, richtig, falsch, falsch, Bild]
+   ========================================================= */
+function quizEx(id, kl, title, emo, bank){
+  addEx({id, klasse:kl, fach:'sachunterricht', title, emo, desc:`${bank.length} Fragen`,
+    gen(){
+      const q = pick(bank);
+      return choiceTask({key:q[0], prompt:esc(q[0]), say:q[0], sayOpts: kl === 1, right:q[1], wrong:q.slice(2, 4), visual: q[4] ? emoBig(q[4]) : '', optClass:'wide',
+        hint:() => 'Lies die Frage noch einmal genau. Überleg, was du schon weißt.'});
+    }});
+}
+quizEx('s1-zeit', 1, 'Tage und Jahreszeiten', '📅', [
+  ['Wie viele Tage hat eine Woche?','7','5','10','📅'],
+  ['Welcher Tag kommt nach Montag?','Dienstag','Sonntag','Freitag','📅'],
+  ['Welcher Tag kommt vor Sonntag?','Samstag','Montag','Mittwoch','📅'],
+  ['In welcher Jahreszeit fällt oft Schnee?','Im Winter','Im Sommer','Im Frühling','❄️'],
+  ['In welcher Jahreszeit fallen die Blätter von den Bäumen?','Im Herbst','Im Frühling','Im Sommer','🍂'],
+  ['Wann blühen nach dem Winter die ersten Blumen?','Im Frühling','Im Herbst','Im Winter','🌷'],
+  ['In welcher Jahreszeit ist es am wärmsten?','Im Sommer','Im Winter','Im Herbst','☀️'],
+  ['Wie viele Jahreszeiten gibt es?','4','2','7','🌍'],
+  ['Wie viele Monate hat ein Jahr?','12','10','7','🗓️'],
+  ['Was machst du am Morgen?','Frühstücken','Abendbrot essen','Schlafen gehen','🌅'],
+  ['Wann ist es draußen dunkel und die Sterne leuchten?','In der Nacht','Am Mittag','Am Morgen','🌙'],
+  ['An welchen Tagen ist meistens keine Schule?','Samstag und Sonntag','Montag und Dienstag','Mittwoch und Donnerstag','🏫']]);
+quizEx('s1-koerper', 1, 'Körper und Sinne', '👀', [
+  ['Womit siehst du?','Mit den Augen','Mit den Ohren','Mit der Nase','👀'],
+  ['Womit hörst du?','Mit den Ohren','Mit den Augen','Mit den Händen','👂'],
+  ['Womit riechst du?','Mit der Nase','Mit den Füßen','Mit den Ohren','👃'],
+  ['Womit schmeckst du?','Mit der Zunge','Mit den Augen','Mit den Haaren','👅'],
+  ['Womit fühlst du, ob etwas weich ist?','Mit der Haut','Mit den Ohren','Mit der Nase','✋'],
+  ['Wie viele Finger hast du an einer Hand?','5','4','10','🖐️'],
+  ['Wie oft am Tag solltest du die Zähne putzen?','Zweimal','Gar nicht','Einmal in der Woche','🪥'],
+  ['Was ist gut für deine Zähne?','Ein Apfel','Viele Bonbons','Limonade','🦷'],
+  ['Was solltest du vor dem Essen tun?','Hände waschen','Fernsehen','Schuhe anziehen','🧼'],
+  ['Was hilft, wenn du müde bist?','Schlafen','Bonbons essen','Laut schreien','😴'],
+  ['Wie viele Sinne hat der Mensch?','5','2','9','🧠'],
+  ['Wo ist dein Knie?','Am Bein','Am Arm','Am Kopf','🦵']]);
+quizEx('s1-verkehr', 1, 'Sicher unterwegs', '🚦', [
+  ['Bei welcher Ampelfarbe darfst du gehen?','Grün','Rot','Gelb','🚦'],
+  ['Was bedeutet Rot an der Ampel?','Stehen bleiben','Schnell laufen','Hüpfen','🚦'],
+  ['Wo gehst du am sichersten über die Straße?','An der Ampel oder am Zebrastreifen','Zwischen parkenden Autos','Hinter einer Kurve','🦓'],
+  ['Wohin schaust du, bevor du über die Straße gehst?','Links, rechts und noch mal links','Nur nach oben','Gar nicht','👀'],
+  ['Was trägst du beim Fahrradfahren auf dem Kopf?','Einen Helm','Eine Mütze','Eine Krone','🚲'],
+  ['Warum trägst du im Dunkeln Reflektoren?','Damit Autofahrer dich sehen','Weil sie warm halten','Weil sie schön klingeln','🌙'],
+  ['Wo gehen Fußgänger?','Auf dem Gehweg','Mitten auf der Straße','Auf den Schienen','🚶'],
+  ['Ein Ball rollt auf die Straße. Was machst du?','Stehen bleiben und einen Erwachsenen fragen','Sofort hinterherrennen','Die Augen zumachen','⚽'],
+  ['Wo sitzt du im Auto?','Hinten im Kindersitz, angeschnallt','Vorne auf dem Schoß','Im Kofferraum','🚗'],
+  ['Welche Nummer rufst du in einem Notfall an?','112','123','999','🚑'],
+  ['Wie heißen die weißen Streifen auf der Straße zum Hinübergehen?','Zebrastreifen','Tigerstreifen','Regenbogen','🦓'],
+  ['Was machst du, wenn ein Fremder dich mitnehmen will?','Nein sagen und weggehen','Einfach mitgehen','Ins Auto steigen','🙅']]);
+quizEx('s3-tiere', 3, 'Tiere', '🦔', [
+  ['Welches Tier hält Winterschlaf?','Der Igel','Der Fuchs','Das Reh','🦔'],
+  ['Was frisst ein Igel am liebsten?','Käfer, Würmer und Schnecken','Äpfel und Birnen','Gras und Heu','🦔'],
+  ['Wie nennt man Tiere, die nur Pflanzen fressen?','Pflanzenfresser','Fleischfresser','Allesfresser','🐄'],
+  ['Wie nennt man ein junges Pferd?','Fohlen','Kalb','Ferkel','🐴'],
+  ['Wie nennt man ein junges Schwein?','Ferkel','Lamm','Küken','🐷'],
+  ['Wie viele Beine hat ein Insekt?','6','8','4','🐞'],
+  ['Wie viele Beine hat eine Spinne?','8','6','10','🕷️'],
+  ['Wie atmen Fische?','Mit Kiemen','Mit einer Lunge','Durch die Flossen','🐟'],
+  ['Woraus entwickelt sich ein Frosch?','Aus einer Kaulquappe','Aus einer Raupe','Aus einem Küken','🐸'],
+  ['Was wird aus einer Raupe?','Ein Schmetterling','Eine Biene','Ein Käfer','🦋'],
+  ['Welches dieser Tiere ist ein Säugetier?','Der Hund','Das Huhn','Die Forelle','🐶'],
+  ['Welches Tier ist vor allem nachts unterwegs?','Die Eule','Das Eichhörnchen','Die Biene','🦉'],
+  ['Was machen Zugvögel im Herbst?','Sie fliegen in wärmere Länder','Sie halten Winterschlaf','Sie bauen Nester im Schnee','🐦'],
+  ['Welches Tier gibt uns Wolle?','Das Schaf','Die Kuh','Das Pferd','🐑'],
+  ['Wie heißt die Wohnung eines Fuchses?','Bau','Nest','Stall','🦊']]);
+quizEx('s3-pflanzen', 3, 'Pflanzen und Wald', '🌳', [
+  ['Was braucht eine Pflanze zum Wachsen?','Licht, Wasser und Erde','Nur Dunkelheit','Nur Zucker','🌱'],
+  ['Wie heißen die drei Teile eines Baumes?','Wurzel, Stamm und Krone','Kopf, Bauch und Fuß','Rinde, Ast und Apfel','🌳'],
+  ['Was machen die Wurzeln?','Sie nehmen Wasser aus dem Boden auf','Sie machen Blüten','Sie fangen Insekten','🌳'],
+  ['Welcher Baum ist ein Laubbaum?','Die Eiche','Die Tanne','Die Fichte','🍂'],
+  ['Welcher Baum ist ein Nadelbaum?','Die Tanne','Die Buche','Die Birke','🌲'],
+  ['An welchem Baum wachsen Eicheln?','An der Eiche','An der Kastanie','An der Birke','🌰'],
+  ['Wer bestäubt viele Blüten?','Bienen','Regenwürmer','Fische','🐝'],
+  ['Woraus wächst eine neue Pflanze?','Aus einem Samen','Aus einem Stein','Aus einem Blatt Papier','🌻'],
+  ['Warum verlieren Laubbäume im Herbst ihre Blätter?','Damit sie im Winter nicht zu viel Wasser verlieren','Weil sie müde sind','Weil die Blätter zu schwer werden','🍁'],
+  ['Was geben Pflanzen an die Luft ab, das wir zum Atmen brauchen?','Sauerstoff','Rauch','Salz','🌿'],
+  ['Welche Frucht wächst an einem Baum?','Der Apfel','Die Kartoffel','Die Erdbeere','🍎'],
+  ['Welche Blume blüht schon ganz früh im Jahr?','Das Schneeglöckchen','Die Sonnenblume','Die Herbstaster','🌷']]);
+quizEx('s3-koerper', 3, 'Körper und Gesundheit', '❤️', [
+  ['Welches Organ pumpt das Blut durch den Körper?','Das Herz','Die Lunge','Der Magen','❤️'],
+  ['Womit atmen wir?','Mit der Lunge','Mit dem Magen','Mit dem Herzen','🌬️'],
+  ['Wie viele Zähne hat ein Erwachsener ungefähr?','32','12','100','🦷'],
+  ['Wie heißen die ersten Zähne von Kindern?','Milchzähne','Weisheitszähne','Goldzähne','🦷'],
+  ['Was gibt dem Körper Halt?','Das Skelett','Die Haare','Die Fingernägel','🦴'],
+  ['Wie viele Knochen hat ein Erwachsener ungefähr?','Etwa 200','Etwa 20','Etwa 2000','🦴'],
+  ['Was solltest du jeden Tag viel trinken?','Wasser','Limonade','Cola','💧'],
+  ['Was enthält viele Vitamine?','Obst und Gemüse','Chips','Gummibärchen','🥦'],
+  ['Wohin kommt das Essen nach dem Schlucken?','In den Magen','In die Lunge','Ins Herz','🍽️'],
+  ['Was passiert mit deinem Herzschlag, wenn du rennst?','Er wird schneller','Er hört auf','Er wird langsamer','🏃'],
+  ['Wie lange solltest du die Zähne putzen?','Etwa 2 bis 3 Minuten','5 Sekunden','Eine Stunde','🪥'],
+  ['Warum niest man in die Armbeuge?','Damit sich Krankheitserreger nicht verbreiten','Damit es lauter ist','Weil es lustig ist','🤧']]);
+quizEx('s3-wetter', 3, 'Wetter und Wasser', '🌦️', [
+  ['In welchen drei Formen gibt es Wasser?','Fest, flüssig und gasförmig','Hart, weich und bunt','Groß, klein und mittel','💧'],
+  ['Bei wie viel Grad gefriert Wasser?','0 Grad','100 Grad','50 Grad','❄️'],
+  ['Bei wie viel Grad kocht Wasser?','100 Grad','0 Grad','30 Grad','♨️'],
+  ['Wie heißt Wasser, wenn es ein Gas ist?','Wasserdampf','Eis','Schnee','☁️'],
+  ['Woraus bestehen Wolken?','Aus winzigen Wassertröpfchen','Aus Watte','Aus Rauch','☁️'],
+  ['Womit misst man die Temperatur?','Mit einem Thermometer','Mit einem Lineal','Mit einer Waage','🌡️'],
+  ['Was zeigt eine Windfahne?','Woher der Wind kommt','Wie warm es ist','Wie viel es regnet','💨'],
+  ['Was kann entstehen, wenn die Sonne in den Regen scheint?','Ein Regenbogen','Ein Gewitter','Schnee','🌈'],
+  ['Was passiert mit einer Pfütze in der Sonne?','Das Wasser verdunstet','Sie wird immer größer','Sie wird zu Eis','☀️'],
+  ['Was ist ein Gewitter?','Regen mit Blitz und Donner','Ein ganz leichter Wind','Ein Sonnenaufgang','⛈️'],
+  ['Was solltest du bei Gewitter nicht tun?','Unter einem einzelnen Baum stehen','Ins Haus gehen','Im Auto sitzen bleiben','⚡'],
+  ['Wie nennt man den Weg des Wassers vom Meer in die Wolken und als Regen zurück?','Wasserkreislauf','Wasserfall','Wasserrad','🔄']]);
+quizEx('s3-orientierung', 3, 'Verkehr und Orientierung', '🧭', [
+  ['Wie viele Haupt-Himmelsrichtungen gibt es?','4','2','8','🧭'],
+  ['In welcher Himmelsrichtung geht die Sonne auf?','Im Osten','Im Westen','Im Norden','🌅'],
+  ['In welcher Himmelsrichtung geht die Sonne unter?','Im Westen','Im Osten','Im Süden','🌇'],
+  ['Wohin zeigt die Kompassnadel?','Nach Norden','Nach Süden','Nach Osten','🧭'],
+  ['Wie nennt man eine verkleinerte Zeichnung einer Gegend von oben?','Landkarte','Foto','Gemälde','🗺️'],
+  ['Welche Farbe haben Flüsse und Seen auf einer Karte meistens?','Blau','Rot','Gelb','🗺️'],
+  ['Welche Form hat ein Stoppschild?','Achteckig','Rund','Dreieckig','🛑'],
+  ['Was bedeutet ein rundes Schild mit rotem Rand?','Ein Verbot','Eine Erlaubnis','Einen Spielplatz','⛔'],
+  ['Mit welchem Arm zeigst du an, dass du nach links abbiegen willst?','Mit dem linken','Mit dem rechten','Mit beiden','🚲'],
+  ['Welche Farbe hat das Rücklicht am Fahrrad?','Rot','Weiß','Grün','🚲'],
+  ['Wie heißt die Hauptstadt von Deutschland?','Berlin','München','Hamburg','🇩🇪'],
+  ['Wie viele Bundesländer hat Deutschland?','16','10','20','🇩🇪']]);
+
+
+function exRowsHTML(){
+  const done = EX.filter(e => !e.link && (S.ex || {})[e.id]);
+  if(!done.length) return '<p class="muted">Noch keine Übungen gemacht.</p>';
+  return `<h3 style="margin-top:18px">Übungen</h3><div style="overflow-x:auto"><table><thead><tr><th>Übung</th><th>Kl.</th><th>Runden</th><th>Bestes</th><th>Zuletzt</th><th>Sterne</th></tr></thead><tbody>`
+    + done.map(e => { const r = S.ex[e.id], f = FAECHER.find(x => x.id === e.fach);
+      return `<tr><td>${f.emo} ${esc(e.title)}</td><td>${e.klasse}</td><td>${r.rounds}</td><td>${r.best}/10</td><td>${r.last != null ? r.last + '/10' : '–'}</td><td>${exStarHTML(e.id)}</td></tr>`; }).join('')
+    + '</tbody></table></div>';
 }
 
 /* =========================================================
@@ -1251,7 +2054,8 @@ function renderParents(){
 
     <div class="panel"><h2>Einstellungen</h2>
       <div class="cols">
-        <label class="field">Name des Kindes<input data-set="childName" value="${esc(st.childName)}" autocomplete="off"></label>
+        <label class="field">Name Kind Klasse 1<input data-set="name1" value="${esc((st.names || {})[1] || '')}" autocomplete="off"></label>
+        <label class="field">Name Kind Klasse 3<input data-set="name3" value="${esc((st.names || {})[3] || '')}" autocomplete="off"></label>
         <label class="field">Wer liest mit?<input data-set="parentName" value="${esc(st.parentName)}" autocomplete="off"></label>
         <label class="field">Vorlese-Tempo<select data-set="rate">${RATES.map(([v,l]) => `<option value="${v}" ${+st.rate === v ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
         <label class="field">Zusammen lesen – wer beginnt?<select data-set="tandemStart">
@@ -1273,6 +2077,7 @@ function renderParents(){
       ${flat.length >= 2 ? chartSVG(flat) : '<p class="muted">Der Verlauf erscheint, sobald zwei Stoppuhr-Runden gelesen wurden.</p>'}
       <p class="muted" style="font-size:15px">Stufe-3-Texte sind schwerer. Am aussagekräftigsten ist der Vergleich mehrerer Runden desselben Textes (Spalte „erste → beste“).</p>
       ${rows ? `<div style="overflow-x:auto"><table><thead><tr><th>Text</th><th>Runden</th><th>W/Min. erste → beste</th><th>Fragen</th><th>Sterne</th></tr></thead><tbody>${rows}</tbody></table></div>` : '<p class="muted">Noch keine Texte gelesen.</p>'}
+      ${exRowsHTML()}
     </div>
 
     <div class="panel"><h2>So übt ihr am wirkungsvollsten</h2>
@@ -1346,6 +2151,7 @@ function importData(file){
       if(!d || typeof d !== 'object' || !d.settings) throw new Error('format');
       S = Object.assign(clone(DEFAULTS), d);
       S.settings = Object.assign(clone(DEFAULTS.settings), d.settings);
+      migrate(S);
       save(); toast('Sicherung geladen ✔'); renderParents(); updateStarsTotal();
     }catch(e){ toast('Diese Datei ist keine gültige Sicherung.'); }
   };
@@ -1377,14 +2183,22 @@ document.addEventListener('click', e => {
     case 'read': go('#/r/' + encodeURIComponent(d.id)); break;
     case 'quiz': go('#/q/' + encodeURIComponent(d.id || R.id || Q.id)); break;
     case 'parents': if(unlocked) go('#/eltern'); else gate(); break;
-    case 'math': go('#/rechnen'); break;
-    case 'mdot': mathToggle(+d.k); break;
-    case 'mok': mathOk(); break;
-    case 'mhelp': mathHelp(); break;
-    case 'mnext': mathNext(); break;
+    case 'klasse': S.settings.klasse = +d.k; save(); renderHome(); updateStarsTotal(); break;
+    case 'fach': go('#/f/' + d.id); break;
+    case 'lesen': go('#/lesen'); break;
+    case 'ex': go('#/u/' + d.id); break;
+    case 'xsel': xSel(+d.k); break;
+    case 'xkey': xKey(d.v); break;
+    case 'xtile': xTile(+d.k); break;
+    case 'xslot': xSlot(+d.p); break;
+    case 'xdot': xDot(+d.k); break;
+    case 'xok': xOk(); break;
+    case 'xhelp': xHelp(); break;
+    case 'xnext': xNext(); break;
+    case 'xsay': speakTask(); break;
     case 'saveName': {
       const v = ($('#nameIn').value || '').trim();
-      if(v){ S.settings.childName = v; save(); renderHome(); }
+      if(v){ S.settings.names = S.settings.names || {}; S.settings.names[klasse()] = v; save(); renderHome(); }
       break;
     }
     case 'mode': setMode(d.m); window.scrollTo({top:0, behavior:'smooth'}); break;
@@ -1431,7 +2245,7 @@ document.addEventListener('click', e => {
     case 'export': exportData(); break;
     case 'reset':
       if(confirm('Wirklich den gesamten Lese-Fortschritt löschen? Einstellungen und eigene Texte bleiben erhalten.')){
-        S.runs = {}; S.quiz = {}; S.done = {}; save(); updateStarsTotal(); renderParents(); toast('Fortschritt gelöscht');
+        S.runs = {}; S.quiz = {}; S.done = {}; S.ex = {}; save(); updateStarsTotal(); renderParents(); toast('Fortschritt gelöscht');
       }
       break;
   }
@@ -1440,6 +2254,9 @@ document.addEventListener('change', e => {
   const el = e.target;
   if(el.id === 'importIn' && el.files && el.files[0]){ importData(el.files[0]); el.value = ''; return; }
   const key = el.dataset && el.dataset.set; if(!key) return;
+  if(key === 'name1' || key === 'name3'){
+    S.settings.names = S.settings.names || {}; S.settings.names[key.slice(4)] = String(el.value).trim(); save(); toast('Gespeichert ✔'); return;
+  }
   let v = el.type === 'checkbox' ? el.checked : el.value;
   if(key === 'rate') v = +v;
   if(key === 'childName' || key === 'parentName') v = String(v).trim();
