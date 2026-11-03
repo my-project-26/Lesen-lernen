@@ -509,7 +509,7 @@ function allTexts(){ return TEXTS.concat(S.custom || []); }
 function getText(id){ return allTexts().find(t => t.id === id); }
 function themeById(id){ return THEMES.find(t => t.id === id); }
 function textsOfTheme(id){
-  return allTexts().filter(t => t.theme === id)
+  return allTexts().filter(t => t.theme === id && (klasse() !== 1 || t.level === 1))
     .sort((a,b) => ((a.custom?1:0)-(b.custom?1:0)) || (a.level-b.level));
 }
 let toastTimer = null;
@@ -689,8 +689,8 @@ function route(){
   else if(a === 'eltern') renderParents();
   else if(a === 'rechnen'){ location.replace('#/u/m1-zehner'); return; }
   else if(a === 'lesen') renderLesen();
-  else if(a === 'f' && FAECHER.find(f => f.id === b)) renderFach(b);
-  else if(a === 'u' && exById(b)) startEx(b);
+  else if(a === 'f' && FAECHER.find(f => f.id === b && fachSichtbar(f))) renderFach(b);
+  else if(a === 'u' && exById(b) && exSichtbar(exById(b))) startEx(b);
   else renderHome();
   updateStarsTotal();
   window.scrollTo(0, 0);
@@ -711,7 +711,7 @@ function renderHome(){
   }
   h += `<h1>${n ? 'Hallo ' + esc(n) + '! 👋' : 'Willkommen! 👋'}</h1>
     <p class="sub">Was möchtest du heute üben?</p><div class="grid">`;
-  FAECHER.forEach(f => {
+  FAECHER.filter(fachSichtbar).forEach(f => {
     const cnt = EX.filter(e => e.fach === f.id && e.klasse === kl).length;
     h += `<button class="theme-card" style="--c:${f.c}" data-act="fach" data-id="${f.id}">
       <span class="emo">${f.emo}</span><span class="nm">${f.name}</span>
@@ -759,7 +759,7 @@ function renderTheme(id){
   const t = themeById(id);
   let h = `<button class="btn small back" data-act="lesen">← Alle Themen</button>
     <h1>${t.emo} ${esc(t.name)}</h1>
-    <p class="sub">Such dir einen Text aus. 🌱 kurz (ca. 80 Wörter), 🌿 mittel (ca. 250), 🌳 lang (ca. 350).</p>
+    <p class="sub">${klasse() === 1 ? 'Such dir einen Text aus.' : 'Such dir einen Text aus. 🌱 kurz (ca. 80 Wörter), 🌿 mittel (ca. 250), 🌳 lang (ca. 350).'}</p>
     <div class="text-list">`;
   textsOfTheme(id).forEach(x => {
     const runs = S.runs[x.id] || [];
@@ -1195,12 +1195,14 @@ function peek(){
 const FAECHER = [
   {id:'deutsch',        name:'Deutsch',        emo:'📖', c:'#FFE3D3'},
   {id:'mathe',          name:'Mathe',          emo:'🔢', c:'#DDF1FF'},
-  {id:'englisch',       name:'Englisch',       emo:'🇬🇧', c:'#E6E1FF'},
+  {id:'englisch',       name:'Englisch',       emo:'🇬🇧', c:'#E6E1FF', nurKlasse:3},
   {id:'sachunterricht', name:'Sachunterricht', emo:'🌍', c:'#D5F5EE'}
 ];
 const EX = [];
 function addEx(d){ d.n = d.n || 10; EX.push(d); }
 function exById(id){ return EX.find(e => e.id === id); }
+function fachSichtbar(f){ return !f.nurKlasse || f.nurKlasse === klasse(); }
+function exSichtbar(e){ const f = FAECHER.find(x => x.id === e.fach); return e.klasse === klasse() && fachSichtbar(f); }
 function klasse(){ return +S.settings.klasse === 1 ? 1 : 3; }
 function kidName(){ const n = S.settings.names || {}; return n[klasse()] || ''; }
 const rnd = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
