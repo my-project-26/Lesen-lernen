@@ -1295,10 +1295,11 @@ function shapeSVG(n, col){ return `<svg viewBox="0 0 120 100" width="110" height
    ENGINE
    ========================================================= */
 let X = {};
-function startEx(id){
+function startEx(id, kat){
   const d = exById(id);
   if(d.link){ go(d.link); return; }
-  X = {d, i:0, right:0, used:{}};
+  if(d.kats && kat === undefined){ renderKatWahl(d); return; }
+  X = {d, i:0, right:0, used:{}, kat: kat || null};
   loadTask();
 }
 function loadTask(){
@@ -1486,7 +1487,7 @@ function exResult(){
     <p class="sub">${X.right === n ? 'Alles beim ersten Versuch – super!' : 'Mit jeder Runde wird es leichter. Probier es gleich nochmal!'}</p>
     <div style="font-size:38px;margin-bottom:8px">${exStarHTML(id)}</div>
     <p class="muted" style="margin:0 0 16px">⭐ ab 5 richtig · ⭐⭐ ab 8 · ⭐⭐⭐ bei 10 von 10</p>
-    <div class="row center"><button class="btn primary" data-act="ex" data-id="${id}">🔁 Nochmal</button>
+    <div class="row center"><button class="btn primary" data-act="xagain">🔁 Nochmal</button>
       <button class="btn" data-act="fach" data-id="${X.d.fach}">Zurück zum Menü</button></div></div>`;
   window.scrollTo(0, 0);
 }
@@ -1582,27 +1583,78 @@ const W1 = [
   ['Brot','🍞','Brot',1],['Dino','🦕','Di-no',1],['Wolke','☁️','Wol-ke',1],['Nudeln','🍝','Nu-deln',1],['Kuchen','🍰','Ku-chen',1],
   ['Melone','🍉','Me-lo-ne',1],['Ananas','🍍','A-na-nas',1],['Zitrone','🍋','Zi-tro-ne',1],['Karotte','🥕','Ka-rot-te',1],['Schokolade','🍫','Scho-ko-la-de',0],
   ['Schmetterling','🦋','Schmet-ter-ling',0],['Gitarre','🎸','Gi-tar-re',1],['Trommel','🥁','Trom-mel',1],['Ring','💍','Ring',1],['Lolli','🍭','Lol-li',1],
-  ['Roller','🛴','Rol-ler',1],['Ampel','🚦','Am-pel',1],['Tasse','☕','Tas-se',1],['Lama','🦙','La-ma',1],['Insel','🏝️','In-sel',1],['Erdbeere','🍓','Erd-bee-re',1]
+  ['Roller','🛴','Rol-ler',1],['Ampel','🚦','Am-pel',1],['Tasse','☕','Tas-se',1],['Lama','🦙','La-ma',1],['Insel','🏝️','In-sel',1],['Erdbeere','🍓','Erd-bee-re',1],
+  ['Affe','🐵','Af-fe',1],['Bär','🐻','Bär',1],['Biene','🐝','Bie-ne',1],['Birne','🍐','Bir-ne',1],['Becher','🥤','Be-cher',1],
+  ['Bett','🛏️','Bett',1],['Blatt','🍃','Blatt',1],['Boot','⛵','Boot',1],['Bus','🚌','Bus',1],['Dose','🥫','Do-se',1],
+  ['Drache','🐉','Dra-che',1],['Daumen','👍','Dau-men',1],['Engel','👼','En-gel',1],['Feder','🪶','Fe-der',1],['Frosch','🐸','Frosch',1],
+  ['Fuchs','🦊','Fuchs',1],['Fuß','🦶','Fuß',1],['Geschenk','🎁','Ge-schenk',1],['Gurke','🥒','Gur-ke',1],['Hase','🐰','Ha-se',1],
+  ['Herz','❤️','Herz',1],['Hahn','🐓','Hahn',1],['Hand','✋','Hand',1],['Jacke','🧥','Ja-cke',1],['Junge','👦','Jun-ge',1],
+  ['Käse','🧀','Kä-se',1],['Kerze','🕯️','Ker-ze',1],['Kirsche','🍒','Kir-sche',1],['Koffer','🧳','Kof-fer',1],['Krone','👑','Kro-ne',1],
+  ['Keks','🍪','Keks',1],['Laterne','🏮','La-ter-ne',1],['Löffel','🥄','Löf-fel',1],['Leiter','🪜','Lei-ter',1],['Mais','🌽','Mais',1],
+  ['Mädchen','👧','Mäd-chen',1],['Milch','🥛','Milch',1],['Mütze','🧢','Müt-ze',1],['Nuss','🥜','Nuss',1],['Ohr','👂','Ohr',1],
+  ['Orange','🍊','O-ran-ge',1],['Paket','📦','Pa-ket',1],['Pilz','🍄','Pilz',1],['Pizza','🍕','Piz-za',1],['Panda','🐼','Pan-da',1],
+  ['Regenbogen','🌈','Re-gen-bo-gen',1],['Robbe','🦭','Rob-be',1],['Raupe','🐛','Rau-pe',1],['Sofa','🛋️','So-fa',1],['Socke','🧦','So-cke',1],
+  ['Salat','🥗','Sa-lat',1],['Seife','🧼','Sei-fe',1],['Suppe','🍲','Sup-pe',1],['Tür','🚪','Tür',1],['Taxi','🚕','Ta-xi',1],
+  ['Teddy','🧸','Ted-dy',1],['Telefon','☎️','Te-le-fon',1],['Torte','🎂','Tor-te',1],['Traktor','🚜','Trak-tor',1],['Ufo','🛸','U-fo',1],
+  ['Wal','🐳','Wal',1],['Wurst','🌭','Wurst',1],['Würfel','🎲','Wür-fel',1],['Wecker','⏰','We-cker',1],['Wolf','🐺','Wolf',1],
+  ['Zahn','🦷','Zahn',1],['Zug','🚂','Zug',1],['Zwiebel','🧅','Zwie-bel',1],['Zelt','⛺','Zelt',1],['Hai','🦈','Hai',1],
+  ['Hexe','🧙‍♀️','He-xe',1],['Glocke','🔔','Glo-cke',1],['Geige','🎻','Gei-ge',1],['Muschel','🐚','Mu-schel',1],['Nashorn','🦏','Nas-horn',1],
+  ['Hirsch','🦌','Hirsch',1],['Kamel','🐪','Ka-mel',1],['Krabbe','🦀','Krab-be',1],['Kürbis','🎃','Kür-bis',1],['Brille','👓','Bril-le',1],
+  ['Besen','🧹','Be-sen',1],['Ballon','🎈','Bal-lon',1],['Flugzeug','✈️','Flug-zeug',1],['Feuer','🔥','Feu-er',1],['Fahrrad','🚲','Fahr-rad',1],
+  ['Gespenst','👻','Ge-spenst',1],['Hamster','🐹','Hams-ter',1],['Hubschrauber','🚁','Hub-schrau-ber',1],['Kaktus','🌵','Kak-tus',1],['Nilpferd','🦛','Nil-pferd',1],
+  ['Papagei','🦜','Pa-pa-gei',1],['Regen','🌧️','Re-gen',1],['Tulpe','🌷','Tul-pe',1],['Wasser','💧','Was-ser',1],['Ziege','🐐','Zie-ge',1],
+  ['Waffel','🧇','Waf-fel',1],['Burger','🍔','Bur-ger',1],['Brezel','🥨','Bre-zel',1],['Ameise','🐜','A-mei-se',1],['Oktopus','🐙','Ok-to-pus',1],
+  ['Lupe','🔍','Lu-pe',1],
+  ['Stuhl','🪑','Stuhl',1],['Spiegel','🪞','Spie-gel',0],['Badewanne','🛁','Ba-de-wan-ne',1],['Dusche','🚿','Du-sche',1],['Fenster','🪟','Fens-ter',1],
+  ['Paprika','🫑','Pa-pri-ka',1],['Brokkoli','🥦','Brok-ko-li',1],['Kartoffel','🥔','Kar-tof-fel',1],['Knoblauch','🧄','Knob-lauch',1],
+  ['Traube','🍇','Trau-be',1],['Pfirsich','🍑','Pfir-sich',0],['Kiwi','🥝','Ki-wi',1],['Mango','🥭','Man-go',1],['Kokosnuss','🥥','Ko-kos-nuss',1],['Heidelbeere','🫐','Hei-del-bee-re',1],
+  ['Sonnenblume','🌻','Son-nen-blu-me',1],['Palme','🌴','Pal-me',1],['Kleeblatt','🍀','Klee-blatt',1],['Hibiskus','🌺','Hi-bis-kus',1],['Blüte','🌼','Blü-te',1],['Pflanze','🪴','Pflan-ze',0],['Kleid','👗','Kleid',1],['Diamant','💎','Di-a-mant',1],['Delfin','🐬','Del-fin',1],['Tanne','🎄','Tan-ne',1]
 ];
 const LETTERS = 'ABDEFGHIKLMNOPRSTUWZ'.split('');
-addEx({id:'d1-anlaut', klasse:1, fach:'deutsch', title:'Anlaute', emo:'🔤', desc:'Mit welchem Buchstaben fängt das Wort an?',
+/* Bereiche für Anlaute, Silben und Wörter lesen */
+const KAT = {
+  'Tiere':['Hund','Katze','Maus','Igel','Ente','Fisch','Tiger','Löwe','Giraffe','Zebra','Pinguin','Krokodil','Elefant','Dino','Lama','Schmetterling','Affe','Bär','Biene','Frosch','Fuchs','Hase','Hahn','Robbe','Raupe','Panda','Wal','Wolf','Hai','Nashorn','Hirsch','Kamel','Krabbe','Hamster','Nilpferd','Papagei','Ziege','Ameise','Oktopus','Delfin','Muschel'],
+  'Obst':['Apfel','Banane','Melone','Ananas','Zitrone','Erdbeere','Birne','Kirsche','Orange','Traube','Pfirsich','Kiwi','Mango','Kokosnuss','Heidelbeere'],
+  'Gemüse':['Tomate','Karotte','Gurke','Mais','Zwiebel','Kürbis','Salat','Paprika','Brokkoli','Kartoffel','Knoblauch','Pilz'],
+  'Möbel & Haus':['Bett','Sofa','Stuhl','Tür','Fenster','Spiegel','Badewanne','Dusche','Lampe','Tasse','Kerze','Löffel','Leiter','Telefon','Wecker','Seife','Besen','Uhr'],
+  'Pflanzen':['Blume','Baum','Rose','Blatt','Tulpe','Kaktus','Tanne','Sonnenblume','Palme','Kleeblatt','Hibiskus','Blüte','Pflanze'],
+  'Essen':['Nudeln','Kuchen','Brot','Eis','Schokolade','Lolli','Käse','Keks','Milch','Pizza','Suppe','Torte','Wurst','Waffel','Burger','Brezel','Nuss']
+};
+const KAT_EMO = {'Tiere':'🐶','Obst':'🍎','Gemüse':'🥕','Möbel & Haus':'🛋️','Pflanzen':'🌷','Essen':'🍕'};
+function w1Pool(onlyAnlaut){
+  let p = W1;
+  if(X.kat && KAT[X.kat]) p = p.filter(w => KAT[X.kat].includes(w[0]));
+  if(onlyAnlaut) p = p.filter(w => w[3]);
+  return p;
+}
+function renderKatWahl(d){
+  const cnt = k => W1.filter(w => (!k || KAT[k].includes(w[0])) && (d.id !== 'd1-anlaut' || w[3])).length;
+  let h = `<button class="btn small back" data-act="fach" data-id="${d.fach}">← Zurück zum Menü</button>
+    <h1>${d.emo} ${esc(d.title)}</h1><p class="sub">Welchen Bereich möchtest du üben?</p><div class="grid">
+    <button class="theme-card" style="--c:#FFF3C9" data-act="xkat" data-id="${d.id}" data-k=""><span class="emo">🌈</span><span class="nm">Alle Wörter</span><span class="pr">${cnt('')} Wörter</span></button>`;
+  Object.keys(KAT).forEach(k => {
+    h += `<button class="theme-card" style="--c:#FFFFFF" data-act="xkat" data-id="${d.id}" data-k="${esc(k)}"><span class="emo">${KAT_EMO[k]}</span><span class="nm">${esc(k)}</span><span class="pr">${cnt(k)} Wörter</span></button>`;
+  });
+  $('#app').innerHTML = h + '</div>';
+}
+addEx({id:'d1-anlaut', klasse:1, fach:'deutsch', title:'Anlaute', emo:'🔤', desc:'Mit welchem Buchstaben fängt das Wort an?', kats:true,
   gen(){
-    const w = pick(W1.filter(x => x[3])), L = w[0][0].toUpperCase();
+    const w = pick(w1Pool(true)), L = w[0][0].toUpperCase();
     return choiceTask({key:w[0], prompt:'Mit welchem Buchstaben fängt das Wort an?', say:`Mit welchem Buchstaben fängt ${w[0]} an?`, visual:emoBig(w[1]),
       right:L, wrong:pickN(LETTERS, 3, L), optClass:'nums', render: v => `${v}<span style="font-weight:400"> ${v.toLowerCase()}</span>`,
       after:`<b>${esc(w[0])}</b>`, hint:() => `Hör genau auf den Anfang: ${w[0]}`});
   }});
-addEx({id:'d1-silben', klasse:1, fach:'deutsch', title:'Silben klatschen', emo:'👏', desc:'Wie viele Silben hat das Wort?',
+addEx({id:'d1-silben', klasse:1, fach:'deutsch', title:'Silben klatschen', emo:'👏', desc:'Wie viele Silben hat das Wort?', kats:true,
   gen(){
-    const w = pick(W1), n = w[2].split('-').length;
+    const w = pick(w1Pool()), n = w[2].split('-').length;
     return choiceTask({key:w[0], prompt:'Wie viele Silben hat das Wort? Klatsch mit!', say:`Klatsch mit: ${w[0]}. Wie viele Silben hat das Wort?`,
       visual:emoBig(w[1]) + `<div class="wbig">${esc(w[0])}</div>`, right:n, wrong:[1,2,3,4].filter(x => x !== n), optClass:'nums',
       render: v => `${v}<br><span style="font-size:18px">${'👏'.repeat(v)}</span>`,
       hint:() => `Klatsch bei jeder Silbe: <span class="bigword" style="font-size:34px">${sylHTML(w[2])}</span>`, hintSay:w[2].split('-').join(' – ')});
   }});
-addEx({id:'d1-lesen', klasse:1, fach:'deutsch', title:'Wörter lesen', emo:'👀', desc:'Lies das Wort und finde das Bild',
+addEx({id:'d1-lesen', klasse:1, fach:'deutsch', title:'Wörter lesen', emo:'👀', desc:'Lies das Wort und finde das Bild', kats:true,
   gen(){
-    const w = pick(W1), others = pickN(W1, 3, w), find = s => W1.find(x => x[0] === s);
+    const pool = w1Pool(), w = pick(pool), others = pickN(pool, 3, w), find = s => W1.find(x => x[0] === s);
     return choiceTask({key:w[0], prompt:`<div class="wbig">${esc(w[0])}</div>Lies das Wort. Welches Bild passt?`, say:'Lies das Wort. Welches Bild passt?',
       right:w[0], wrong:others.map(o => o[0]), render: v => `<span class="emo">${find(v)[1]}</span>`, optClass:'pics', quietHint:true,
       hint:() => `Lies in Silben: <span class="bigword" style="font-size:34px">${sylHTML(w[2])}</span>`});
@@ -2198,6 +2250,8 @@ document.addEventListener('click', e => {
     case 'xhelp': xHelp(); break;
     case 'xnext': xNext(); break;
     case 'xsay': speakTask(); break;
+    case 'xkat': startEx(d.id, d.k); window.scrollTo(0, 0); break;
+    case 'xagain': startEx(X.d.id, X.kat || ''); window.scrollTo(0, 0); break;
     case 'saveName': {
       const v = ($('#nameIn').value || '').trim();
       if(v){ S.settings.names = S.settings.names || {}; S.settings.names[klasse()] = v; save(); renderHome(); }
