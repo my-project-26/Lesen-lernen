@@ -71,10 +71,12 @@ h1{font-size:34px} h2{font-size:26px} h3{font-size:21px}
 .chip{display:inline-block;border-radius:999px;padding:2px 10px;font-weight:700;font-size:15px}
 .chip.c1{background:#BFEBD6} .chip.c2{background:#D9CCFF}
 .rate select{font-size:18px;padding:8px 10px;border-radius:12px;border:2px solid var(--line);background:#fff;margin-left:6px}
-.reading{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:26px clamp(18px,4vw,44px);font-size:var(--fs,30px);line-height:1.95;letter-spacing:.02em;word-spacing:.14em;margin-top:12px}
+.reading{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:26px clamp(16px,4vw,44px);font-size:var(--fs,30px);font-size:min(var(--fs,30px),7.5vw);line-height:1.95;letter-spacing:.02em;word-spacing:.14em;margin-top:12px;width:100%;max-width:100%;white-space:normal;overflow-wrap:break-word;word-wrap:break-word}
+.reading p,.reading h2{max-width:100%;white-space:normal}
+main{width:100%;overflow-wrap:break-word}
 .reading h2{font-size:1.05em;margin-bottom:.4em}
 .reading p{margin:0 0 .8em}
-.sent{border-radius:10px;transition:background .2s,opacity .2s,box-shadow .2s;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.sent{display:inline;border-radius:10px;transition:background .2s,opacity .2s,box-shadow .2s;white-space:normal}
 .focus .sent{opacity:.25}
 .focus .sent.cur{opacity:1}
 .sent.cur{background:#FFF1C9;box-shadow:0 0 0 5px #FFF1C9}
