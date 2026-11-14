@@ -103,7 +103,7 @@ main{width:100%;overflow-wrap:break-word}
 .ans{border:3px solid var(--line);background:#fff;border-radius:18px;padding:16px 18px;font-size:24px;text-align:left;color:var(--ink)}
 .ans.ok{border-color:var(--mint-d);background:var(--mint)}
 .ans.no{border-color:#E5484D;background:#FFE5E5}
-.dots{display:flex;gap:8px;justify-content:center;margin-bottom:12px}
+.dots{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:12px;max-width:640px;margin-left:auto;margin-right:auto}
 .dots span{width:14px;height:14px;border-radius:50%;background:var(--line)}
 .dots span.on{background:var(--mint-d)} .dots span.now{background:var(--coral)}
 label.field{display:block;margin:12px 0;font-weight:700;font-size:17px}
@@ -182,6 +182,23 @@ ul.tips{margin:6px 0 0;padding-left:22px;line-height:1.6;font-size:17px}
 .clock{width:min(250px,68vw);height:auto}
 .stw{border-collapse:collapse;margin:8px auto;font-size:22px;width:auto}
 .stw td,.stw th{border:2px solid #CBD5E1;padding:6px 16px;text-align:center}
+/* Zahlenhaus */
+.haus{width:min(440px,88vw);margin:4px auto 10px}
+.haus svg.dach{display:block;width:100%;height:auto;margin-bottom:-4px}
+.zimmer{display:grid;grid-template-columns:1fr 1fr;border:4px solid #2B2A33;background:#fff}
+.raum{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:14px;aspect-ratio:1/1;align-content:center}
+.raum + .raum{border-left:4px solid #2B2A33}
+.raum.zahl{display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:clamp(48px,12vw,80px);aspect-ratio:auto;min-height:120px}
+.raum.zahl.frage{color:#9AA3AE}
+.hp{aspect-ratio:1/1;border-radius:50%;width:100%}
+.hp.voll{background:#2B2A33}
+.hd{aspect-ratio:1/1;width:100%;border-radius:50%;border:3px dashed #CBD5E1;background:#fff;padding:0;transition:background .12s,transform .1s}
+.hd.on{background:#D94C45;border:3px solid #D94C45}
+.hd.hint{outline:4px dashed var(--coral);outline-offset:3px}
+.hd:active{transform:scale(.9)}
+.hgl{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:44px;display:flex;gap:12px;justify-content:center;align-items:center;margin-bottom:12px}
+.hgl .hb{min-width:64px;padding:0 10px;border:3px solid #2B2A33;border-radius:10px;background:#fff}
+.hgl .hb.offen{border-style:dashed;color:#D94C45}
 @media (max-width:640px){
   .tabs{grid-template-columns:repeat(2,1fr)}
   h1{font-size:28px}
@@ -734,10 +751,10 @@ function renderFach(fid){
     const r = (S.ex || {})[e.id];
     h += `<button class="text-item" data-act="ex" data-id="${e.id}">
       <span style="font-size:40px;line-height:1">${e.emo}</span>
-      <span><span class="t">${esc(e.title)}</span><span class="m">${esc(e.desc || '')}${r ? ` · bestes Ergebnis ${r.best} von 10` : ''}</span></span>
+      <span><span class="t">${esc(e.title)}</span><span class="m">${esc(e.desc || '')}${r ? ` · bestes Ergebnis ${r.best} von ${e.n}` : ''}</span></span>
       <span class="starrow">${e.link ? '▶' : exStarHTML(e.id)}</span></button>`;
   });
-  h += `</div><div class="tip" style="margin-top:20px">Jede Übung hat 10 Aufgaben. Gezählt wird, was auf Anhieb ohne Hilfe richtig ist.<br>⭐ ab 5 richtig · ⭐⭐ ab 8 · ⭐⭐⭐ bei 10 von 10</div>`;
+  h += `</div><div class="tip" style="margin-top:20px">Die meisten Übungen haben 10 Aufgaben. Gezählt wird, was auf Anhieb ohne Hilfe richtig ist.<br>⭐ ab der Hälfte richtig · ⭐⭐ ab 80 % · ⭐⭐⭐ alles richtig</div>`;
   $('#app').innerHTML = h;
 }
 function renderLesen(){
@@ -1211,7 +1228,7 @@ const rnd = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
 const pick = a => a[Math.floor(Math.random() * a.length)];
 function pickN(a, n, not){ return shuffle(a.filter(x => x !== not)).slice(0, n); }
 function strip(h){ return String(h).replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim(); }
-function exStars(id){ const r = (S.ex || {})[id]; const b = r ? r.best : 0; return b >= 10 ? 3 : b >= 8 ? 2 : b >= 5 ? 1 : 0; }
+function exStars(id){ const r = (S.ex || {})[id], d = exById(id), n = d ? d.n : 10; const q = r ? r.best / n : 0; return q >= 1 ? 3 : q >= 0.8 ? 2 : q >= 0.5 ? 1 : 0; }
 function exStarHTML(id){ const n = exStars(id); return [0,1,2].map(k => `<span class="${k < n ? '' : 'star-off'}">⭐</span>`).join(''); }
 function textStarsTotal(){ return allTexts().reduce((a, t) => a + starCount(t.id), 0); }
 function fachStars(f, kl){
@@ -1309,7 +1326,7 @@ function loadTask(){
   do { t = X.d.gen(); g++; } while(t.key != null && X.used[t.key] && g < 40);
   if(t.key != null) X.used[t.key] = true;
   X.t = t; X.tries = 0; X.helped = false; X.lock = false; X.gone = {}; X.hintFrame = false;
-  X.val = t.type === 'num' ? '' : t.type === 'tiles' ? [] : t.type === 'frame' ? new Array(10).fill(false) : null;
+  X.val = t.type === 'num' ? '' : t.type === 'tiles' ? [] : t.type === 'frame' ? new Array(10).fill(false) : t.type === 'house' ? new Array(9).fill(false) : null;
   drawTask('');
   if(t.sayEn || (t.say && (klasse() === 1 || t.autoSay))) setTimeout(() => { if(X.t === t) speakTask(); }, 350);
 }
@@ -1368,6 +1385,14 @@ function inputHTML(){
   if(t.type === 'frame'){
     return `<div class="tenframe">${X.val.map((on, k) => `<button class="dot${on ? ' on' : ''}${X.hintFrame && k < t.answer ? ' hint' : ''}" data-act="xdot" data-k="${k}" aria-label="Kreis ${k + 1}"></button>`).join('')}</div><div class="bignum">${t.answer}</div>`;
   }
+  if(t.type === 'house'){
+    const c = X.val.filter(Boolean).length;
+    const tap = `<div class="raum">${X.val.map((on, k) => `<button class="hd${on ? ' on' : ''}${X.hintFrame && k < t.answer ? ' hint' : ''}" data-act="xdot" data-k="${k}" aria-label="Punkt ${k + 1}"></button>`).join('')}</div>`;
+    const fest = wuerfelRaum(t.given);
+    const links = t.side === 'right' ? fest : tap, rechts = t.side === 'right' ? tap : fest;
+    const hb = `<span class="hb offen" id="hcnt">${c}</span>`, gb = `<span class="hb">${t.given}</span>`;
+    return hausHTML(t.roof, links, rechts) + `<div class="hgl">${t.side === 'right' ? gb : hb} + ${t.side === 'right' ? hb : gb}</div>`;
+  }
   return '';
 }
 function refreshIn(){ const el = $('#xin'); if(el) el.innerHTML = inputHTML(); }
@@ -1386,14 +1411,15 @@ function xSlot(p){ if(X.lock) return; X.val.splice(p, 1); refreshIn(); }
 function xDot(k){
   if(X.lock) return;
   X.val[k] = !X.val[k];
-  const el = $(`.dot[data-k="${k}"]`); if(el) el.classList.toggle('on', X.val[k]);
+  const el = $(`[data-act="xdot"][data-k="${k}"]`); if(el) el.classList.toggle('on', X.val[k]);
+  const hc = $('#hcnt'); if(hc) hc.textContent = X.val.filter(Boolean).length;
 }
 function xValue(){
   const t = X.t;
   if(t.type === 'choice') return X.val == null ? null : t.options[X.val].v;
   if(t.type === 'num') return X.val === '' ? null : +X.val;
   if(t.type === 'tiles') return X.val.length ? X.val.map(i => t.tiles[i]).join('') : null;
-  if(t.type === 'frame') return X.val.filter(Boolean).length;
+  if(t.type === 'frame' || t.type === 'house') return X.val.filter(Boolean).length;
   return null;
 }
 const EMPTY_MSG = {choice:'Tippe zuerst auf eine Antwort.', num:'Tippe zuerst eine Zahl ein.', tiles:'Tippe zuerst auf die Buchstaben.', frame:'Tippe zuerst Kreise an.'};
@@ -1406,7 +1432,7 @@ function xSolution(){
 function revealInput(){
   const t = X.t;
   if(t.type === 'num') X.val = String(t.answer);
-  if(t.type === 'frame') X.val = X.val.map((_, k) => k < t.answer);
+  if(t.type === 'frame' || t.type === 'house') X.val = X.val.map((_, k) => k < t.answer);
   if(t.type === 'tiles'){
     const used = {}; X.val = [];
     t.word.split('').forEach(c => { const k = t.tiles.findIndex((x, i) => !used[i] && x === c); used[k] = true; X.val.push(k); });
@@ -1464,7 +1490,7 @@ function xHelp(){
     }
     h = (h ? h + '<br>' : '') + 'Ich habe dir den nächsten Buchstaben hingelegt.';
   }
-  if(t.type === 'frame') X.hintFrame = true;
+  if(t.type === 'frame' || t.type === 'house') X.hintFrame = true;
   refreshIn();
   setMsg('💡 ' + (h || 'Lies die Aufgabe noch einmal in Ruhe.'));
   if(t.hintEn) speakEn(t.hintEn);
@@ -1488,7 +1514,7 @@ function exResult(){
     <h1>${X.right} von ${n} auf Anhieb richtig</h1>
     <p class="sub">${X.right === n ? 'Alles beim ersten Versuch – super!' : 'Mit jeder Runde wird es leichter. Probier es gleich nochmal!'}</p>
     <div style="font-size:38px;margin-bottom:8px">${exStarHTML(id)}</div>
-    <p class="muted" style="margin:0 0 16px">⭐ ab 5 richtig · ⭐⭐ ab 8 · ⭐⭐⭐ bei 10 von 10</p>
+    <p class="muted" style="margin:0 0 16px">⭐ ab ${Math.ceil(n/2)} richtig · ⭐⭐ ab ${Math.ceil(n*0.8)} · ⭐⭐⭐ bei ${n} von ${n}</p>
     <div class="row center"><button class="btn primary" data-act="xagain">🔁 Nochmal</button>
       <button class="btn" data-act="fach" data-id="${X.d.fach}">Zurück zum Menü</button></div></div>`;
   window.scrollTo(0, 0);
@@ -1568,6 +1594,44 @@ addEx({id:'m1-formen', klasse:1, fach:'mathe', title:'Formen erkennen', emo:'�
     names.forEach((x, i) => { cm[x] = cols[i]; });
     return choiceTask({prompt:`Tippe auf ${SHAPE_ART[n]} <b>${n}</b>.`, say:`Tippe auf ${SHAPE_ART[n]} ${n}.`, right:n, wrong:names.filter(x => x !== n),
       render: v => shapeSVG(v, cm[v]), optClass:'pics', hint:() => SHAPE_HINT[n]});
+  }});
+
+/* ---------- Zahlenhaus (wie auf dem Arbeitsblatt) ---------- */
+const WUERFEL = {0:[], 1:[4], 2:[2,6], 3:[2,4,6], 4:[0,2,6,8], 5:[0,2,4,6,8], 6:[0,2,3,5,6,8], 7:[0,2,3,4,5,6,8], 8:[0,1,2,3,5,6,7,8], 9:[0,1,2,3,4,5,6,7,8]};
+function wuerfelRaum(n){
+  return `<div class="raum">${Array.from({length:9}, (_, k) => `<span class="hp${WUERFEL[n].includes(k) ? ' voll' : ''}"></span>`).join('')}</div>`;
+}
+function hausHTML(roof, links, rechts){
+  return `<div class="haus"><svg class="dach" viewBox="0 0 300 90" aria-hidden="true">
+    <polygon points="150,4 296,86 4,86" fill="#FFF8EF" stroke="#2B2A33" stroke-width="5" stroke-linejoin="round"/>
+    <text x="150" y="74" text-anchor="middle" font-family="Baloo 2, sans-serif" font-weight="800" font-size="44" fill="#2B2A33">${roof}</text></svg>
+    <div class="zimmer">${links}${rechts}</div></div>`;
+}
+addEx({id:'m1-haus', klasse:1, fach:'mathe', title:'Zahlenhaus mit Punkten', emo:'🏠', desc:'Male die fehlenden Punkte ins Haus',
+  gen(){
+    const roof = rnd(4, 10), given = rnd(1, Math.min(roof, 9)), b = roof - given, side = Math.random() < 0.7 ? 'right' : 'left';
+    return {type:'house', key:roof + '/' + given + side, roof, given, side, answer:b,
+      prompt:`Im Dach steht <b>${roof}</b>. Tippe die fehlenden Punkte an.`, say:`Im Dach steht ${roof}. Wie viele Punkte fehlen?`,
+      after:`${side === 'right' ? given + ' + ' + b : b + ' + ' + given} = ${roof}`,
+      wrong: c => given + c < roof ? `Zusammen sind es erst ${given + c}. Das Dach sagt ${roof} – es fehlen noch welche.` : `Zusammen sind es ${given + c}. Das sind zu viele – das Dach sagt ${roof}.`,
+      hint:() => b === 0 ? `Im Haus sind schon ${given} Punkte – genau so viele wie im Dach. Es fehlt keiner! Drück einfach auf OK.`
+        : `Das Dach sagt ${roof}. Im Haus sind schon ${given}. Zähl weiter: ${Array.from({length:b}, (_, i) => given + i + 1).join(', ')}. Die gestrichelten Punkte zeigen dir, wie viele fehlen.`};
+  }});
+addEx({id:'m1-haus-zahl', klasse:1, fach:'mathe', title:'Zahlenhaus mit Zahlen', emo:'🏡', desc:'Welche Zahl fehlt im Haus?',
+  gen(){
+    const roof = rnd(3, 10), given = rnd(0, roof), b = roof - given, right = Math.random() < 0.5;
+    const zg = `<div class="raum zahl">${given}</div>`, zq = '<div class="raum zahl frage">?</div>';
+    return {type:'num', key:roof + '/' + given + right, answer:b, maxLen:2, prompt:`Welche Zahl fehlt im Haus?`, say:`Im Dach steht ${roof}. Welche Zahl fehlt?`,
+      visual:hausHTML(roof, right ? zg : zq, right ? zq : zg),
+      after:`${right ? given + ' + ' + b : b + ' + ' + given} = ${roof}`,
+      hint:() => `${given} + ? = ${roof}. So sieht es aus:` + minis(repc('r', given).concat(repc('', b))) + `Wie viele leere Punkte fehlen noch bis ${roof}?`};
+  }});
+
+addEx({id:'m1-blatt', klasse:1, fach:'mathe', title:'Übungsblatt Plus bis 10', emo:'📄', desc:'40 Aufgaben: Zahlenhäuser mit Punkten, mit Zahlen und Plus-Päckchen', n:40,
+  gen(){
+    if(X.i < 15) return exById('m1-haus').gen();
+    if(X.i < 22) return exById('m1-haus-zahl').gen();
+    return exById('m1-plus10').gen();
   }});
 
 /* =========================================================
@@ -2046,7 +2110,7 @@ function exRowsHTML(){
   if(!done.length) return '<p class="muted">Noch keine Übungen gemacht.</p>';
   return `<h3 style="margin-top:18px">Übungen</h3><div style="overflow-x:auto"><table><thead><tr><th>Übung</th><th>Kl.</th><th>Runden</th><th>Bestes</th><th>Zuletzt</th><th>Sterne</th></tr></thead><tbody>`
     + done.map(e => { const r = S.ex[e.id], f = FAECHER.find(x => x.id === e.fach);
-      return `<tr><td>${f.emo} ${esc(e.title)}</td><td>${e.klasse}</td><td>${r.rounds}</td><td>${r.best}/10</td><td>${r.last != null ? r.last + '/10' : '–'}</td><td>${exStarHTML(e.id)}</td></tr>`; }).join('')
+      return `<tr><td>${f.emo} ${esc(e.title)}</td><td>${e.klasse}</td><td>${r.rounds}</td><td>${r.best}/${e.n}</td><td>${r.last != null ? r.last + '/' + e.n : '–'}</td><td>${exStarHTML(e.id)}</td></tr>`; }).join('')
     + '</tbody></table></div>';
 }
 
