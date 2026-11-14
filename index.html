@@ -1649,10 +1649,10 @@ addEx({id:'d1-anlaut', klasse:1, fach:'deutsch', title:'Anlaute', emo:'🔤', de
 addEx({id:'d1-silben', klasse:1, fach:'deutsch', title:'Silben klatschen', emo:'👏', desc:'Wie viele Silben hat das Wort?', kats:true,
   gen(){
     const w = pick(w1Pool()), n = w[2].split('-').length;
-    return choiceTask({key:w[0], prompt:'Wie viele Silben hat das Wort? Klatsch mit!', say:`Klatsch mit: ${w[0]}. Wie viele Silben hat das Wort?`,
+    return choiceTask({key:w[0], prompt:'Wie viele Silben hat das Wort? Klatsch mit!', say:w[0],
       visual:emoBig(w[1]) + `<div class="wbig">${esc(w[0])}</div>`, right:n, wrong:[1,2,3,4].filter(x => x !== n), optClass:'nums',
       render: v => `${v}<br><span style="font-size:18px">${'👏'.repeat(v)}</span>`,
-      hint:() => `Klatsch bei jeder Silbe: <span class="bigword" style="font-size:34px">${sylHTML(w[2])}</span>`, hintSay:w[2].split('-').join(' – ')});
+      hint:() => `Klatsch bei jeder Silbe: <span class="bigword" style="font-size:34px">${sylHTML(w[2])}</span>`, hintSay:w[0]});
   }});
 addEx({id:'d1-lesen', klasse:1, fach:'deutsch', title:'Wörter lesen', emo:'👀', desc:'Lies das Wort und finde das Bild', kats:true,
   gen(){
